@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>MultiChain Client</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/main.css">
+    <!-- encryption for form data -->
+    <script src="assets/js/encrypt.js"></script>
+    <!-- Connect to running blockchain -->
+    <script src="assets/js/connect.js"></script>
+</head>
+
+<body>
+  
+    
+    <script src="assets/js/clientFunctions.js"></script>
+    <script src="assets/js/tabs.js"></script>
+    <script src="assets/js/generalInfo.js"></script>
+    <script src="assets/js/streams.js"></script>
+    <script src="assets/js/assets.js"></script>
+    <script src="assets/js/addresses.js"></script>
+    <script src="assets/js/peers.js"></script>
+    <script src="assets/js/wallets.js"></script>  
+    <script src="assets/js/main.js"></script>     
+<script>
+    const { remote } = require('electron')
+    const { Menu, MenuItem } = remote
+    
+    const menu = new Menu()
+    menu.append(new MenuItem({ label: 'MenuItem1', click() { console.log('item 1 clicked') } }))
+    menu.append(new MenuItem({ type: 'separator' }))
+    menu.append(new MenuItem({ label: 'MenuItem2', type: 'checkbox', checked: true }))
+    
+    window.addEventListener('contextmenu', (e) => {
+      e.preventDefault()
+      menu.popup({ window: remote.getCurrentWindow() })
+    }, false)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+/* 
+
+
+*/
+body {
+    margin: 0;
+    padding: 0px;
+}
+
+.flex-center {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center
+}
+
+.assets {
+    width: 13em;
+    
+}
+
+select {
+    outline: none
+}
+
+#chatModal {
+    top: 5%;
+    left: 33%;
+    padding-top: 0px;
+    width: fit-content;
+    height: fit-content;
+    
+}
+
+#chatModalContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+    height: fit-content;
+
+}
+

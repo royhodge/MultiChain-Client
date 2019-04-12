@@ -1,0 +1,30 @@
+{
+  "name": "multichain-dapp",
+  "version": "1.0.0",
+  "description": "An Electron app to manage MultiChain Blockchain",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roscoevanderboom/MultiChain.git"
+  },
+  "keywords": [
+    "blockchain",
+    "electron",
+    "javascript",
+    "dapp"
+  ],
+  "author": "Roscoe van der Boom",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roscoevanderboom/MultiChain/issues"
+  },
+  "homepage": "https://github.com/roscoevanderboom/MultiChain#readme",
+  "dependencies": {
+    "electron": "^4.1.4",
+    "go-ipfs": "^0.4.18-hacky2",
+    "multichain-node": "^2.2.0-version1.0.4"
+  }
+}
