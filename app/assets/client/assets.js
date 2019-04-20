@@ -1,10 +1,10 @@
 // Asset sections
 
-el = client.newEl('h3', '', '', Assets);
+el = clientDOM.newEl('h3', '', '', Assets);
 el.textContent = `Asset Management`;
 
 
-client.newEl('div', 'assetsContent', 'w3-container flex-center', Assets);
+clientDOM.newEl('div', 'assetsContent', 'w3-container flex-center', Assets);
 
 multichain.listAssets((err, info) => {
     if (err) {
@@ -12,7 +12,7 @@ multichain.listAssets((err, info) => {
     }
     
     info.forEach((val, i) => {
-        client.newAssetCard(val.name, i, val.issueqty, val.subscribed);
+        clientDOM.newAssetCard(val.name, i, val.issueqty, val.subscribed);
     });   
 
 });

@@ -1,8 +1,9 @@
 // Create Element Functions
+const exec = require('child_process').execFile;
 
 let el, el2;
 
-const client = {
+const clientDOM = {
     newEl: (tag, id = '', cl = '', par = document.body, tx = '') => {
         let el = document.createElement(tag);
         el.id = id;
@@ -22,30 +23,30 @@ const client = {
         x.classList.remove('w3-hide');
     },
     appendTop: (tag, id = '', cl = '', par = document.body) => {
-        el = client.newEl(tag, id, cl);
+        el = clientDOM.newEl(tag, id, cl);
         par.insertBefore(el, par.firstChild);
         return el;
     },
     appendBottom: (tag, id = '', cl = '', par = document.body) => {
-        el = client.newEl(tag, id, cl);
+        el = clientDOM.newEl(tag, id, cl);
         par.appendChild(el);
         return el;
     },
-    insertBefore: (tag, id = '', cl = '', par = document.body) => {
-        el = client.newEl(tag, id, cl);
+    insertBefore: (tag, id = '', cl = '', par = document.body,num) => {
+        el = clientDOM.newEl(tag, id, cl);
         par.insertBefore(el, par.childNodes[num]);
         return el;
     },
     createTag: (arr, par) => {
         arr.forEach((val) => {
-            el = client.appendBottom('button', '', 'w3-margin-top w3-margin-left w3-border w3-tag w3-round', par);
+            el = clientDOM.appendBottom('button', '', 'w3-margin-top w3-margin-left w3-border w3-tag w3-round', par);
             el.innerText = val;
             return el;
         });
     },
     newOp: (arr, par) => {
         arr.forEach((val) => {
-            el = client.appendBottom('option', '', '', par);
+            el = clientDOM.appendBottom('option', '', '', par);
             el.innerText = val;
             el.value = val;
             return el;
@@ -54,25 +55,30 @@ const client = {
 
     newLI: (arr, par) => {
         arr.forEach((val) => {
-            el = client.appendBottom('li', '', '', par);
+            el = clientDOM.appendBottom('li', '', '', par);
             el.textContent = val;            
             return el;
         });
     },
 
     newAssetCard: (name, i, qty, sub) => {
-        let x = client.newEl('div', 'asset' + i, 'assets w3-card-4 w3-margin', assetsContent);
-        el = client.newEl('header', '', 'w3-container w3-amber', x);
-        el2 = client.newEl('h3', '', '', el);
+        let x = clientDOM.newEl('div', 'asset' + i, 'assets w3-card-4 w3-margin', assetsContent);
+        el = clientDOM.newEl('header', '', 'w3-container w3-amber', x);
+        el2 = clientDOM.newEl('h3', '', '', el);
         el2.textContent = name;
-        el = client.newEl('div', '', 'w3-container', x);
-        el2 = client.newEl('p', '', '', el);
+        el = clientDOM.newEl('div', '', 'w3-container', x);
+        el2 = clientDOM.newEl('p', '', '', el);
         el2.textContent = 'Quantity:' + qty;
-        el = client.newEl('footer', '', 'w3-container w3-amber', x);
-        el2 = client.newEl('p', '', '', el);
+        el = clientDOM.newEl('footer', '', 'w3-container w3-amber', x);
+        el2 = clientDOM.newEl('p', '', '', el);
         el2.textContent = 'Subscribed: ' + sub;
     }
 
+};
+
+const clientFunc = {
+    start: (chain => exec('./multichain/multichaind.exe', [chain, '-daemon'])),
+    stop: (chain => exec('./multichain/multichain-cli.exe', [chain, 'stop'])),
 };
 
 const objValArr = (arr) => {

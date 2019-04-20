@@ -1,11 +1,11 @@
 
 // Addresses sections
 
-el = client.newEl('h3', '', '', Addresses);
+el = clientDOM.newEl('h3', '', '', Addresses);
 el.textContent = `Address Management`;
 
-el = client.newEl('div','addressContent','w3-container',Addresses);
-client.newEl('select','','w3-input',addressContent);
+el = clientDOM.newEl('div','addressContent','w3-container',Addresses);
+clientDOM.newEl('select','','w3-input',addressContent);
 
 
 
