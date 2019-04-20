@@ -19,12 +19,6 @@ function createWindow() {
     fullscreen: false
   });
 
-  setupWindow = new BrowserWindow({
-    width: 800,
-    height: 800,
-    fullscreen: false
-  });
-
   // and load the index.html of the app.  
   // profileWindow.loadFile('app/index.html');  
   // Open the DevTools.
@@ -32,12 +26,12 @@ function createWindow() {
 
   fs.readdir(p2, (err, stat) => {
     if (err) {
-      setupWindow.loadFile('app/download.html');
+      appWindow.loadFile('app/download.html');
     } else {
       fs.readdir(p1, function (err, files) {
         //handling error
         if (err) {
-          setupWindow.loadFile('app/setup.html');
+          appWindow.loadFile('app/setup.html');
         } else {
           appWindow.loadFile('app/index.html');
         }
