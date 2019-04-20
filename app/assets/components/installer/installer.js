@@ -16,7 +16,7 @@ var defaultParams = [
     'anyone-can-admin = false',
 ];
 
-
+// Create DOM
 const instDOM = () => {
     clientDOM.appendTop('div', 'content', 'w3-content w3-card-4 w3-container w3-center w3-padding-32 w3-margin-top w3-display-container');
     clientDOM.newEl('span', 'instCloseBtn', 'w3-button w3-hover-red w3-display-topright', content, 'X');
@@ -34,6 +34,7 @@ const instDOM = () => {
 };
 instDOM();
 
+// DOM related functions
 const instFunc = {  
 
     create: () => {
@@ -114,8 +115,8 @@ const instFunc = {
             }            
         });
         shell.openExternal(paramsFile); 
-        remote.app.relaunch();
-        remote.app.quit();                    
+        // remote.app.relaunch();
+        // remote.app.quit();                    
     },
 };
 

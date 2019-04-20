@@ -31,14 +31,7 @@ function createWindow() {
     if (err) {
       appWindow.loadFile('app/download.html');
     } else {
-      fs.readdir(clientVars.chains, function (err, files) {
-        //handling error
-        if (err) {
-          appWindow.loadFile('app/setup.html');
-        } else {
-          appWindow.loadFile('app/index.html');
-        }
-      });
+      appWindow.loadFile('app/index.html');
     }
   });
 

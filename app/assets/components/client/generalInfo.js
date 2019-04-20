@@ -44,14 +44,7 @@ const giFunctions = {
     },
     displayBlockchainParams: () => {
 
-        let params = [
-            'anyone-can-connect',
-            'anyone-can-create',
-            'anyone-can-send',
-            'anyone-can-receive',
-            'anyone-can-admin',
-            'anyone-can-activate'
-        ];
+        let params = clientVars.chainPresets.SLC;
         paramsList.innerText = '';
         multichain.getBlockchainParams((err, info) => {
             if (err) {
@@ -71,4 +64,10 @@ const display = () => {
     giFunctions.displayBlockchainParams();
 };
 
+
+const gatherDetails= () => {
+    var paramsFile = path.join(clientVars.chains, chainName, 'params.dat');
+    var configFile = path.join(clientVars.chains, chainName, 'multichain.conf');
+    var chainName,nodeAddress
+};
 

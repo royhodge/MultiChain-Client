@@ -163,3 +163,18 @@ streamPostCloseBtn.addEventListener('click', show = () => {
     w3.hide('#chatModal');
 });
 streamPost.addEventListener('click',streamFunctions.postChat);
+
+
+var streamObject = {
+    "websites": [{        
+        "author": "",
+        "date": "",
+        "links": {
+            "https": "",
+            "http": "",
+            "ipfs": "",
+            "dat": ""
+        },
+        "seeds": ""
+    }]
+};

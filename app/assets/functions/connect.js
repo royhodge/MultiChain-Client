@@ -12,7 +12,13 @@ let chainDB = [
 ];
 
 
-let multichain = require("multichain-node")(chainDB[0].Params);
+
+
+const slec = (chain) => {
+    let multichain = require("multichain-node")(chain);
+}
+
+slec(chainDB[0].Params);
 
 
 // // Used to 

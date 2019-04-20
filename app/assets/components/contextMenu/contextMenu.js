@@ -1,4 +1,5 @@
-const { Menu, MenuItem } = remote
+const remote = require('electron').remote;
+const { Menu, MenuItem } = remote;
 
 const menu = new Menu()
 menu.append(new MenuItem({ label: 'MenuItem1', click() { console.log('item 1 clicked') } }))
