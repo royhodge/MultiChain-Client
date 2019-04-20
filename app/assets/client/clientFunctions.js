@@ -1,5 +1,13 @@
-// Create Element Functions
+// Require scripts
 const exec = require('child_process').execFile;
+const path = require('path');
+
+
+// Client global variables
+const clientVars = {
+    chains: path.join(process.env.APPDATA, 'Multichain'),
+    installFiles: path.join('C:', process.env.HOMEPATH, 'documents', 'multichain-windows-2.0-release/'),    
+};
 
 let el, el2;
 
@@ -32,7 +40,7 @@ const clientDOM = {
         par.appendChild(el);
         return el;
     },
-    insertBefore: (tag, id = '', cl = '', par = document.body,num) => {
+    insertBefore: (tag, id = '', cl = '', par = document.body, num) => {
         el = clientDOM.newEl(tag, id, cl);
         par.insertBefore(el, par.childNodes[num]);
         return el;
@@ -56,7 +64,7 @@ const clientDOM = {
     newLI: (arr, par) => {
         arr.forEach((val) => {
             el = clientDOM.appendBottom('li', '', '', par);
-            el.textContent = val;            
+            el.textContent = val;
             return el;
         });
     },
@@ -77,16 +85,7 @@ const clientDOM = {
 };
 
 const clientFunc = {
-    start: (chain => exec('./multichain/multichaind.exe', [chain, '-daemon'])),
-    stop: (chain => exec('./multichain/multichain-cli.exe', [chain, 'stop'])),
-};
-
-const objValArr = (arr) => {
-    let x = Object.values(arr);
-    return x;
-};
-
-const objKeyArr = (arr) => {
-    let x = Object.keys(arr);
-    return x;
+    start: (chain => exec(clientVars.installFiles + 'multichaind.exe', [chain, '-daemon'])),
+    stop: (chain => exec(clientVars.installFiles + 'multichain-cli.exe', [chain, 'stop'])),
+    create: (chain => exec(clientVars.installFiles + 'multichain-util.exe', ['create', chain])),
 };

@@ -8,8 +8,11 @@ const fs = require('fs');
 let appWindow;
 // Change to download path 
 
-var p1 = path.join(process.env.APPDATA, 'Multichain');
-var p2 = path.join('C:', process.env.HOMEPATH, 'documents', 'multichain-windows-2.0-release/');
+// Client global variables
+const clientVars = {
+  chains: path.join(process.env.APPDATA, 'Multichain'),
+  installFiles: path.join('C:', process.env.HOMEPATH, 'documents', 'multichain-windows-2.0-release/'),    
+};
 
 function createWindow() {
   // Create the browser window.
@@ -24,11 +27,11 @@ function createWindow() {
   // Open the DevTools.
   // appWindow.webContents.openDevTools();
 
-  fs.readdir(p2, (err, stat) => {
+  fs.readdir(clientVars.installFiles, (err, stat) => {
     if (err) {
       appWindow.loadFile('app/download.html');
     } else {
-      fs.readdir(p1, function (err, files) {
+      fs.readdir(clientVars.chains, function (err, files) {
         //handling error
         if (err) {
           appWindow.loadFile('app/setup.html');

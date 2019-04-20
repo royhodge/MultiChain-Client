@@ -1,14 +1,7 @@
-
-const path = require('path');
 const { shell } = require('electron');
 const replace = require('replace-in-file');
 const remote = require('electron').remote;
 
-// Important path variables
-var mcpath = path.join(process.env.APPDATA, 'Multichain');
-
-// var paramsFile = path.join(chainPath, 'params.dat');
-//;
 
 // Default chain params
 var defaultParams = [
@@ -41,19 +34,23 @@ const instDOM = () => {
 };
 instDOM();
 
-const instFunc = {
-
-    start: chain => exec('./multichain/multichaind.exe', [chain, '-daemon']),
-
-    stop: chain => exec('./multichain/multichain-cli.exe', [chain, 'stop']),
+const instFunc = {  
 
     create: () => {
         let chainName = chainNameInput.value;
-        exec('./multichain/multichain-util.exe', ['create', chainName]);
-        setTimeout(() => {
-            let chainPath = path.join(mcpath, chainName);
-            instFunc.showParams(chainPath);
+        clientDOM.insertBefore('h3', 'chainTitle', '', paramsContainer, 2);
+        chainTitle.textContent = chainName;
+        clientFunc.create(chainName);
+        setTimeout(() => {            
+            instFunc.showParams();
         }, 3000);
+    },
+
+    showParams: () => {        
+        defaultParams.forEach((val) => {
+            el = clientDOM.newEl('li', '', '', displayParams, val);
+            el.addEventListener('click', instFunc.changeParams);
+        });
     },
 
     changeParams: () => {
@@ -73,16 +70,6 @@ const instFunc = {
         }
     },
 
-    showParams: () => {
-        let chainName = chainNameInput.value;
-        clientDOM.insertBefore('h3', 'chainTitle', '', paramsContainer, 2);
-        chainTitle.textContent = chainName;
-        defaultParams.forEach((val) => {
-            el = clientDOM.newEl('li', '', '', displayParams, val);
-            el.addEventListener('click', instFunc.changeParams);
-        });
-    },
-
     applyParams: () => {
         // Array of new settings
         var newParams = [];
@@ -92,7 +79,7 @@ const instFunc = {
         }));
         // Path to params file
         var name = chainTitle.textContent;
-        var paramsFile = path.join(mcpath, name, 'params.dat');
+        var paramsFile = path.join(clientVars.chains, name, 'params.dat');
 
         // find/replace text in document 
         const options = {
@@ -124,10 +111,9 @@ const instFunc = {
         replace(options, (error, changes) => {
             if (error) {
                 return console.error('Error occurred:', error);
-            }
-            alert('Please restart the explorer');
+            }            
         });
-        shell.openExternal(paramsFile) 
+        shell.openExternal(paramsFile); 
         remote.app.relaunch();
         remote.app.quit();                    
     },
