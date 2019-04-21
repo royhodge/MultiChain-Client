@@ -1,8 +1,6 @@
 // 
 // 
-const path = require('path');
 // General Variables
-
 const generalInfoContent = () => {
     let infoInfoArray = [
         'Username',
@@ -11,27 +9,20 @@ const generalInfoContent = () => {
         'NodeAddress',
         'OS',
         'Parameters'
-    ];
-
-    clientDOM.newEl('h3', '', '', Info, `General Info`);
-    clientDOM.newEl('select', 'selectChain', 'w3-input', Info);
-    selectChain.setAttribute('onclick', 'display()');
-
-    let chainNames = [];
-
-    chainDB.forEach((val => chainNames.push(val.name)));
-    clientDOM.newOp(chainNames, selectChain);
+    ];   
 
     infoInfoArray.forEach((val) => {
-        el = clientDOM.newEl('div', '', 'w3-padding w3-border', Info, val + ':');
-        clientDOM.newEl('span', val + 'Display', 'w3-right', el);
+        el = clientDOM.newEl(Info, 'div', '', 'w3-padding w3-border', val + ':');
+        clientDOM.newEl(el, 'span', val + 'Display', 'w3-right');
     });
-    clientDOM.newEl('ul', 'paramsList', 'w3-ul w3-border', Info);
+    clientDOM.newEl(Info, 'ul', 'paramsList', 'w3-ul w3-border');
+   
 };
 
 const giFunctions = {
     displayInfo: () => {
         multichain.getInfo((err, info) => {
+            console.log(info)
             // info is an object            
             ChainnameDisplay.textContent = info.chainname;
             NodeAddressDisplay.textContent = info.nodeaddress;
@@ -50,24 +41,22 @@ const giFunctions = {
             if (err) {
                 throw err;
             }
+            console.log(info)
             params.forEach((val) => {
-                el = clientDOM.newEl('li', '', '', paramsList, val + ' = ' + info[val]);
+                el = clientDOM.newEl(paramsList, 'li', '', '', val);
             });
         });
     },
 };
 
-generalInfoContent();
-
-const display = () => {
+const displayChainInfo = () => {    
     giFunctions.displayInfo();
     giFunctions.displayBlockchainParams();
 };
 
+generalInfoContent();
 
-const gatherDetails= () => {
-    var paramsFile = path.join(clientVars.chains, chainName, 'params.dat');
-    var configFile = path.join(clientVars.chains, chainName, 'multichain.conf');
-    var chainName,nodeAddress
-};
+
+
+
 

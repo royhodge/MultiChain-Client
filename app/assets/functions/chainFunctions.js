@@ -1,9 +1,11 @@
 // 
-// 
+//
 const exec = require('child_process').execFile;
 const path = require('path');
 
 const clientVars = {
+    chainDB: [],
+    chainsList: [],
     chains: path.join(process.env.APPDATA, 'Multichain'),
     installFiles: path.join('C:', process.env.HOMEPATH, 'documents', 'multichain-windows-2.0-release/'),
     chainPresets: {        
@@ -58,11 +60,8 @@ const clientVars = {
     }
 };
 
-
-
 const clientFunc = {
     start: (chain => exec(clientVars.installFiles + 'multichaind.exe', [chain, '-daemon'])),
     stop: (chain => exec(clientVars.installFiles + 'multichain-cli.exe', [chain, 'stop'])),
     create: (chain => exec(clientVars.installFiles + 'multichain-util.exe', ['create', chain])),
 };
-

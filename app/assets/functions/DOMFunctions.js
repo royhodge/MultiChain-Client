@@ -25,7 +25,7 @@ const clientDOM = {
     },
 
     insertBefore: (par, num, tag, id = '', cl = '', tx = '') => {
-        el = clientDOM.el(tag, id, cl,tx);
+        el = clientDOM.el(tag, id, cl, tx);
         par.insertBefore(el, par.childNodes[num]);
         return el;
     },
@@ -41,15 +41,15 @@ const clientDOM = {
     },
     createTag: (arr, par) => {
         arr.forEach((val) => {
-            el = clientDOM.newEl('button', '', 'w3-margin-top w3-margin-left w3-border w3-tag w3-round', par);
+            el = clientDOM.newEl(par,'button', '', 'w3-margin-top w3-margin-left w3-border w3-tag w3-round');
             el.innerText = val;
             return el;
         });
     },
     newOp: (arr, par) => {
         arr.forEach((val) => {
-            el = clientDOM.newEl('option', '', '', par);
-            el.innerText = val;
+            el = clientDOM.newEl(par, 'option');
+            el.textContent = val;
             el.value = val;
             return el;
         });
@@ -57,7 +57,7 @@ const clientDOM = {
 
     newLI: (arr, par) => {
         arr.forEach((val) => {
-            el = clientDOM.newEl('li', '', '', par);
+            el = clientDOM.newEl(par,'li');
             el.textContent = val;
             return el;
         });

@@ -1,8 +1,8 @@
 {
-  "name": "electron-practice-app",
+  "name": "electron-multichain-explorer",
   "version": "0.0.1",
-  "description": "A practice to build a template",
-  "main": "appWindow.js",
+  "description": "A management tool for Multichain blockchains",
+  "main": "app.js",
   "scripts": {
     "start": "electron ."
   },

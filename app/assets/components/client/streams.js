@@ -2,63 +2,63 @@
 
 const streamElements = () => {
     // headers
-    clientDOM.newEl('h3', '', '', Streams, `Stream Management`);
-    el = clientDOM.newEl('h5', '', '', Streams, `Select a stream`);  
+    clientDOM.newEl(Streams, 'h3', '', '', `Stream Management`);
+    el = clientDOM.newEl(Streams, 'h5', '', '', `Select a stream`);
 
     // Stream actions bar
-    clientDOM.newEl('div', 'streamActions', 'w3-bar', Streams);
+    clientDOM.newEl(Streams, 'div', 'streamActions', 'w3-bar');
 
     // Select a stream
     let cls = 'w3-bar-item w3-btn w3-dark-gray w3-margin-left';
-    clientDOM.newEl('select', 'streamNamesSelect', 'w3-input w3-third', streamActions);
+    clientDOM.newEl(streamActions, 'select', 'streamNamesSelect', 'w3-input w3-third');
 
     // Stream Action buttons
-    clientDOM.newEl('button', 'streamSubscribe', cls, streamActions, 'Subscribe');
-    clientDOM.newEl('button', 'streamPublish', cls, streamActions, 'Publish');
-    clientDOM.newEl('button', 'streamCreate', cls, streamActions, 'Create');
+    clientDOM.newEl(streamActions, 'button', 'streamSubscribe', cls, 'Subscribe');
+    clientDOM.newEl(streamActions, 'button', 'streamPublish', cls, 'Publish');
+    clientDOM.newEl(streamActions, 'button', 'streamCreate', cls, 'Create');
 
     // Input name for a new stream
-    clientDOM.newEl('input', 'newStreamName', 'w3-input w3-third', streamActions);
+    clientDOM.newEl(streamActions, 'input', 'newStreamName', 'w3-input w3-third');
     newStreamName.placeholder = 'New stream name';
 
     // Display area for stream details and filters
-    clientDOM.newEl('div', 'streamFilters', 'w3-bar w3-padding w3-container', Streams);
+    clientDOM.newEl(Streams, 'div', 'streamFilters', 'w3-bar w3-padding w3-container');
 
     // Publishers
-    clientDOM.newEl('select', 'streamPublishers', 'w3-half w3-input', streamFilters);
-    el = clientDOM.newEl('option', '', '', streamPublishers, 'Publishers');
+    clientDOM.newEl(streamFilters, 'select', 'streamPublishers', 'w3-half w3-input');
+    el = clientDOM.newEl(streamPublishers, 'option', '', '', 'Publishers');
     el.setAttribute('selected', '');
 
     // Keyword search
-    clientDOM.newEl('select', 'streamKeys', 'w3-half w3-input', streamFilters);
-    el = clientDOM.newEl('option', '', '', streamKeys, 'Keyword search');
+    clientDOM.newEl(streamFilters, 'select', 'streamKeys', 'w3-half w3-input');
+    el = clientDOM.newEl(streamKeys, 'option', '', '', 'Keyword search');
     el.setAttribute('selected', '');
 
     // Stream content
-    clientDOM.newEl('div', 'streamContent', 'w3-container', Streams);
+    clientDOM.newEl(Streams, 'div', 'streamContent', 'w3-container');
 
     // Chat modal
-    clientDOM.newEl('div', 'chatModal', 'w3-modal  w3-center w3-card-4 w3-border w3-padding', Streams);
-    clientDOM.newEl('div', 'chatModalContent', 'w3-modal-content w3-center', chatModal);
-    clientDOM.newEl('h3', '', 'w3-center', chatModalContent, 'Publish new content');
-    clientDOM.newEl('input', 'streamItemKeys', 'w3-input w3-center w3-border', chatModalContent);
+    clientDOM.newEl(Streams, 'div', 'chatModal', 'w3-modal  w3-center w3-card-4 w3-border w3-padding');
+    clientDOM.newEl(chatModal, 'div', 'chatModalContent', 'w3-modal-content w3-center');
+    clientDOM.newEl(chatModalContent, 'h3', '', 'w3-center', 'Publish new content');
+    clientDOM.newEl(chatModalContent, 'input', 'streamItemKeys', 'w3-input w3-center w3-border');
     streamItemKeys.style.width = '300px';
     streamItemKeys.placeholder = 'only 1 key at a time...for now.';
-    clientDOM.newEl('textarea', 'chatInput', 'w3-left w3-margin-bottom', chatModalContent);
+    clientDOM.newEl(chatModalContent, 'textarea', 'chatInput', 'w3-left w3-margin-bottom');
     chatInput.placeholder = 'Inner Text';
     chatInput.cols = '60';
     chatInput.rows = '10';
     chatInput.placeholder = 'Add your content';
-    clientDOM.newEl('div', 'chatModalFooter', 'w3-center w3-padding-bottom', chatModalContent);
-    clientDOM.newEl('button', 'streamPost', 'w3-btn', chatModalFooter,'Submit');
-    clientDOM.newEl('button', 'streamPostCloseBtn', 'w3-btn', chatModalFooter,'Close');
+    clientDOM.newEl(chatModalContent, 'div', 'chatModalFooter', 'w3-center w3-padding-bottom');
+    clientDOM.newEl(chatModalFooter, 'button', 'streamPost', 'w3-btn', 'Submit');
+    clientDOM.newEl(chatModalFooter, 'button', 'streamPostCloseBtn', 'w3-btn', 'Close');
 };
 streamElements();
 
 const streamFunctions = {
 
     createStream: () => {
-        var x = document.querySelector('#newStreamName').value;       
+        var x = document.querySelector('#newStreamName').value;
         multichain.create({
             type: "stream",
             name: x,
@@ -113,9 +113,9 @@ const streamFunctions = {
             });
 
             itemContent.forEach((val, i) => {
-                streamFunctions.newStreamItem(val, i, itemPublisher[i]);
-                clientDOM.newEl('option', '', '', streamPublishers, itemPublisher[i]);
-                clientDOM.newEl('option', '', '', streamKeys, itemKeys[i]);
+                streamFunctions.newStreamItem(itemPublisher[i], val, i);
+                clientDOM.newEl(itemPublisher[i], 'option', '', '', streamPublisher);
+                clientDOM.newEl(itemKeys[i], 'option', '', '', streamKeys);
             });
         });
     },
@@ -139,19 +139,17 @@ const streamFunctions = {
     },
 
     newStreamItem: (tx, i, pub) => {
-        el = clientDOM.appendTop('div', 'streamItem' + i, 'w3-panel w3-gray w3-margin-top', streamContent);
-        el2 = clientDOM.newEl('h5', '', '', el);
+        el = clientDOM.appendTop(streamContent, 'div', 'streamItem' + i, 'w3-panel w3-gray w3-margin-top');
+        el2 = clientDOM.newEl(el, 'h5');
         el2.textContent = 'Content:';
-        el2 = clientDOM.newEl('p', '', '', el);
+        el2 = clientDOM.newEl(el, 'p');
         el2.textContent = tx;
-        el2 = clientDOM.newEl('h6', '', '', el);
+        el2 = clientDOM.newEl(el, 'h6');
         el2.textContent = 'Publisher:';
-        el2 = clientDOM.newEl('p', '', '', el);
+        el2 = clientDOM.newEl(el, 'p');
         el2.textContent = pub;
     }
 };
-// List streams
-streamFunctions.listStreams();
 
 streamNamesSelect.addEventListener('change', streamFunctions.listStreamItems);
 streamSubscribe.addEventListener('click', streamFunctions.subscribe);
@@ -162,11 +160,11 @@ streamPublish.addEventListener('click', show = () => {
 streamPostCloseBtn.addEventListener('click', show = () => {
     w3.hide('#chatModal');
 });
-streamPost.addEventListener('click',streamFunctions.postChat);
+streamPost.addEventListener('click', streamFunctions.postChat);
 
 
 var streamObject = {
-    "websites": [{        
+    "websites": [{
         "author": "",
         "date": "",
         "links": {

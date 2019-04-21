@@ -2,6 +2,7 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const fs = require('fs');
+const exec = require('child_process').execFile;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -10,30 +11,55 @@ let appWindow;
 
 // Client global variables
 const clientVars = {
-  chains: path.join(process.env.APPDATA, 'Multichain'),
-  installFiles: path.join('C:', process.env.HOMEPATH, 'documents', 'multichain-windows-2.0-release/'),    
+  chainsPath: path.join(process.env.APPDATA, 'Multichain'), 
+  installFiles: path.join('C:', process.env.HOMEPATH, 'documents', 'multichain-windows-2.0-release/'),
 };
 
-function createWindow() {
+// const userDB = {
+//   paramsFile: path.join(clientVars.chainsPath, chainName, 'params.dat'),
+//   configFile: path.join(clientVars.chainsPath, chainName, 'multichain.conf'),
+// };
+
+const firstInit = () => {
+  let chainName = 'root';
+  let create = (() => exec(clientVars.installFiles + 'multichain-util.exe', ['create', chainName]));
+  create();
+  app.relaunch();
+  setTimeout(() => app.quit(), 3000);
+};
+
+const createWindow = () => {
   // Create the browser window.
   appWindow = new BrowserWindow({
     width: 1024,
     height: 800,
-    fullscreen: false
+    fullscreen: true
   });
 
-  // and load the index.html of the app.  
-  // profileWindow.loadFile('app/index.html');  
   // Open the DevTools.
-  // appWindow.webContents.openDevTools();
+  appWindow.webContents.openDevTools();
 
   fs.readdir(clientVars.installFiles, (err, stat) => {
     if (err) {
+      // Add restart button
       appWindow.loadFile('app/download.html');
     } else {
-      appWindow.loadFile('app/index.html');
+      fs.readdir(clientVars.chainsPath, (err, stat) => {
+        if (err) {
+          firstInit();
+        } else {
+          let start = (chainName) => exec(clientVars.installFiles + 'multichaind.exe', [chainName, '-daemon']);
+          stat.forEach(val => {
+            if (!(val.includes("."))) {              
+              start(val);
+            }
+          });
+          appWindow.loadFile('app/index.html');
+        }
+      });
     }
   });
+
 
   // Emitted when the window is closed.
   appWindow.on('closed', () => {
@@ -61,7 +87,7 @@ app.on('activate', () => {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (profileWindow === null) {
-    createWindow()
+    createWindow();
   }
 });
 
