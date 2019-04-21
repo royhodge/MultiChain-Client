@@ -21,9 +21,7 @@ const generalInfoContent = () => {
 
 const giFunctions = {
     displayInfo: () => {
-        multichain.getInfo((err, info) => {
-            console.log(info)
-            // info is an object            
+        multichain.getInfo((err, info) => {                       
             ChainnameDisplay.textContent = info.chainname;
             NodeAddressDisplay.textContent = info.nodeaddress;
             VersionDisplay.textContent = info.version;
@@ -33,6 +31,7 @@ const giFunctions = {
             UsernameDisplay.textContent = process.env.USERNAME;
         });
     },
+    // Blockchain Params are more useful than getInfo in most cases
     displayBlockchainParams: () => {
 
         let params = clientVars.chainPresets.SLC;

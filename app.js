@@ -33,7 +33,7 @@ const createWindow = () => {
   appWindow = new BrowserWindow({
     width: 1024,
     height: 800,
-    fullscreen: true
+    fullscreen: false
   });
 
   // Open the DevTools.

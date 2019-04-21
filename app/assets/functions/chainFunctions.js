@@ -2,6 +2,7 @@
 //
 const exec = require('child_process').execFile;
 const path = require('path');
+const fs = require('fs');
 
 const clientVars = {
     chainDB: [],

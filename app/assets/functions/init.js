@@ -1,7 +1,7 @@
 // 
 // 
-const fs = require('fs');
-
+// Create array of local chains 
+//  Figure out why it takes 150ms to load variables into array....
 fs.readdir(clientVars.chains, (err, stat) => {
     stat.forEach(val => {
         if (!(val.includes("."))) {
@@ -11,8 +11,12 @@ fs.readdir(clientVars.chains, (err, stat) => {
     });
 });
 
+// Create connection objects of local chains 
+// These are used later to require multichain
 setTimeout(() => {
-
+    // These are generic settings.
+    // in production or secure app, there should be handled with encryption 
+    // and a login form
     clientVars.chainsList.forEach((val) => {
         let newChain = {
             port: '',
@@ -20,7 +24,7 @@ setTimeout(() => {
             user: 'multichainrpc',
             pass: '',
         };
-
+        // read config file to get rpcpassword
         var configFile = path.join(clientVars.chains, val, 'multichain.conf');
         fs.readFile(configFile, 'utf-8', (err, data) => {
             if (err) throw err;
@@ -29,7 +33,7 @@ setTimeout(() => {
             let stop = start + 44;
             newChain.pass = data.slice(start, stop);
         });
-
+        // read params file to get rpc port
         var paramsFile = path.join(clientVars.chains, val, 'params.dat');
         fs.readFile(paramsFile, 'utf-8', (err, data) => {
             if (err) throw err;
@@ -40,5 +44,5 @@ setTimeout(() => {
         });
 
         clientVars.chainDB.push(newChain);
-    });    
+    });
 }, 150);
