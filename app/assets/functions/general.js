@@ -8,7 +8,7 @@ const clientVars = {
     chainDB: [],
     chainsList: [],
     chains: path.join(process.env.APPDATA, 'Multichain'),
-    installFiles: path.join('C:', process.env.HOMEPATH, 'documents', 'multichain-windows-2.0-release/'),
+    installFiles: path.join('C:', process.env.HOMEPATH, 'documents', 'multichain-windows-2.0.1/'),
     chainPresets: {        
         //  Secure Local Chain ( SLC )
         SLC: [

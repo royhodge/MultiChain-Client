@@ -19,6 +19,11 @@ const sideContent = () => {
 
     //
 };
-
 sideContent();
+// setTimeout(() => {
+    
+// }, 200);
+
+
+
 

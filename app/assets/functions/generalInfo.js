@@ -21,8 +21,7 @@ const giFunctions = {
         multichain.getBlockchainParams((err, info) => {
             if (err) {
                 throw err;
-            }
-            console.log(info)
+            }            
             params.forEach((val) => {
                 el = clientDOM.newEl(paramsList, 'li', '', '', val);
             });

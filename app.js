@@ -12,7 +12,7 @@ let appWindow;
 // Client global variables
 const clientVars = {
   chainsPath: path.join(process.env.APPDATA, 'Multichain'), 
-  installFiles: path.join('C:', process.env.HOMEPATH, 'documents', 'multichain-windows-2.0-release/'),
+  installFiles: path.join('C:', process.env.HOMEPATH, 'documents', 'multichain-windows-2.0.1/'),
 };
 
 // const userDB = {
@@ -37,7 +37,7 @@ const createWindow = () => {
   });
 
   // Open the DevTools.
-  appWindow.webContents.openDevTools();
+  // appWindow.webContents.openDevTools();
 
   fs.readdir(clientVars.installFiles, (err, stat) => {
     if (err) {

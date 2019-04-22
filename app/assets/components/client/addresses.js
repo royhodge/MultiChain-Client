@@ -1,38 +1,18 @@
 
 // Addresses sections
 
-el = clientDOM.newEl('h3', '', '', Addresses);
-el.textContent = `Address Management`;
+const addressContent = () => {
 
-el = clientDOM.newEl('div','addressContent','w3-container',Addresses);
-clientDOM.newEl('select','','w3-input',addressContent);
-
-
-
-function listAddresses() {
-    var obj = {};
-    multichain.listAddresses((err, info) => {
-        if (err) {
-            throw err;
-        }
-        // put array into empty object
-        obj.info = info;
-        w3.displayObject("addresses", obj);
-    });
-}
+    el = clientDOM.newEl(Addresses,'h3');
+    el.textContent = `Address Management`;    
+    clientDOM.newEl(Addresses,'div','addressDisplay','w3-container');    
+    clientDOM.newEl(addressDisplay,'select','','w3-input');
+    
+};
 
 
-function listPermissions() {
-    multichain.listPermissions((err, info) => {
-        if (err) {
-            throw err;
-        }
-        // info is an array
-        info.forEach(element => {
-            var newEl = create.newEl('h6', '', '', display);
-            newEl.textContent = `Address: ${element.address} has permission ${element.type}`;
-        });
+// setTimeout(() => {
+   
+// }, 200);
 
-    });
-
-}
+addressContent();

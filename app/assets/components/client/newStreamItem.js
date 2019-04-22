@@ -1,7 +1,6 @@
 // 
 // 
-// 
-// Streams section
+
 const newStreamItem = () => {
     clientDOM.newEl(clientBody, 'div', 'streamPostModal', 'w3-modal');
     clientDOM.newEl(streamPostModal, 'div', 'chatModalContent', 'w3-modal-content w3-container w3-center');
@@ -18,5 +17,10 @@ const newStreamItem = () => {
     clientDOM.newEl(chatModalFooter, 'button', 'streamPost', 'w3-btn', 'Submit');
     clientDOM.newEl(chatModalFooter, 'button', 'streamPostCloseBtn', 'w3-btn', 'Close');
 };
+
 newStreamItem();
-// Chat modal
+// setTimeout(() => {
+   
+// }, 200);
+
+

@@ -1,9 +1,12 @@
 
-
 // Wallet sections
-el = clientDOM.newEl('h3', '', '', Wallet);
-el.textContent = `Wallet Management`;
+const walletContent = () => {
+    el = clientDOM.newEl(Wallet,'h3' );
+    el.textContent = `Wallet Management`;
+};
 
+walletContent();
 
-
-
+// setTimeout(() => {
+   
+// }, 200);

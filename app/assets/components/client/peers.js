@@ -1,4 +1,12 @@
 
 // Peers sections
-el = clientDOM.newEl('h3', '', '', Peers);
-el.textContent = `Peers Management`;
+const peersContent = () => {
+    el = clientDOM.newEl(Peers, 'h3');
+    el.textContent = `Peers Management`;
+}
+
+
+// setTimeout(() => {
+    
+// }, 200);
+peersContent();

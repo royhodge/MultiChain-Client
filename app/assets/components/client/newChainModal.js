@@ -19,6 +19,10 @@ const newChainModal = () => {
     clientDOM.newEl(paramsContainer,'ul', 'displayParams', 'w3-ul');
     clientDOM.newEl(modalContent,'button', 'applySettingsBtn', 'w3-btn w3-round-large w3-ripple w3-border w3-blue','Apply and Restart');
 };
-newChainModal();
 
+// setTimeout(() => {
+   
+// }, 200);
+
+newChainModal();
 
