@@ -3,10 +3,11 @@
 
 Current features:
 
-Scans Documents to find Multichain
-Init Multichain and connect to secure root chain
-Switch between chain in sidenav
-Display basic chain information
+Scans Documents to find Multichain.
+Initialize Multichain and connect to secure root chain.
+Switch between chains in sidenav.
+Display basic chain information.
+List streams
 
 Todo:
 High Priority
