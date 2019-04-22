@@ -65,4 +65,5 @@ const clientFunc = {
     start: (chain => exec(clientVars.installFiles + 'multichaind.exe', [chain, '-daemon'])),
     stop: (chain => exec(clientVars.installFiles + 'multichain-cli.exe', [chain, 'stop'])),
     create: (chain => exec(clientVars.installFiles + 'multichain-util.exe', ['create', chain])),
+    // delete: fs.unlink(clinetVars.chains+(chain)//
 };

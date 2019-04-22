@@ -25,7 +25,7 @@ openSideNav.setAttribute('onclick','sideMenuFunctions.openNav()');
 // Div sections
 sectionArray.forEach((val) => {
     clientDOM.newEl(sectionDisplay,'div', val, 'tab w3-container w3-hide w3-margin-top');
-    el = clientDOM.newEl(tabNav,'a', '', 'w3-bar-item w3-button',  val);    
+    el = clientDOM.newEl(tabNav,'a', val+'btn', 'w3-bar-item w3-button',  val);    
     el.href = `#${val}`;
     el.setAttribute('onclick', `clientDOM.openTabs('${val}','tab')`);
 });
