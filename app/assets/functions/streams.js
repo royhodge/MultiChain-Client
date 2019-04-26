@@ -14,28 +14,34 @@ const itemQueries = {
     postDate: [],
 };
 
+var currentStream;
+
 
 // display functions
-var listStreams = () => {
+var listSubscriptions = () => {
     multichain.listStreams((err, res) => {
         res.forEach((val) => {
-
+            if(val.subscribed){
+                console.log('Subscribed to ' + val.name);
+            } else {
+                console.log('Not subscribed to ' + val.name);
+            }
         });
-        console.log(res)
-        console.log(`Name: ${res[0].name}`)
-        console.log(`Itemcount: ${res[0].items}`)
-        console.log(`Keyscount: ${res[0].keys}`)
-        console.log(`Subscribed: ${res[0].subscribed}`)
-        console.log(`Restrictions: ${res[0].restrict.write}`)
-        console.log(`Createtxid: ${res[0].createtxid}`)
+        // console.log(res.length)
+        // console.log(`Name: ${res[0].name}`)
+        // console.log(`Itemcount: ${res[0].items}`)
+        // console.log(`Keyscount: ${res[0].keys}`)
+        // console.log(`Subscribed: ${res[0].subscribed}`)
+        // console.log(`Restrictions: ${res[0].restrict.write}`)
+        // console.log(`Createtxid: ${res[0].createtxid}`)
 
     });
 };
 
 var listStreamKeyItems = (stream, key) => {
     multichain.listStreamKeyItems({
-        stream: 'new',
-        key: 'test'
+        stream: stream,
+        key: key
     }, (err, res) => {
         if (err) {
             alert('No items in this stream');
@@ -94,9 +100,8 @@ const streamFunctions = {
 
             arrs.forEach((val) => {
                 let values = Object.values(val);
-                streamNames.push((values[0]));
+                streamNames.push(values[0]);                               
             });
-
             clientDOM.newOp(streamNames, streamNamesSelect);
         });
     },
@@ -112,22 +117,31 @@ const streamFunctions = {
     listStreamItems: () => {
         let stream = document.querySelector('#streamNamesSelect').value;
         itemsDisplay.innerHTML = '';
+        let publishers = [];
+        let keys = [];
     
         multichain.listStreamItems({
             stream: stream
         }, (err, res) => {
             if (err) {
-                alert('No items in this stream');
+                console.log(err)
             } else {
                 res.forEach((val, i) => {
                     el1 = clientDOM.appendTop(itemsDisplay, 'div', `card${i}`,'w3-panel w3-margin w3-card-4');                
                     clientDOM.newEl(el1, 'h3', ``,'',`Post: ${val.data.text}`)
                     clientDOM.newEl(el1, 'p', ``,'',`Publishers: ${val.publishers}`);
-                    clientDOM.newEl(el1, 'p', ``,'',`Keys: ${val.keys}`);  
-                   
-                    clientDOM.newEl(streamPublishers, 'option', '', '',val.publishers);
-                    clientDOM.newEl( streamKeys, 'option', '', '',val.keys);           
-                });
+                    clientDOM.newEl(el1, 'p', ``,'',`Keys: ${val.keys}`); 
+                    
+                    if (!(publishers.includes(val.publishers))) {
+                        publishers.push(val.publishers); 
+                        clientDOM.newEl(streamPublishers, 'option', '', '',val.publishers);                       
+                    }                    
+                    
+                    if (!(keys.includes(val.keys))) {
+                        keys.push(val.keys);  
+                        clientDOM.newEl( streamKeys, 'option', '', '',val.keys);                        
+                    }               
+                });  
             }
         });
     },
