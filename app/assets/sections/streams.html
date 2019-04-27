@@ -1,0 +1,21 @@
+
+<template class="html-content">
+    <div id="Streams" class="tab w3-container w3-hide w3-margin-top w3-content w3-card-4 animated">
+        <h3 id="" class="animated">Stream Management</h3>
+        <h5 id="" class="animated">Select a stream</h5>
+        <div id="streamActions" class="w3-bar animated"><select id="streamNamesSelect"
+                class="w3-input w3-third animated"></select><button id="streamSubscribe"
+                class="w3-bar-item w3-btn w3-dark-gray w3-margin-left animated">Subscribe</button><button
+                id="streamPublish"
+                class="w3-bar-item w3-btn w3-dark-gray w3-margin-left animated">Publish</button><button
+                id="streamCreate" class="w3-bar-item w3-btn w3-dark-gray w3-margin-left animated">Create</button><input
+                id="newStreamName" class="w3-input w3-third animated" placeholder="New stream name"></div>
+        <div id="streamFilters" class="w3-bar w3-padding w3-container animated"><select id="streamPublishers"
+                class="w3-half w3-input animated">
+                <option id="" class="animated" selected="">Publishers</option>
+            </select><select id="streamKeys" class="w3-half w3-input animated">
+                <option id="" class="animated" selected="">Keyword search</option>
+            </select></div>
+        <div id="itemsDisplay" class="w3-container animated"></div>
+    </div>
+</template>
