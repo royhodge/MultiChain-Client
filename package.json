@@ -1,5 +1,5 @@
 {
-  "name": "electron-multichain-explorer",
+  "name": "root",
   "version": "0.0.1",
   "description": "A management tool for Multichain blockchains",
   "main": "app.js",
@@ -17,7 +17,7 @@
   "author": "Roscoe",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^4.1.4"
+    "electron": "^5.0.0"
   },
   "dependencies": {
     "multichain-node": "^2.2.0-version1.0.4",

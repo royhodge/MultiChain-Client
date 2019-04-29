@@ -7,59 +7,43 @@ const exec = require('child_process').execFile;
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let appWindow;
-// Change to download path 
 
-// Client global variables
-const clientVars = {
-  chainsPath: path.join(process.env.APPDATA, 'Multichain'), 
-  installFiles: path.join('C:', process.env.HOMEPATH, 'documents', 'multichain-windows-2.0.1/'),
-};
+// Paths 
+let approotPath = path.resolve();
+let multichainPath = path.join(approotPath, 'multichain', '/');
+let chainsPath = path.join(process.env.APPDATA, 'Multichain', '/');
+let homePath = path.join(process.env.APPDATA, 'Multichain', 'home');
 
-// const userDB = {
-//   paramsFile: path.join(clientVars.chainsPath, chainName, 'params.dat'),
-//   configFile: path.join(clientVars.chainsPath, chainName, 'multichain.conf'),
-// };
+// functions
+const start = (chainName) => exec(multichainPath + 'multichaind.exe', [chainName, '-daemon']);
+const create = (chainName) => exec(multichainPath + 'multichain-util.exe', ['create', chainName]);
+const stop = (chainName) => exec(multichainPath + 'multichain-cli.exe', [chainName, 'stop']);
 
-const firstInit = () => {
-  let chainName = 'root';
-  let create = (() => exec(clientVars.installFiles + 'multichain-util.exe', ['create', chainName]));
-  create();
+const firstInit = () => { 
+  create('home');
   app.relaunch();
   setTimeout(() => app.quit(), 3000);
 };
-
 const createWindow = () => {
   // Create the browser window.
   appWindow = new BrowserWindow({
     width: 1024,
     height: 800,
-    fullscreen: false
+    fullscreen: false,
+    frame: false,
+    webPreferences: {
+      nodeIntegration: true,
+    }
   });
 
   // Open the DevTools.
   // appWindow.webContents.openDevTools();
 
-  fs.readdir(clientVars.installFiles, (err, stat) => {
-    if (err) {
-      // Add restart button
-      appWindow.loadFile('app/download.html');
-    } else {
-      fs.readdir(clientVars.chainsPath, (err, stat) => {
-        if (err) {
-          firstInit();
-        } else {
-          let start = (chainName) => exec(clientVars.installFiles + 'multichaind.exe', [chainName, '-daemon']);
-          stat.forEach(val => {
-            if (!(val.includes("."))) {              
-              start(val);
-            }
-          });
-          appWindow.loadFile('app/index.html');
-        }
-      });
-    }
+  appWindow.loadFile('index.html');
+  
+  appWindow.once('ready-to-show', () => {
+    appWindow.show();
   });
-
 
   // Emitted when the window is closed.
   appWindow.on('closed', () => {
@@ -69,24 +53,40 @@ const createWindow = () => {
     appWindow = null
   });
 }
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+
+// Is installed? init : start all chains
+fs.readdir(chainsPath, (err, stat) => {
+  if (err) {
+    firstInit();
+  } else {
+    // Start all chains
+    stat.forEach((val) => {
+      if (!(val.includes("."))) {
+        start(val);
+      }     
+    });
+    setTimeout(() => {
+      createWindow();
+    }, 500);
+  }
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
-    app.quit()
+    app.quit();
   }
 });
 
 app.on('activate', () => {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
-  if (profileWindow === null) {
+  if (appWindow === null) {
     createWindow();
   }
 });

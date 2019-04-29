@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- w3c -->
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" type="text/css" media="screen"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css">
+    <!-- main style sheet -->
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/login.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/sideNav.css">
+    
+    <!-- HTML imports -->
+    <link rel="import" class="login" href="sections/login.html">
+    <link rel="import" class="tabs" href="sections/tabs.html">
+    <link rel="import" class="body" href="sections/generalInfo.html">
+    <link rel="import" class="body" href="sections/streams.html">
+    <link rel="import" class="body" href="sections/addresses.html">
+    <link rel="import" class="body" href="sections/assets.html">
+    <link rel="import" class="body" href="sections/peers.html">
+    <link rel="import" class="body" href="sections/wallet.html">
+    <link rel="import" class="body" href="sections/sideNav.html">
+    <link rel="import" class="body" href="sections/newChain.html">
+   
+    <!-- Global functions -->
+    <script src="assets/functions/encrypt.js"></script>
+    <script src="assets/functions/chainFunc.js"></script>    
+    <script src="assets/functions/DOM.js"></script>
+    <script src="assets/contextMenu/contextMenu.js"></script>
+</head>
+<!-- make frameless window drag object -->
+<body>
+    <!-- mount point for html content -->
+    <main id="topNav"></main>
+    <main id="content"></main>
+    <!-- functions that manage the html imports -->
+    <script src="assets/functions/connect.js"></script>
+    <script>
+        require('./imports')
+        require('./assets/functions/login')
+        require('./assets/functions/sideNav')
+        require('./assets/functions/tabs')
+        require('./assets/functions/generalInfo')
+        require('./assets/functions/streams')
+        require('./assets/functions/newChain')        
+    </script>
+</body>
+
+</html>

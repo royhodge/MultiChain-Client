@@ -1,0 +1,15 @@
+#appsDisplay {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center
+}
+
+.appCard {
+  width: 100px;
+  height: 100px
+}
+
+/* .appCard img {
+  width: 100%
+} */

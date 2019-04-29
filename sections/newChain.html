@@ -1,0 +1,21 @@
+<template class="html-content">
+    <div id="createChainModal" class="w3-modal animated">
+        <div id="modalContent" class="w3-modal-content w3-card-4 w3-container w3-center w3-padding-32 animated">
+            <span id="instCloseBtn" class="w3-button w3-hover-red w3-display-topright animated"
+                onclick="w3.hide('#createChainModal')">X</span>
+            <h1 id="" class="animated">Let's create a blockchain!</h1>
+            <input id="chainNameInput" class="w3-input w3-twothird animated" type="text"
+                placeholder="Enter a name for your blockchain"><button id="createChainBtn"
+                class="w3-btn w3-round-large w3-ripple w3-border w3-green animated">Create</button>
+            <hr id="" class="animated">
+            <div id="paramsContainer" class="w3-center w3-container animated">
+                <h3 id="" class="animated">Blockchain parameters</h3>
+                <p id="" class="animated">(click true or false to switch value)</p>
+                <h4 id="chainTitle" class="animated"></h4>
+                <ul id="displayParams" class="w3-ul animated"></ul>
+            </div>
+            <button id="applySettingsBtn" 
+            class="w3-btn w3-round-large w3-ripple w3-border w3-blue animated">Apply and Restart</button>
+        </div>
+    </div>
+</template>
