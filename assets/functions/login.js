@@ -1,6 +1,7 @@
+
 var loginModal = document.querySelector("#login");
 
-if (!(sessionStorage.length === 0)) {
+if (sessionStorage.length > 0) {
     loginModal.style.display = 'none';
 }
 
@@ -10,40 +11,49 @@ const loginFunc = {
         let modal = document.querySelector('#login');
         var username = loginUsernameInput.value;
         var password = loginPasswordInput.value;
-        console.log(users);
-        console.log(passwords);
+
         if (username === '' || password === '') {
             alert('No name or password');
             return;
         }
+
         var user = sha256(username);
         var pass = sha256(password);
-
-        let check = 0;
-
-        users.forEach((val, i) => {
-            if (user === val && pass === passwords[i]) {
-                check = 1;
-                return true;
-            }
+        multichain.listStreamItems({
+            stream: 'root'
+        }, (err, res) => {
+            res.forEach((val) => {
+                if (user === val.keys[0] && pass === val.data.text) {
+                    modal.style.display = 'none';
+                    console.log("hey");
+                } else {
+                    loginUsernameInput.classList.add('w3-red');
+                    loginUsernameInput.value = 'User or password is incorrect';
+                    loginPasswordInput.classList.add('w3-red');
+                }
+            });
         });
-        switch (check) {
-            case 1:
-                console.log('Welcome');
-                modal.style.display = 'none';
-                sessionStorage.setItem("user", user);
-                sessionStorage.setItem("pass", pass);
-                location.reload();
-                break;
-            default:
-                alert('Sorry. Incorrect username or password');
-                break;
-        }
+
     },
     isInputValid: () => {
         let x = event.target;
         let n = x.value;
         var user = sha256(n);
+
+        multichain.listStreamItems({
+            stream: 'root'
+        }, (err, res) => {
+            res.forEach((val) => {
+                if (user === val.keys[0] && pass === val.data.text) {
+                    modal.style.display = 'none';
+                    console.log("hey");
+                } else {
+                    loginUsernameInput.classList.add('w3-red');
+                    loginUsernameInput.value = 'User or password is incorrect';
+                    loginPasswordInput.classList.add('w3-red');
+                }
+            });
+        });
 
         users.forEach((val) => {
             if (user === val) {
@@ -74,13 +84,9 @@ const loginFunc = {
         }
 
         publish('root', xusername, xpassword);
-        users.push(xusername);
-        passwords.push(xpassword);
         alert(`Your input has been registered successfully!\n Welcome ${username}`);
         // console.log(users);
-        // console.log(passwords);
-        listUsers();
-        listPasswords();
+        // console.log(passwords);        
         location.reload();
     },
 };
@@ -88,10 +94,15 @@ const loginFunc = {
 var loginTab = document.querySelector(".loginTab");
 loginTab.addEventListener("click", () => {
     dom.openTabs('loginForm', 'tab');
+    loginTab.classList.add('w3-gray');
+    registerTab.classList.remove('w3-gray');
+
 });
 var registerTab = document.querySelector(".registerTab");
 registerTab.addEventListener("click", () => {
     dom.openTabs('registerForm', 'tab');
+    loginTab.classList.remove('w3-gray');
+    registerTab.classList.add('w3-gray');
 });
 
 var loginForm = document.querySelector("#loginForm");

@@ -1,14 +1,14 @@
 // 
 const fs = require('fs');
-
 const path = require('path');
 
 let chains = path.join(process.env.APPDATA, 'Multichain');
 let approotPath = path.resolve();
 let assetsPath = path.join(approotPath, 'app/assets/');
+let multichain;
 
 const paths = {
-    chains: chains,    
+    chains: chains,
     functionsPath: path.join(assetsPath, 'functions'),
     componentsPath: path.join(assetsPath, 'components'),
     multichainPath: path.join(approotPath, 'multichain')
@@ -16,19 +16,14 @@ const paths = {
 // 
 // Create a secure root chain for login credentials
 // 
-
-let users = []
-
-let passwords = [];
-
 let home = {
     port: '',
     host: '127.0.0.1',
     user: 'multichainrpc',
     pass: '',
 };
-// read config file to get rpcpassword
-const getCreds = (chain) => {
+
+const readConfig = (chain) => {
     var configFile = path.join(paths.chains, chain, 'multichain.conf');
     fs.readFile(configFile, 'utf-8', (err, data) => {
         if (err) throw err;
@@ -37,7 +32,9 @@ const getCreds = (chain) => {
         let stop = start + 44;
         home.pass = data.slice(start, stop);
     });
+}
 
+const readParams = (chain) => {
     // read params file to get rpc port
     var paramsFile = path.join(paths.chains, chain, 'params.dat');
     fs.readFile(paramsFile, 'utf-8', (err, data) => {
@@ -49,57 +46,36 @@ const getCreds = (chain) => {
     });
 };
 
+// read config file to get rpcpassword
+const getCreds = (chain) => {
+    readConfig(chain);
+    readParams(chain);
+};
+
 getCreds('home');
 
-const listUsers = () => {
-    multichain.listStreamKeys({
-        stream: 'root'
-    }, (err, res) => {
-        if (err) throw err;
-        res.forEach((val) => {
-            users.push(val.key);
-        });
-
-    });
-};
-const listPasswords = () => {
-    multichain.listStreamItems({
-        stream: 'root'
-    }, (err, res) => {
-        if (err) {
-            console.log('No passwords');
-        } else {
-            res.forEach((val) => {
-                passwords.push(val.data.text);
-            });
-        }
-    });
-};
-const buildDB = () => {
-    listUsers();
-    listPasswords();
-};
-
-setTimeout(() => {
-    multichain = require('multichain-node')(home);
-}, 160);
-
-setTimeout(() => {
-    buildDB();
-}, 500);
+let connect = setInterval(() => {
+    // console.log('empty');
+    if (home.port !== '') {        
+        clearInterval(connect);
+        multichain = require('multichain-node')(home);            
+        chainInfo.getChainInfo();  
+    }
+}, 10);
 
 
-// Is online?
-// let isOnline = () => {
-//     fs.readdir(homePath, (err, stat) => {
-//       if (!(stat.includes('multichain.pid'))) {
-//         console.log("multichain is offline");
-//         isOnline();
-//       } else {
+let checkStatus = setInterval(() => {
+    // console.log('offline');
+    if (multichain !== undefined) {
+        // console.log('multichain is online');
+        clearInterval(checkStatus);
+        multichain.getInfo((err, info) => {
+            // console.log(info);             
+            // console.log(chainInfo);             
+        });        
+    }
+}, 10);
 
-//       }
-//     });
-//   };
 
 
 

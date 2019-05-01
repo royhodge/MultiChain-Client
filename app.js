@@ -12,7 +12,6 @@ let appWindow;
 let approotPath = path.resolve();
 let multichainPath = path.join(approotPath, 'multichain', '/');
 let chainsPath = path.join(process.env.APPDATA, 'Multichain', '/');
-let homePath = path.join(process.env.APPDATA, 'Multichain', 'home');
 
 // functions
 const start = (chainName) => exec(multichainPath + 'multichaind.exe', [chainName, '-daemon']);
