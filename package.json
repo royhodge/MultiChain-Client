@@ -1,5 +1,5 @@
 {
-  "name": "root",
+  "name": "Electron Multichain Explorer",
   "version": "0.0.1",
   "description": "A management tool for Multichain blockchains",
   "main": "app.js",
