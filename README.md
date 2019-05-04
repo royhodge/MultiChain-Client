@@ -19,6 +19,7 @@ Todo:
 
 Add encryption 
 
+Delete chain
 
 Stream Publisher items search
 
