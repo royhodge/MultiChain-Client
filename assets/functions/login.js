@@ -1,8 +1,8 @@
 
 const loginModal = document.querySelector("#login");
 
-if (sessionStorage.length === 0) {
-    loginModal.style.display = 'flex';
+if (localStorage.length > 0) {
+    loginModal.style.display = 'none';
 }
 
 const loginFunc = {
@@ -21,6 +21,7 @@ const loginFunc = {
 
         var user = sha256(username);
         var pass = sha256(password);
+        localStorage.setItem("pass", user + pass);
         multichain.listStreamItems({
             stream: 'root'
         }, (err, res) => {

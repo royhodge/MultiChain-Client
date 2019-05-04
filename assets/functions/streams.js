@@ -3,16 +3,16 @@
 // 
 
 const itemQueries = {
-    Publishers: [],
-    itemKeys: [],
-    itemData: [],
-    postDate: [],
+    publishers: [],
+    keys: [],
 };
 
 let streamSelect = document.querySelector('#streamSelect');
 let newStreamName = document.querySelector('#newStreamName');
 let streamPublishers = document.querySelector('#streamPublishers');
 let streamKeys = document.querySelector('#streamKeys');
+
+
 let stream = streamSelect.value;
 let publishers = streamPublishers.value;
 let key = streamKeys.value;
@@ -47,7 +47,6 @@ const listStreamItems = () => {
         count: 100,
     }, (err, res) => {
         if (err) {
-            console.log(err.message)
             dom.appendTop(itemsDisplay, 'div', ``, 'w3-panel w3-margin w3-card-4');
             dom.appendTop(el, 'h3', ``, '', err.message);
             return;
@@ -57,18 +56,13 @@ const listStreamItems = () => {
                 let el1 = dom.appendTop(itemsDisplay, 'div', `card${i}`, 'w3-panel w3-margin w3-card-4');
                 dom.newEl(el1, 'h3', ``, '', `Post: ${val.data.text}`)
                 dom.newEl(el1, 'p', ``, '', `Publishers: ${val.publishers}`);
-                // dom.newEl(el1, 'p', ``, '', `Keys: ${val.keys}`);              
-
-                if (!(publishers.includes(val.publishers))) {
-                    publishers.push(val.publishers);
-                    dom.newEl(streamPublishers, 'option', '', '', val.publishers);
-                }
-
-                if (!(keys.includes(val.keys))) {
-                    keys.push(val.keys);
-                    dom.newEl(streamKeys, 'option', '', '', val.keys);
-                }
+                // dom.newEl(el1, 'p', ``, '', `Keys: ${val.keys}`); 
+                notIncluded(itemQueries.publishers, val.publishers);
+                notIncluded(itemQueries.keys, val.keys);
+                dom.newOp(itemQueries.publishers,streamPublishers);
+                dom.newOp(itemQueries.keys,streamKeys);
             });
+
         }
     });
 };
@@ -133,48 +127,9 @@ let returnStream = () => {
     return stream;
 };
 
-Streamsbtn.addEventListener('click', () => {
-    setTimeout(() => {
-        listStreams();
-    }, 100);
-    setTimeout(() => {
-        listStreamItems();
-    }, 150);
-});
-
-streamSelect.addEventListener('change', listStreamItems);
-streamSubscribe.addEventListener('click', subscribe);
-streamUnsubscribe.addEventListener('click', unsubscribe);
-streamCreate.addEventListener('click', createStream);
-streamPublish.addEventListener('click', postChat);
-// display functions
-
-module.exports = [listStreams, listStreamItems]
-
-
-const listSubscriptions = () => {
-    multichain.listStreams((err, res) => {
-        res.forEach((val) => {
-            if (val.subscribed) {
-                console.log('Subscribed to ' + val.name);
-                console.log(`Restrictions: ${res[0].restrict.write}`)
-            } else {
-                console.log('Not subscribed to ' + val.name);
-            }
-        });
-        // console.log(res.length)
-        // console.log(`Name: ${res[0].name}`)
-        // console.log(`Itemcount: ${res[0].items}`)
-        // console.log(`Keyscount: ${res[0].keys}`)
-        // console.log(`Subscribed: ${res[0].subscribed}`)
-        // console.log(`Restrictions: ${res[0].restrict.write}`)
-        // console.log(`Createtxid: ${res[0].createtxid}`)
-
-    });
-};
 
 const listStreamKeyItems = () => {
-    stream = streamSelect.value;
+    var stream = returnStream();
     key = streamKeys.value
     multichain.listStreamKeyItems({
         stream: stream,
@@ -195,10 +150,12 @@ const listStreamKeyItems = () => {
     });
 };
 
-var listStreamPublisherItems = (stream, pub) => {
+var listStreamPublisherItems = () => {
+    var stream = returnStream();
+    publishers = streamPublishers.value;
     multichain.listStreamPublisherItems({
-        stream: 'new',
-        publisher: 'new',
+        stream: stream,
+        publisher: publishers,
     }, (err, res) => {
         if (err) {
             alert('No items in this stream');
@@ -211,6 +168,32 @@ var listStreamPublisherItems = (stream, pub) => {
         }
     });
 };
+
+
+Streamsbtn.addEventListener('click', () => {
+    setTimeout(() => {
+        listStreams();
+    }, 100);
+    setTimeout(() => {
+        listStreamItems();
+    }, 150);
+});
+
+streamSelect.addEventListener('change', listStreamItems);
+streamSubscribe.addEventListener('click', subscribe);
+streamUnsubscribe.addEventListener('click', unsubscribe);
+streamCreate.addEventListener('click', createStream);
+streamPublish.addEventListener('click', postChat);
+
+streamPublishers.addEventListener('change', listStreamPublisherItems)
+streamKeys.addEventListener('change', listStreamKeyItems)
+// display functions
+
+module.exports = [listStreams, listStreamItems];
+
+
+
+
 
 
 // // Stream
