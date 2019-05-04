@@ -20,7 +20,8 @@ Currently it's just a basic template that others can build on.
 
 <a href="https://nodejs.org/en/" target="blank">Node V12</a>. Though you could delete node modules and install earlier versions.
 
-Install: 
+
+<h4>Install: </h4>
 
 clone repo
 
@@ -29,7 +30,8 @@ npm install
 npm start
 
 
-Todo:
+
+<h4>Todo: </h4>
 
 Add encryption 
 
