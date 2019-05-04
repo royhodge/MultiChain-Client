@@ -17,6 +17,7 @@ Currently it's just a basic template that others can build on.
 </h4>
 
 <a href="https://electronjs.org/docs" target="blank">Electron V5</a>. Though you could delete node modules and install earlier versions.
+
 <a href="https://nodejs.org/en/" target="blank">Node V12</a>. Though you could delete node modules and install earlier versions.
 
 Install: 
