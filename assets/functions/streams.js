@@ -37,8 +37,6 @@ const countStreamsItems = () => {
 };
 const listStreamItems = () => {
     itemsDisplay.innerHTML = '';
-    let publishers = [];
-    let keys = [];
 
     var stream = returnStream();
 
@@ -57,11 +55,19 @@ const listStreamItems = () => {
                 dom.newEl(el1, 'h3', ``, '', `Post: ${val.data.text}`)
                 dom.newEl(el1, 'p', ``, '', `Publishers: ${val.publishers}`);
                 // dom.newEl(el1, 'p', ``, '', `Keys: ${val.keys}`); 
+
+
                 notIncluded(itemQueries.publishers, val.publishers);
                 notIncluded(itemQueries.keys, val.keys);
-                dom.newOp(itemQueries.publishers,streamPublishers);
-                dom.newOp(itemQueries.keys,streamKeys);
+
+
+                console.log(itemQueries.publishers)
+                console.log(itemQueries.keys)
+
+
             });
+            // dom.newOp(itemQueries.publishers, streamPublishers);
+            // dom.newOp(itemQueries.keys, streamKeys);
 
         }
     });

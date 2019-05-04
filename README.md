@@ -1,11 +1,23 @@
-# Electron Multichain Explorer
+   <h1>Electron Multichain Explorer</h1>
 A general management tools for Multichain blockchains
 Currently it's just a basic template that others can build on. 
 
-Requierments: 
+<h3>Notice</h3>
 
-Node V12
-Electron V5
+<p>
+        **The Multichain executable files included in the project were not created by me.
+        The files are from the <a href="https://www.multichain.com/download-install/" target="blank">Multichain website</a>.
+        If you don't trust this, you can delete all the files in the "multichain" folder and manually download
+        Multichain.
+        The project was started from <a href="https://github.com/electron/electron-quick-start" target="blank">Electron Quickstart
+</p>
+
+<h4>
+    Requirements:
+</h4>
+
+<a href="https://electronjs.org/docs" target="blank">Electron V5</a>. Though you could delete node modules and install earlier versions.
+<a href="https://nodejs.org/en/" target="blank">Node V12</a>. Though you could delete node modules and install earlier versions.
 
 Install: 
 

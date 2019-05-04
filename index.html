@@ -14,7 +14,7 @@
     <!-- Animate CSS -->
     <link rel="stylesheet" type="text/css" media="screen"
         href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css">
-        
+
     <!-- main style sheet -->
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
     <link rel="stylesheet" type="text/css" href="assets/css/login.css">
@@ -25,7 +25,7 @@
     <!-- from https://www.cssscript.com/demo/9-css-only-loaders/ -->
     <link rel="stylesheet" href="assets/css/loader-1.css">
 
-    
+
     <!-- HTML imports -->
     <link rel="import" class="login" href="sections/login.html">
     <link rel="import" class="tabs" href="sections/tabs.html">
@@ -38,21 +38,22 @@
     <link rel="import" class="body" href="sections/sideNav.html">
     <link rel="import" class="body" href="sections/newChain.html">
     <link rel="import" class="body" href="sections/loading.html">
-   
+
     <!-- Global functions -->
-    <script src="assets/functions/encrypt.js"></script>     
+    <script src="assets/functions/encrypt.js"></script>
     <script src="assets/functions/DOM.js"></script>
     <script src="assets/contextMenu/contextMenu.js"></script>
     <script src="assets/functions/connect.js"></script>
-    <script src="assets/functions/chainFunc.js"></script>  
+    <script src="assets/functions/chainFunc.js"></script>
 </head>
 <!-- make frameless window drag object -->
+
 <body class="anumated fadeIn">
     <!-- mount point for html content -->
     <main id="topNav"></main>
     <main id="content"></main>
-    
-    <!-- functions that manage the html imports -->   
+
+    <!-- functions that manage the html imports -->
     <script>
         require('./imports')
         require('./assets/functions/login')
@@ -60,8 +61,37 @@
         require('./assets/functions/tabs')
         require('./assets/functions/generalInfo')
         require('./assets/functions/streams')
-        require('./assets/functions/newChain')        
+        require('./assets/functions/newChain')
     </script>
 </body>
 
 </html>
+
+<div>
+    <h1>Electron Multichain Explorer</h1>
+    <p>
+        A general management tools for Multichain blockchains
+        Currently it's just a basic template that others can build on.
+    </p>
+    <h3>Notice</h3>
+    <p>
+        **The Multichain executable files included in the project were not created by me.
+        The files are from the <a href="https://www.multichain.com/download-install/" target="blank">Multichain website</a>.
+        If you don't trust this, you can delete all the files in the "multichain" folder and manually download
+        Multichain.
+    </p>
+
+    <p>
+        The project was started from <a href="https://github.com/electron/electron-quick-start" target="blank">Electron Quickstart</a>
+    </p>
+    <h4>
+        Requirements:
+    </h4>
+    <p>
+        <a href="https://electronjs.org/docs" target="blank">Electron V5</a>. Though you could delete node modules and install earlier versions.
+        <a href="https://nodejs.org/en/" target="blank">Node V12</a>. Though you could delete node modules and install earlier versions.
+    </p>
+
+
+
+</div>

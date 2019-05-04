@@ -82,7 +82,7 @@ const loginFunc = {
             return;
         }
 
-        if (password.length <= 5) {
+        if (password.length <= 8) {
             registerPasswordInput.classList.add('w3-red');
             registerPasswordInput.value = 'No input';
             return;
