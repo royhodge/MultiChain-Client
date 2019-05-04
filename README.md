@@ -17,6 +17,9 @@ npm start
 
 Todo:
 
+Add encryption 
+
+
 Stream Publisher items search
 
 Stream Key items search
