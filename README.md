@@ -24,3 +24,12 @@ Delete chain
 Stream Publisher items search
 
 Stream Key items search
+
+Add sections:
+
+  Peers
+  
+  Addresses
+  
+  Wallet
+  
