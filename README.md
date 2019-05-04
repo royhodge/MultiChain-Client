@@ -13,3 +13,10 @@ clone repo
 npm install
 
 npm start
+
+
+Todo:
+
+Stream Publisher items search
+
+Stream Key items search
