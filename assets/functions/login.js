@@ -1,8 +1,8 @@
 
-var loginModal = document.querySelector("#login");
+const loginModal = document.querySelector("#login");
 
-if (sessionStorage.length > 0) {
-    loginModal.style.display = 'none';
+if (sessionStorage.length === 0) {
+    loginModal.style.display = 'flex';
 }
 
 const loginFunc = {
@@ -13,7 +13,9 @@ const loginFunc = {
         var password = loginPasswordInput.value;
 
         if (username === '' || password === '') {
-            alert('No name or password');
+            loginUsernameInput.classList.add('w3-red');
+            loginUsernameInput.value = 'No input';
+            loginPasswordInput.classList.add('w3-red');
             return;
         }
 
@@ -74,13 +76,15 @@ const loginFunc = {
         // console.log(xpassword);
         // form validation
         if (username === '') {
-            alert('No username given');
-            return false;
+            registerUsernameInput.classList.add('w3-red');
+            registerUsernameInput.value = 'No input';
+            return;
         }
 
         if (password.length <= 5) {
-            alert('Your password is too short');
-            return false;
+            registerPasswordInput.classList.add('w3-red');
+            registerPasswordInput.value = 'No input';
+            return;
         }
 
         publish('root', xusername, xpassword);
@@ -91,38 +95,36 @@ const loginFunc = {
     },
 };
 
-var loginTab = document.querySelector(".loginTab");
+const loginTab = document.querySelector(".loginTab");
 loginTab.addEventListener("click", () => {
-    dom.openTabs('loginForm', 'tab');
+    dom.openTabs('loginForm', 'start');
     loginTab.classList.add('w3-gray');
     registerTab.classList.remove('w3-gray');
 
 });
-var registerTab = document.querySelector(".registerTab");
+const registerTab = document.querySelector(".registerTab");
 registerTab.addEventListener("click", () => {
-    dom.openTabs('registerForm', 'tab');
+    dom.openTabs('registerForm', 'start');
     loginTab.classList.remove('w3-gray');
     registerTab.classList.add('w3-gray');
 });
 
-var loginForm = document.querySelector("#loginForm");
+const loginForm = document.querySelector("#loginForm");
 loginForm.addEventListener("keydown", (e) => {
     if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
         loginFunc.signIn();
     }
 });
 
-var loginSubmit = document.querySelector("#loginSubmit");
-loginSubmit.addEventListener("click", loginFunc.signIn);
-
-
-var registerForm = document.querySelector("#registerForm");
+const registerForm = document.querySelector("#registerForm");
 registerForm.addEventListener("keydown", (e) => {
     if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
         loginFunc.register();
     }
 });
 
-var registerSubmit = document.querySelector("#registerSubmit");
+const loginSubmit = document.querySelector("#loginSubmit");
+loginSubmit.addEventListener("click", loginFunc.signIn);
+const registerSubmit = document.querySelector("#registerSubmit");
 registerSubmit.addEventListener("click", loginFunc.register);
 

@@ -1,0 +1,11 @@
+#Streams {
+  background-color: darkgray
+}
+
+#chatBox {
+  display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding-left: 20px;
+    width: auto;
+}

@@ -3,22 +3,22 @@
                 <h3 id="" class="animated">Stream Management</h3>
                 <h5 id="" class="animated">Select a stream</h5>
                 <div class="w3-half">
-                        <select id="streamSelect" class="w3-input w3-block animated">                                
+                        <select id="streamSelect" class="w3-input w3-block animated">
                         </select>
                         <button id="streamSubscribe"
                                 class="w3-bar-item w3-btn w3-dark-gray w3-margin-left animated">Subscribe</button>
                         <button id="streamUnsubscribe"
                                 class="w3-bar-item w3-btn w3-dark-gray w3-margin-left animated">Unsubscribe</button>
-                        <input id="newStreamName" class="w3-input w3-block animated" onfocus="this.classList.remove('w3-red'); this.placeholder='New stream name'"
+                        <input id="newStreamName" class="w3-input w3-block animated"
+                                onfocus="this.value='';this.classList.remove('w3-red'); this.placeholder='New stream name'"
                                 placeholder="New stream name">
                         <button id="streamCreate"
                                 class="w3-bar-item w3-btn w3-dark-gray w3-margin-left animated">Create</button>
                 </div>
-                <div class="w3-half w3-row">
-                        <textarea name="postInput" id="postInput" cols="30" rows="10"
-                                onfocus="this.value=''"></textarea>
-                        <button id="streamPublish"
-                                class="w3-bar-item w3-btn w3-dark-gray w3-margin-left animated">Publish</button>
+                <div id="chatBox" class="w3-half w3-row">
+                        <textarea name="postInput" id="postInput" cols="30" rows="5"
+                                onfocus="this.value='';this.classList.remove('w3-red'); this.placeholder='New stream name'"></textarea>
+                        <button id="streamPublish" class="w3-bar-item w3-btn w3-dark-gray animated">Publish</button>
                 </div>
                 <div id="streamFilters" class="w3-bar w3-padding w3-container animated">
                         <select id="streamPublishers" class="w3-half w3-input animated">

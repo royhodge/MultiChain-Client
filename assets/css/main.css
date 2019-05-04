@@ -2,13 +2,27 @@
 
 
 */
-
+body {
+  background-color: slategray
+}
 #tabNav {
-  -webkit-app-region: drag
+  -webkit-app-region: drag;
+  background-image: -webkit-linear-gradient(#0F2027,#203A43,#2C5364);
+  color: azure;
+  height: 3em;
+}
+
+.tabNavs {   
+  height: -webkit-fill-available;
+  padding-top: 13px;
 }
 
 button,a,select,input {
   -webkit-app-region: no-drag;
+}
+
+.tab {
+  background-color: darkgray
 }
 
 
@@ -28,8 +42,4 @@ button,a,select,input {
   height: fit-content;
 }
 
-.tabNavs {  
-  align-items: center;
-  height: 38px;
-}
 

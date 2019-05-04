@@ -66,7 +66,7 @@ let dom = {
     showModal: () => {
         start.style.display = 'none';
         login.style.display = 'flex';
-    },
+    },    
 };
 
 module.exports = dom;

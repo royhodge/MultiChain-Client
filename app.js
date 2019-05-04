@@ -28,7 +28,7 @@ const createWindow = () => {
   appWindow = new BrowserWindow({
     width: 1024,
     height: 800,
-    fullscreen: false,
+    fullscreen: true,
     frame: false,
     webPreferences: {
       nodeIntegration: true,
@@ -36,7 +36,7 @@ const createWindow = () => {
   });
 
   // Open the DevTools.
-  // appWindow.webContents.openDevTools();
+  appWindow.webContents.openDevTools();
 
   appWindow.loadFile('index.html');
   

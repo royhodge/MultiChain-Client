@@ -4,10 +4,26 @@
 const replace = require('replace-in-file');
 const shell = require('electron').shell;
 const remote = require('electron').remote;
-const sn = require('./sideNav');
 const ci = require('./chainInit'); 
 const exec = require('child_process').execFile; 
 
+let chainUL = document.querySelector('#chainUL');
+
+const chainBtns = () => {
+    chainUL.innerHTML = '';
+    fs.readdir(chains, (err, stat) => {
+        if (err) {
+            console.log(err);
+        } else {
+            stat.forEach((val) => {
+                if (!(val.includes("."))) {
+                    newChain(val);
+                    getCreds(val);
+                }
+            });
+        }
+    });
+};
 
 const start = (chainName) => exec(paths.multichainPath + '/multichaind.exe', [chainName, '-daemon']);
 const createChain = (chainName) => exec(paths.multichainPath + '/multichain-util.exe', ['create', chainName]);
@@ -17,8 +33,7 @@ const newChain = () => {
     createChain(chainName);
     setTimeout(() => {
         let chainPath = path.join(paths.chains, chainName);
-        showParams(chainPath);
-        sn();
+        showParams(chainPath);              
     }, 3000);
 
 }
@@ -38,7 +53,6 @@ const changeParams = () => {
         x.textContent = txt;
     }
 };
-
 const showParams = () => {
     chainTitle.textContent = '';
     displayParams.innerHTML = '';
@@ -84,13 +98,12 @@ const applyParams = () => {
         if (error) {
             return console.error('Error occurred:', error);
         } else {
-            shell.openExternal(paramsFile);            
-            start(name);
+            // show params file in text editor for developers
+            // shell.openExternal(paramsFile);                        
             remote.app.relaunch();
             remote.app.quit();
         }
     });
-
 };
 
 

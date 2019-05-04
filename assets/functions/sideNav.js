@@ -3,13 +3,13 @@ const st = require('./streams');
 const nc = require('./newChain');
 const remote = require('electron').remote;
 
-let sideNav = document.querySelector('#sideNav');
-let closeSideNav = sideNav.querySelector('#closeSideNav');
-let chainUL = sideNav.querySelector('#chainUL');
-let connectBtn = sideNav.querySelector('#connectBtn');
+let sideMenu = document.querySelector('#sideNav');
+let closesideMenu = sideMenu.querySelector('#closeSideNav');
+let chainUL = sideMenu.querySelector('#chainUL');
+let connectBtn = sideMenu.querySelector('#connectBtn');
 
-closeSideNav.addEventListener('click', () => {
-    sideNav.style.width = '0px';
+closesideMenu.addEventListener('click', () => {
+    sideMenu.style.width = '0px';
 });
 connectBtn.addEventListener('click', () => {
     let add = document.querySelector('#newConnection').value;
@@ -27,7 +27,7 @@ let connectionList = []
 const newChain = (name) => {
     let el = dom.newEl(chainUL, 'div', `${name}Row`, 'w3-white');
     dom.newEl(el, 'div', `${name}Chain`, 'chain w3-button w3-rest', name);
-    dom.newEl(el, 'div', `${name}Del`, 'tabNavs w3-button fas fa-times w3-red w3-right');
+    dom.newEl(el, 'div', `${name}Del`, 'w3-button fas fa-times w3-red w3-right');
 };
 
 const chainBtns = () => {
@@ -77,7 +77,7 @@ const getCreds = (chain) => {
 chainBtns();
 
 setTimeout(() => {
-    let list = sideNav.querySelectorAll('.chain');
+    let list = sideMenu.querySelectorAll('.chain');
     list.forEach((val, i) => {
         getCreds(val.textContent);
         val.addEventListener('click', () => {
@@ -85,10 +85,11 @@ setTimeout(() => {
             setTimeout(() => {
                 gi.displayInfo();
                 gi.displayBlockchainParams();               
+                st[0]();
+                st[1]();
             }, 150);
         });
     });
-
 }, 100);
 
 // let watchChains = setInterval(() => {
@@ -97,6 +98,7 @@ setTimeout(() => {
 //         clearInterval(watchChains);
 //     }
 // }, 10);
+
 
 module.exports = chainBtns;
 

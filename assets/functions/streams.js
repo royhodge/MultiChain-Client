@@ -1,11 +1,6 @@
 // 
 // 
 // 
-const streamQueries = {
-    Publishers: [],
-    StreamKeys: [],
-    ItemCount: [],
-};
 
 const itemQueries = {
     Publishers: [],
@@ -31,10 +26,13 @@ const listStreams = () => {
     });
 };
 const countStreamsItems = () => {
-    var stream = streamSelect.value;
+    var stream = returnStream();
+    console.log(stream);
     multichain.listStreamItems({
-        stream: stream
+        stream: stream,
+        count: 100,
     }, (err, res) => {
+        console.log(res.length);
     });
 };
 const listStreamItems = () => {
@@ -42,10 +40,11 @@ const listStreamItems = () => {
     let publishers = [];
     let keys = [];
 
-    var stream = returnStr();
+    var stream = returnStream();
 
     multichain.listStreamItems({
-        stream: stream
+        stream: stream,
+        count: 100,
     }, (err, res) => {
         if (err) {
             console.log(err.message)
@@ -53,7 +52,6 @@ const listStreamItems = () => {
             dom.appendTop(el, 'h3', ``, '', err.message);
             return;
         } else {
-            console.log(res)
             countStreamsItems();
             res.forEach((val, i) => {
                 let el1 = dom.appendTop(itemsDisplay, 'div', `card${i}`, 'w3-panel w3-margin w3-card-4');
@@ -75,17 +73,19 @@ const listStreamItems = () => {
     });
 };
 const subscribe = () => {
-    var stream = returnStr();
+    var stream = returnStream();
     multichain.subscribe({
         stream: stream
     });
+    listStreams();
     listStreamItems();
 };
 const unsubscribe = () => {
-    var stream = returnStr();
+    var stream = returnStream();
     multichain.unsubscribe({
         stream: stream
     });
+    listStreams();
     listStreamItems();
 };
 const createStream = () => {
@@ -97,13 +97,22 @@ const createStream = () => {
     } else {
         create(x);
         setTimeout(() => {
+            console.log('subscribe')
+            subscribe(x);
+        }, 50);
+        setTimeout(() => {
             listStreams();
-        }, 20);
+        }, 60);
     }
 };
 const postChat = () => {
-    var stream = returnStr();
+    var stream = returnStream();
     let tx = document.querySelector('#postInput').value;
+    if (tx === '') {
+        postInput.placeholder = 'No input!';
+        postInput.classList.add('w3-red');
+        return;
+    }
     multichain.publish({
         stream: stream,
         key: '',
@@ -117,24 +126,20 @@ const postChat = () => {
         listStreamItems();
     });
 };
-
-let returnStr = () => {
+let returnStream = () => {
     var x = streamSelect.value;
     var sl = x.indexOf('---') - 1;
     var stream = x.slice(0, sl);
     return stream;
 };
 
-
-
-
 Streamsbtn.addEventListener('click', () => {
     setTimeout(() => {
         listStreams();
-    }, 200);
+    }, 100);
     setTimeout(() => {
         listStreamItems();
-    }, 250);
+    }, 150);
 });
 
 streamSelect.addEventListener('change', listStreamItems);
