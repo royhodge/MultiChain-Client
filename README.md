@@ -1,6 +1,8 @@
    <h1>Electron Multichain Explorer</h1>
 A general management tools for Multichain blockchains
-Currently it's just a basic template that others can build on. 
+Currently it's just a basic template that others can build on.
+The paths are setup for windows users. I'm working on the scipts for 
+Linux and Mac
 
 <h3>Notice</h3>
 
