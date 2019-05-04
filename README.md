@@ -1,5 +1,6 @@
 # Electron Multichain Explorer
 A general management tools for Multichain blockchains
+Currently it's just a basic template that others can build on. 
 
 Requierments: 
 
