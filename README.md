@@ -25,6 +25,7 @@ a login script that will simulate login of production release.
 
 <a href="https://nodejs.org/en/" target="blank">Node V12</a>. Though you could delete node modules and install earlier versions.
 
+On Linux, you will need to install multichain manually. The steps are very easy to follow. Future updates will automate this process.
 
 <h4>Install: </h4>
 
