@@ -49,7 +49,7 @@ switch (process.platform) {
 }
 
 const firstInit = () => {
-  create('home'); 
+  create('home');
   app.relaunch();
   setTimeout(() => app.quit(), 3000);
 };
@@ -57,7 +57,7 @@ const firstInit = () => {
 // Is installed? init : start all chains
 fs.readdir(chainsPath, (err, stat) => {
   if (err) {
-    firstInit();    
+    firstInit();
   } else {
     // Start all chains
     stat.forEach((val) => {

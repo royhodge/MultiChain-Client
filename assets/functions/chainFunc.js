@@ -151,18 +151,6 @@ const listStreams = () => {
     });
 };
 
-
-// let getChainInfo = setInterval(() => {
-//     console.log('Waiting to for multichain....');    
-//     if (home.port !== '') {
-//         clearInterval(getChainInfo);
-//         chainInfo.getChainInfo()
-//     }
-// }, 10);
-
-
-
-
 // Actions
 // Permissions
 const grant = (a, p) => {
