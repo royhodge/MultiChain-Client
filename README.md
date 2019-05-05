@@ -4,6 +4,9 @@ Currently it's just a basic template that others can build on.
 
 Currently supports Windows10 and Linux ( tested on Lubuntu 18 ). MacOS coming soon....
 
+This is not a secure app yet. Real encryption and login needs to be finalized. There is 
+a login script that will simulate login of production release.
+
 <h3>Notice</h3>
 
 <p>
@@ -31,23 +34,3 @@ npm install
 
 npm start
 
-
-
-<h4>Todo: </h4>
-
-Add encryption 
-
-Delete chain
-
-Stream Publisher items search
-
-Stream Key items search
-
-Add sections:
-
-  Peers
-  
-  Addresses
-  
-  Wallet
-  
