@@ -13,8 +13,12 @@ a login script that will simulate login of production release.
         **The Multichain executable files included in the project were not created by me.
         The files are from the <a href="https://www.multichain.com/download-install/" target="blank">Multichain website</a>.
         If you don't trust this, you can delete all the files in the "multichain" folder and manually download
-        Multichain.
-        The project was started from <a href="https://github.com/electron/electron-quick-start" target="blank">Electron Quickstart
+        Multichain.        
+        
+</p>
+   
+ <p>
+   This project was started from <a href="https://github.com/electron/electron-quick-start" target="blank">Electron Quickstart
 </p>
 
 <h4>
