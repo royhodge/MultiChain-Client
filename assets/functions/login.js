@@ -1,13 +1,15 @@
 
 const loginModal = document.querySelector("#login");
 
-if (localStorage.length > 0) {
+if (localStorage.length === 0) {
     loginModal.style.display = 'none';
 }
+
 
 const loginFunc = {
 
     signIn: () => {
+      console.log("signIn hello!");
         let modal = document.querySelector('#login');
         var username = loginUsernameInput.value;
         var password = loginPasswordInput.value;
@@ -91,7 +93,7 @@ const loginFunc = {
         publish('root', xusername, xpassword);
         alert(`Your input has been registered successfully!\n Welcome ${username}`);
         // console.log(users);
-        // console.log(passwords);        
+        // console.log(passwords);
         location.reload();
     },
 };
@@ -111,7 +113,7 @@ registerTab.addEventListener("click", () => {
 });
 
 const loginForm = document.querySelector("#loginForm");
-loginForm.addEventListener("keydown", (e) => {
+loginForm.addEventListener("keydown", (e) => {  
     if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
         loginFunc.signIn();
     }
@@ -128,4 +130,3 @@ const loginSubmit = document.querySelector("#loginSubmit");
 loginSubmit.addEventListener("click", loginFunc.signIn);
 const registerSubmit = document.querySelector("#registerSubmit");
 registerSubmit.addEventListener("click", loginFunc.register);
-

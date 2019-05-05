@@ -1,21 +1,48 @@
-// 
+//
 const fs = require('fs');
 const path = require('path');
+const {
+  exec,
+  execFile
+} = require('child_process');
 
-let chains = path.join(process.env.APPDATA, 'Multichain');
+let multichain, multichainexe, chainsPath, startChain, createChain;
+
 let approotPath = path.resolve();
-let assetsPath = path.join(approotPath, 'app/assets/');
-let multichain;
 
-const paths = {
-    chains: chains,
-    functionsPath: path.join(assetsPath, 'functions'),
-    componentsPath: path.join(assetsPath, 'components'),
-    multichainPath: path.join(approotPath, 'multichain')
-};
-// 
+switch (process.platform) {
+  case 'win32':
+    multichainexe = path.join(approotPath, 'multichain', '/')
+    chainsPath = path.join(process.env.APPDATA, 'Multichain', '/');
+    startChain = (chainName) => execFile(multichainexe + 'multichaind.exe', [chainName, '-daemon'], (err, res) => {
+      if (err) throw err
+      console.log(res)
+    });
+    createChain = (chainName) => execFile(multichainexe + 'multichain-util', ['create', chainName], (err, res) => {
+      if (err) throw err
+      console.log(res)
+    });
+    break;
+  case 'linux':
+    multichainexe = process.env.NODE.replace('/bin/node', '/local/bin/')
+    chainsPath = path.join(process.env.HOME, '.multichain', '/');
+    startChain = (chainName) => execFile(multichainexe + 'multichaind', [chainName, '-daemon'], (err, res) => {
+      if (err) throw err
+      console.log(res)
+    });
+    createChain = (chainName) => execFile(multichainexe + 'multichain-util', ['create', chainName], (err, res) => {
+      if (err) throw err
+      console.log(res)
+    });
+    break;
+  default:
+    // add paths for darwin. need help
+    break;
+}
+
+//
 // Create a secure root chain for login credentials
-// 
+//
 let home = {
     port: '',
     host: '127.0.0.1',
@@ -24,7 +51,7 @@ let home = {
 };
 
 const readConfig = (chain) => {
-    var configFile = path.join(paths.chains, chain, 'multichain.conf');
+    var configFile = path.join(chainsPath, chain, 'multichain.conf');
     fs.readFile(configFile, 'utf-8', (err, data) => {
         if (err) throw err;
         let x = data.indexOf('rpcpassword=');
@@ -36,7 +63,7 @@ const readConfig = (chain) => {
 
 const readParams = (chain) => {
     // read params file to get rpc port
-    var paramsFile = path.join(paths.chains, chain, 'params.dat');
+    var paramsFile = path.join(chainsPath, chain, 'params.dat');
     fs.readFile(paramsFile, 'utf-8', (err, data) => {
         if (err) throw err;
         let x = data.indexOf('default-rpc-port = ');
@@ -55,28 +82,11 @@ const getCreds = (chain) => {
 getCreds('home');
 
 let connect = setInterval(() => {
-    // console.log('empty');
-    if (home.port !== '') {        
+    console.log('Waiting to connect....');
+    loadingModal.style.display = 'flex'
+    if (home.port !== '') {
         clearInterval(connect);
-        multichain = require('multichain-node')(home);            
-        chainInfo.getChainInfo();  
+        loadingModal.style.display = 'none'
+        multichain = require('multichain-node')(home);
     }
 }, 10);
-
-
-let checkStatus = setInterval(() => {
-    // console.log('offline');
-    if (multichain !== undefined) {
-        // console.log('multichain is online');
-        clearInterval(checkStatus);
-        multichain.getInfo((err, info) => {
-            // console.log(info);             
-            // console.log(chainInfo);             
-        });        
-    }
-}, 10);
-
-
-
-
-

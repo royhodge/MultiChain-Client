@@ -1,3 +1,6 @@
+// 
+// 
+// 
 let chainInfo = {
     nodeAddress: '',
     name: '',
@@ -38,7 +41,6 @@ let chainPermissions = {
     mine: [],
 };
 
-
 const notIncluded = (arr, str) => {
     if (!(arr.includes(str))) {
         arr.push(str);
@@ -49,17 +51,18 @@ const notIncluded = (arr, str) => {
 // General
 const getInfo = () => {
     multichain.getInfo((err, info) => {
-        if (err) {
-            console.log('not ready yet...keep trying');
-            loadingModal.style.display = 'flex';
-            getInfo();
-        } else {
-            // Resolves an object  
-            console.log('Finally!!!')
-            loadingModal.style.display = 'none';
-            chainInfo.nodeAddress = info.nodeaddress;
-            chainInfo.version = info.version;
-        }
+        console.log(info)
+        // if (err) {
+        //     console.log('not ready yet...keep trying');
+        //     loadingModal.style.display = 'flex';
+        //     getInfo();
+        // } else {
+        //     // Resolves an object  
+        //     console.log('Finally!!!')
+        //     loadingModal.style.display = 'none';
+        //     chainInfo.nodeAddress = info.nodeaddress;
+        //     chainInfo.version = info.version;
+        // }
 
     });
 };
@@ -149,6 +152,15 @@ const listStreams = () => {
 };
 
 
+// let getChainInfo = setInterval(() => {
+//     console.log('Waiting to for multichain....');    
+//     if (home.port !== '') {
+//         clearInterval(getChainInfo);
+//         chainInfo.getChainInfo()
+//     }
+// }, 10);
+
+
 
 
 // Actions
@@ -234,8 +246,6 @@ const unsubscribe = (s) => {
         console.log(info);
     });
 };
-
-
 
 
 module.exports = chainInfo;

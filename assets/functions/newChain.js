@@ -1,39 +1,21 @@
-// 
-// 
-// 
+//
+//
+//
 const replace = require('replace-in-file');
 const shell = require('electron').shell;
 const remote = require('electron').remote;
-const ci = require('./chainInit'); 
-const exec = require('child_process').execFile; 
+const ci = require('./chainInit');
+
 
 let chainUL = document.querySelector('#chainUL');
 
-const chainBtns = () => {
-    chainUL.innerHTML = '';
-    fs.readdir(chains, (err, stat) => {
-        if (err) {
-            console.log(err);
-        } else {
-            stat.forEach((val) => {
-                if (!(val.includes("."))) {
-                    newChain(val);
-                    getCreds(val);
-                }
-            });
-        }
-    });
-};
-
-const start = (chainName) => exec(paths.multichainPath + '/multichaind.exe', [chainName, '-daemon']);
-const createChain = (chainName) => exec(paths.multichainPath + '/multichain-util.exe', ['create', chainName]);
 
 const newChain = () => {
     let chainName = chainNameInput.value;
     createChain(chainName);
     setTimeout(() => {
-        let chainPath = path.join(paths.chains, chainName);
-        showParams(chainPath);              
+        let chainPath = path.join(chainsPath, chainName);
+        showParams(chainPath);
     }, 3000);
 
 }
@@ -75,9 +57,9 @@ const applyParams = () => {
     }));
     // Path to params file
     var name = chainTitle.textContent;
-    var paramsFile = path.join(paths.chains, name, 'params.dat');
+    var paramsFile = path.join(chainsPath, name, 'params.dat');
 
-    // find/replace text in document 
+    // find/replace text in document
     const options = {
         files: paramsFile,
         from: ci.chainPresets.replace,
@@ -99,7 +81,7 @@ const applyParams = () => {
             return console.error('Error occurred:', error);
         } else {
             // show params file in text editor for developers
-            // shell.openExternal(paramsFile);                        
+            // shell.openExternal(paramsFile);
             remote.app.relaunch();
             remote.app.quit();
         }
@@ -109,5 +91,3 @@ const applyParams = () => {
 
 createChainBtn.addEventListener('click', newChain);
 applySettingsBtn.addEventListener('click', applyParams);
-
-module.exports = start;

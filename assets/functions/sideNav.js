@@ -32,7 +32,7 @@ const newChain = (name) => {
 
 const chainBtns = () => {
     chainUL.innerHTML = '';
-    fs.readdir(chains, (err, stat) => {
+    fs.readdir(chainsPath, (err, stat) => {
         if (err) {
             console.log(err);
         } else {
@@ -53,7 +53,7 @@ const getCreds = (chain) => {
         user: 'multichainrpc',
         pass: '',
     };
-    var configFile = path.join(paths.chains, chain, 'multichain.conf');
+    var configFile = path.join(chainsPath, chain, 'multichain.conf');
     fs.readFile(configFile, 'utf-8', (err, data) => {
         if (err) throw err;
         let x = data.indexOf('rpcpassword=');
@@ -63,7 +63,7 @@ const getCreds = (chain) => {
     });
 
     // read params file to get rpc port
-    var paramsFile = path.join(paths.chains, chain, 'params.dat');
+    var paramsFile = path.join(chainsPath, chain, 'params.dat');
     fs.readFile(paramsFile, 'utf-8', (err, data) => {
         if (err) throw err;
         let x = data.indexOf('default-rpc-port = ');
@@ -84,7 +84,7 @@ setTimeout(() => {
             multichain = require("multichain-node")(connectionList[i]);
             setTimeout(() => {
                 gi.displayInfo();
-                gi.displayBlockchainParams();               
+                gi.displayBlockchainParams();
                 st[0]();
                 st[1]();
             }, 150);
@@ -101,8 +101,3 @@ setTimeout(() => {
 
 
 module.exports = chainBtns;
-
-
-
-
-

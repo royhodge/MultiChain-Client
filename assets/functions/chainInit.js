@@ -1,19 +1,7 @@
 // 
 //
-const exec = require('child_process').execFile;
 
-let approotPath = path.resolve();
-let multichainPath = path.join(approotPath, 'multichain', '/');
-let chainsPath = path.join(process.env.APPDATA, 'Multichain', '/');
-let homePath = path.join(process.env.APPDATA, 'Multichain', 'home');
-
-module.exports = {
-    rootFunc: {
-        start: (chain => exec(multichainPath + 'multichaind.exe', [chain, '-daemon'])),
-        stop: (chain => exec(multichainPath + 'multichain-cli.exe', [chain, 'stop'])),
-        create: (chain => exec(multichainPath + 'multichain-util.exe', ['create', chain])),
-        // delete: fs.unlink(clinetVars.chains+(chain)//
-    },
+module.exports = {   
     chainPresets: {
         //  Secure Local Chain ( SLC )
         SLC: [

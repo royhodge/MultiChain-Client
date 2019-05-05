@@ -1,28 +1,76 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require('electron');
+const {
+  app,
+  BrowserWindow,
+  shell
+} = require('electron');
 const path = require('path');
 const fs = require('fs');
-const exec = require('child_process').execFile;
+const {
+  exec,
+  execFile
+} = require('child_process');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let appWindow;
+let appWindow, multichainexe, chainsPath, start, create;
 
-// Paths 
+// Root of Electron App
 let approotPath = path.resolve();
-let multichainPath = path.join(approotPath, 'multichain', '/');
-let chainsPath = path.join(process.env.APPDATA, 'Multichain', '/');
 
-// functions
-const start = (chainName) => exec(multichainPath + 'multichaind.exe', [chainName, '-daemon']);
-const create = (chainName) => exec(multichainPath + 'multichain-util.exe', ['create', chainName]);
-const stop = (chainName) => exec(multichainPath + 'multichain-cli.exe', [chainName, 'stop']);
+switch (process.platform) {
+  case 'win32':
+    multichainexe = path.join(approotPath, 'multichain', '/');
+    chainsPath = path.join(process.env.APPDATA, 'Multichain', '/');
+    start = (chainName) => execFile(multichainexe + 'multichaind.exe', [chainName, '-daemon'], (err, res) => {
+      if (err) throw err;
+      console.log(res);
+    });
+    create = (chainName) => execFile(multichainexe + 'multichain-util.exe', ['create', chainName], (err, res) => {
+      if (err) throw err;
+      console.log(res);
+    });
+    break;
+  case 'linux':
+    multichainexe = process.env.NODE.replace('/bin/node', '/local/bin/')
+    chainsPath = path.join(process.env.HOME, '.multichain', '/');
+    start = (chainName) => execFile(multichainexe + 'multichaind', [chainName, '-daemon'], (err, res) => {
+      if (err) throw err;
+      console.log(res);
+    });
+    create = (chainName) => execFile(multichainexe + 'multichain-util', ['create', chainName], (err, res) => {
+      if (err) throw err;
+      console.log(res);
+    });
+    break;
+  default:
+    // add paths for darwin. need help
+    break;
+}
 
-const firstInit = () => { 
-  create('home');
+const firstInit = () => {
+  create('home'); 
   app.relaunch();
   setTimeout(() => app.quit(), 3000);
 };
+
+// Is installed? init : start all chains
+fs.readdir(chainsPath, (err, stat) => {
+  if (err) {
+    firstInit();    
+  } else {
+    // Start all chains
+    stat.forEach((val) => {
+      if (!(val.includes("."))) {
+        start(val);
+      }
+    });
+    setTimeout(() => {
+      createWindow();
+    }, 500);
+  }
+});
+
 const createWindow = () => {
   // Create the browser window.
   appWindow = new BrowserWindow({
@@ -39,7 +87,7 @@ const createWindow = () => {
   appWindow.webContents.openDevTools();
 
   appWindow.loadFile('index.html');
-  
+
   appWindow.once('ready-to-show', () => {
     appWindow.show();
   });
@@ -53,25 +101,6 @@ const createWindow = () => {
   });
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-
-// Is installed? init : start all chains
-fs.readdir(chainsPath, (err, stat) => {
-  if (err) {
-    firstInit();
-  } else {
-    // Start all chains
-    stat.forEach((val) => {
-      if (!(val.includes("."))) {
-        start(val);
-      }     
-    });
-    setTimeout(() => {
-      createWindow();
-    }, 500);
-  }
-});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
