@@ -18,6 +18,8 @@ let appWindow, multichainexe, chainsPath, start, create;
 // Root of Electron App
 let approotPath = path.resolve();
 
+// This switch function should be imporved. Not D.R.Y.
+// On the todo list
 switch (process.platform) {
   case 'win32':
     multichainexe = path.join(approotPath, 'multichain', '/');
@@ -49,14 +51,14 @@ switch (process.platform) {
 }
 
 const firstInit = () => {
-  create('home');
+  create('login');
   app.relaunch();
   setTimeout(() => app.quit(), 3000);
 };
 
 // Is installed? init : start all chains
 fs.readdir(chainsPath, (err, stat) => {
-  if (err) {
+  if (err || !(stat.includes('login'))) {
     firstInit();
   } else {
     // Start all chains
