@@ -23,32 +23,25 @@ let approotPath = path.resolve();
 switch (process.platform) {
   case 'win32':
     multichainexe = path.join(approotPath, 'multichain', '/');
-    chainsPath = path.join(process.env.APPDATA, 'Multichain', '/');
-    start = (chainName) => execFile(multichainexe + 'multichaind.exe', [chainName, '-daemon'], (err, res) => {
-      if (err) throw err;
-      console.log(res);
-    });
-    create = (chainName) => execFile(multichainexe + 'multichain-util.exe', ['create', chainName], (err, res) => {
-      if (err) throw err;
-      console.log(res);
-    });
+    chainsPath = path.join(process.env.APPDATA, 'Multichain', '/');    
     break;
   case 'linux':
-    multichainexe = process.env.NODE.replace('/bin/node', '/local/bin/')
-    chainsPath = path.join(process.env.HOME, '.multichain', '/');
-    start = (chainName) => execFile(multichainexe + 'multichaind', [chainName, '-daemon'], (err, res) => {
-      if (err) throw err;
-      console.log(res);
-    });
-    create = (chainName) => execFile(multichainexe + 'multichain-util', ['create', chainName], (err, res) => {
-      if (err) throw err;
-      console.log(res);
-    });
+    multichainexe = process.env.NODE.replace('/bin/node', '/local/bin/');
+    chainsPath = path.join(process.env.HOME, '.multichain', '/');   
     break;
   default:
     // add paths for darwin. need help
     break;
 }
+
+start = (chainName) => execFile(multichainexe + 'multichaind', [chainName, '-daemon'], (err, res) => {
+  if (err) throw err;
+  console.log(res);
+});
+create = (chainName) => execFile(multichainexe + 'multichain-util', ['create', chainName], (err, res) => {
+  if (err) throw err;
+  console.log(res);
+});
 
 const firstInit = () => {
   create('login');

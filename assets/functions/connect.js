@@ -12,34 +12,27 @@ let approotPath = path.resolve();
 
 switch (process.platform) {
   case 'win32':
-    multichainexe = path.join(approotPath, 'multichain', '/')
+    multichainexe = path.join(approotPath, 'multichain', '/');
     chainsPath = path.join(process.env.APPDATA, 'Multichain', '/');
-    startChain = (chainName) => execFile(multichainexe + 'multichaind.exe', [chainName, '-daemon'], (err, res) => {
-      if (err) throw err
-      console.log(res)
-    });
-    createChain = (chainName) => execFile(multichainexe + 'multichain-util', ['create', chainName], (err, res) => {
-      if (err) throw err
-      console.log(res)
-    });
     break;
   case 'linux':
-    multichainexe = process.env.NODE.replace('/bin/node', '/local/bin/')
+    multichainexe = process.env.NODE.replace('/bin/node', '/local/bin/');
     chainsPath = path.join(process.env.HOME, '.multichain');
-    startChain = (chainName) => execFile(multichainexe + 'multichaind', [chainName, '-daemon'], (err, res) => {
-      if (err) throw err
-      console.log(res)
-    });
-    createChain = (chainName) => execFile(multichainexe + 'multichain-util', ['create', chainName], (err, res) => {
-      if (err) throw err
-      console.log(res)
-    });
     break;
   default:
     // add paths for darwin. need help
     break;
 }
 
+
+start = (chainName) => execFile(multichainexe + 'multichaind', [chainName, '-daemon'], (err, res) => {
+  if (err) throw err;
+  console.log(res);
+});
+create = (chainName) => execFile(multichainexe + 'multichain-util', ['create', chainName], (err, res) => {
+  if (err) throw err;
+  console.log(res);
+});
 //
 // Create a secure root chain for login credentials
 //
@@ -50,7 +43,9 @@ let home = {
   pass: '',
 };
 
-const readConfig = (chain) => {
+// read config file to get rpcpassword
+const getCreds = (chain) => {
+
   var configFile = path.join(chainsPath, chain, 'multichain.conf');
   fs.readFile(configFile, 'utf-8', (err, data) => {
     if (err) throw err;
@@ -59,9 +54,7 @@ const readConfig = (chain) => {
     let stop = start + 44;
     home.pass = data.slice(start, stop);
   });
-}
 
-const readParams = (chain) => {
   // read params file to get rpc port
   var paramsFile = path.join(chainsPath, chain, 'params.dat');
   fs.readFile(paramsFile, 'utf-8', (err, data) => {
@@ -73,14 +66,9 @@ const readParams = (chain) => {
   });
 };
 
-// read config file to get rpcpassword
-const getCreds = (chain) => {
-  readConfig(chain);
-  readParams(chain);
-};
 
 fs.readdir(chainsPath, (err, stat) => {
-  let chains = [];  
+  let chains = [];
   stat.forEach((val) => {
     if (!(val.includes("."))) {
       chains.push(val)
