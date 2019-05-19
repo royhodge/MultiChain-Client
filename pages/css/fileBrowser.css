@@ -1,0 +1,14 @@
+#FileBrowser {}
+
+#filesList {
+    background-color: wheat
+}
+
+.listItem {
+    cursor: pointer;
+}
+
+#FileBrowserTitle {
+    background-color: indianred;
+    padding-left: 1em;
+}

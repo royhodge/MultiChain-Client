@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+  <script src="../assets/DOM.js"></script>
+  <link rel="stylesheet" href="css/addFiles.css">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" media="screen"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css">
+</head>
+
+<body>
+  <div id="topNav" class="w3-bar">
+    <button id="move" class="w3-bar-item fas fa-arrows-alt w3-button w3-round"></button>
+    <button id="ipfs" class="animated w3-bar-item w3-center w3-button w3-hover-green w3-round">IPFS</button>
+    <button id="mcPublish" class="animated w3-bar-item w3-center w3-button w3-hover-green w3-round">Multichain</button>
+    <button id="reload" class="animated w3-bar-item fas fa-sync w3-button w3-hover-yellow w3-round"></button>
+    <button id="closeWindow" class="w3-bar-item fas fa-times w3-button w3-hover-red w3-round"></button>
+  </div>
+
+  <div id="dropBar" class="w3-bar">
+    <div id="dropFiles" class="drop_zone w3-block">
+      <p id="fileBox">Drop files and folders here ...</p>
+    </div>
+  </div>
+
+  <ul id="listDisplay"></ul>
+
+  <script src="../assets/Connect.js"></script>
+  <script src="../assets/addFiles/addFiles.js"></script>
+</body>
+
+</html>

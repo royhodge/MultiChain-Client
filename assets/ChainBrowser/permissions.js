@@ -1,93 +1,6 @@
 // 
 // 
 // 
-let chainInfo = {
-    nodeAddress: '',
-    name: '',
-    version: '',
-    params: {
-        connect: '',
-        admin: '',
-        create: '',
-        issue: '',
-        send: '',
-        receive: '',
-        receiveEmpty: '',
-        activate: '',
-        mine: '',
-    },
-    peers: {},
-    addresses: [],
-    streams: [],
-    getChainInfo: () => {
-        getInfo();
-        getBlockchainParams();
-        listPermissions();
-        getAddresses();
-        listStreams();
-    }
-
-};
-
-let chainPermissions = {
-    admin: [],
-    activate: [],
-    connect: [],
-    create: [],
-    issue: [],
-    send: [],
-    receive: [],
-    receiveEmpty: [],
-    mine: [],
-};
-
-const notIncluded = (arr, str) => {
-    if (!(arr.includes(str))) {
-        arr.push(str);
-    }
-};
-
-// display functions
-// General
-const getInfo = () => {
-    multichain.getInfo((err, info) => {
-        console.log(info)
-        // if (err) {
-        //     console.log('not ready yet...keep trying');
-        //     loadingModal.style.display = 'flex';
-        //     getInfo();
-        // } else {
-        //     // Resolves an object  
-        //     console.log('Finally!!!')
-        //     loadingModal.style.display = 'none';
-        //     chainInfo.nodeAddress = info.nodeaddress;
-        //     chainInfo.version = info.version;
-        // }
-
-    });
-};
-const getBlockchainParams = () => {
-    multichain.getBlockchainParams((err, info) => {
-        let str = 'anyone-can-';
-        if (err) {
-            getBlockchainParams();
-        } else {
-            // Resolves an object        
-            chainInfo.name = info['chain-name'];
-            chainInfo.params.activate = info[`${str}activate`];
-            chainInfo.params.admin = info[`${str}admin`];
-            chainInfo.params.connect = info[`${str}connect`];
-            chainInfo.params.create = info[`${str}create`];
-            chainInfo.params.send = info[`${str}send`];
-            chainInfo.params.issue = info[`${str}issue`];
-            chainInfo.params.receive = info[`${str}receive`];
-            chainInfo.params.receiveEmpty = info[`${str}receive-empty`];
-            chainInfo.params.mine = info[`${str}mine`];
-        };
-
-    });
-};
-
 const listPermissions = (a, p) => {
     multichain.listPermissions({
         addresses: a,
@@ -126,28 +39,6 @@ const listPermissions = (a, p) => {
                 }
             });
         }
-    });
-};
-// Addresses
-const getAddresses = () => {
-    multichain.getAddresses((err, info) => {
-        if (err) throw err;
-        // Resolves an array
-        info.forEach((val) => {
-            if (!(chainInfo.addresses.includes(val))) {
-                chainInfo.addresses.push(val);
-            }
-        });
-    });
-};
-const listStreams = () => {
-    multichain.listStreams((err, info) => {
-        if (err) throw err;
-        info.forEach((val) => {
-            if (!(chainInfo.streams.includes(val.name))) {
-                chainInfo.streams.push(val.name);
-            }
-        });
     });
 };
 
@@ -234,6 +125,3 @@ const unsubscribe = (s) => {
         console.log(info);
     });
 };
-
-
-module.exports = chainInfo;

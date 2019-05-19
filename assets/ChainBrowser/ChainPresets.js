@@ -1,6 +1,5 @@
 // 
 //
-
 module.exports = {   
     chainPresets: {
         //  Secure Local Chain ( SLC )

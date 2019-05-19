@@ -1,8 +1,7 @@
-// Client global variables
-// Funcitons to create DOM elements
-let mount = document.querySelector('#mount');
 
-let el,el2;
+// Funcitons to create DOM elements
+
+let el, el1, el2;
 
 let dom = {
     el: (tag, id = '', cl = '', tx = '') => {
@@ -42,7 +41,7 @@ let dom = {
     },
     createTag: (arr, par) => {
         arr.forEach((val) => {
-            el = dom.newEl(par,'button', '', 'w3-margin-top w3-margin-left w3-border w3-tag w3-round');
+            el = dom.newEl(par, 'button', '', 'w3-margin-top w3-margin-left w3-border w3-tag w3-round');
             el.innerText = val;
             return el;
         });
@@ -58,15 +57,14 @@ let dom = {
 
     newLI: (arr, par) => {
         arr.forEach((val) => {
-            el = dom.newEl(par,'li');
+            el = dom.newEl(par, 'li');
             el.textContent = val;
             return el;
         });
-    },
-    showModal: () => {
-        start.style.display = 'none';
-        login.style.display = 'flex';
     },    
+    notIncluded: (arr, str) => {
+        if (!(arr.includes(str))) {
+            arr.push(str);
+        }
+    },
 };
-
-module.exports = dom;

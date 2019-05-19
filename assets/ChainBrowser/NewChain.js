@@ -2,21 +2,17 @@
 //
 //
 const replace = require('replace-in-file');
-const shell = require('electron').shell;
 const remote = require('electron').remote;
-const ci = require('./chainInit');
+const Preset = require('./ChainPresets');
+const Daemon = require('../Daemons');
 
-
-let chainUL = document.querySelector('#chainUL');
-
-
-const newChain = () => {
+const newChain = () => {   
     let chainName = chainNameInput.value;
-    createChain(chainName);
+    Daemon.createChain(chainName);
     setTimeout(() => {
         let chainPath = path.join(chainsPath, chainName);
         showParams(chainPath);
-    }, 3000);
+    }, 2000);
 
 }
 const changeParams = () => {
@@ -42,12 +38,11 @@ const showParams = () => {
     let chainName = chainNameInput.value;
     chainTitle.textContent = chainName;
 
-    ci.chainPresets.SLC.forEach((val) => {
+    Preset.chainPresets.SLC.forEach((val) => {
         el = dom.newEl(displayParams, 'li', '', '', val);
         el.addEventListener('click', changeParams);
     });
 };
-
 const applyParams = () => {
     // Array of new settings
     var newParams = [];
@@ -62,7 +57,7 @@ const applyParams = () => {
     // find/replace text in document
     const options = {
         files: paramsFile,
-        from: ci.chainPresets.replace,
+        from: Preset.chainPresets.replace,
         to: [
             newParams[0],
             newParams[1],
@@ -82,12 +77,12 @@ const applyParams = () => {
         } else {
             // show params file in text editor for developers
             // shell.openExternal(paramsFile);
+            alert('App will now restart');
             remote.app.relaunch();
-            remote.app.quit();
+            remote.app.quit();            
         }
     });
 };
-
 
 createChainBtn.addEventListener('click', newChain);
 applySettingsBtn.addEventListener('click', applyParams);

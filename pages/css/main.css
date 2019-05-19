@@ -1,0 +1,31 @@
+/* 
+
+
+*/
+body {
+  background-color: #433f5a;
+  margin-top: 4em;
+}
+
+#tabNav {
+  -webkit-app-region: drag;
+  background-image: -webkit-linear-gradient(#0F2027, #203A43, #2C5364);
+  color: azure;
+  height: 3em;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.tabNavs {
+  height: -webkit-fill-available;
+  padding-top: 13px;
+}
+
+button,
+a,
+select,
+input {
+  -webkit-app-region: no-drag;
+}
