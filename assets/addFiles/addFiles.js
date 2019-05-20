@@ -60,7 +60,8 @@ const pinHash = (hash) => {
         if (err) {
             console.log(err);
         }
-        console.log(res);
+        htmlConsole.style.display = 'block'
+        dom.newEl(htmlConsole, 'p', '', '', res)
         fileBox.textContent = 'Now publish hashish to Multichain';
         mcPublish.classList.add('w3-green', 'tada');
     });
@@ -102,11 +103,7 @@ const addToIPFS = () => {
 // Step 3....check if items are duplicate
 const isDuplicate = () => {
     let filenames = newItems.map(val => val.name);
-    let filehashish = newItems.map(val => val.hash);
-
-
     let streamNames = currentItems.map(val => val.name)
-    let streamHashish = currentItems.map(val => val.hash)
 
     filenames.forEach((val, i) => {
         if (!(streamNames.includes(val))) {
@@ -135,7 +132,6 @@ const publish = (fileDetails) => {
 
 const publishHash = () => {
     let list = listDisplay.querySelectorAll('li');
-    console.log(list) 
     isDuplicate()
 
     publishList.forEach((val, i) => {
@@ -149,20 +145,21 @@ const publishHash = () => {
         }
         let fileDetails = JSON.stringify(obj);
         publish(fileDetails);
-        list.forEach((li, i) => {
-            if (li.textContent === val.name) {
-                console.log(li.textContent) 
-                console.log(val.name) 
-                console.log(listDisplay.childNodes[i]) 
-                listDisplay.removeChild(listDisplay.childNodes[i]) 
-                             
-            }
-        })
+        htmlConsole.style.display = 'none'
+        // list.forEach((li, i) => {
+        //     if (li.textContent === val.name) {
+        //         console.log(li.textContent)
+        //         console.log(val.name)
+        //         console.log(listDisplay.childNodes[i])
+        //         listDisplay.removeChild(listDisplay.childNodes[i])
+
+        //     }
+        // })
 
     });
     fileBox.textContent = 'Well done. Please refresh to app to continue';
     mcPublish.classList.remove('w3-green');
-    reload.classList.add('w3-green','pulse');
+    reload.classList.add('w3-green', 'pulse');
 };
 
 // Event listeners

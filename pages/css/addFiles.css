@@ -94,3 +94,12 @@ li:hover {
     color: black;
     text-decoration: underline
 }
+
+
+#htmlConsole {
+    position: fixed;
+    top: 5em;
+    display: none;
+    background-color: wheat;
+    left: 20%;
+}
