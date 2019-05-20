@@ -40,7 +40,7 @@ On Linux, you will need to install Multichain manually. The steps are very easy 
    <li>Automatically start all local chains</li>
    <li>Create new chains with custom permissions</li>
    <li>Create streams ( currently all streams are "closed" by default )</li>
-   <li>Post simple text to stream ( Future updates will include more detailed forms, ie. employee details, todo items, contact details, registration forms )</li>
+   <li>Add files/folders to IPFS and publish to Multichain ( It works...but needs a lot of improvement )</li>
 </ul>
 
 <h4>Install: </h4>
