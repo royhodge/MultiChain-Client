@@ -1,10 +1,7 @@
 
-const Windows = require('./Windows');
-// if (localStorage.pass === '' || localStorage.length === 0) {
-//     loginModal.style.display = 'flex';
-// } else {
-//     loginModal.style.display = 'none';
-// }
+const Windows = require('../assets/Windows');
+
+const loginCreds = [];
 
 
 const publish = (k, tx) => {
@@ -18,111 +15,86 @@ const publish = (k, tx) => {
         if (err) {
             console.log(err)
         }
-        alert(`Your input has been registered successfully!\n Welcome ${tx}`);
-        // console.log(users);
-        // console.log(passwords);
+        alert(`Your input has been registered successfully!\n
+        \n You can now login with you credentials`);
         location.reload();
     });
 };
-
-const signIn = () => {
-    let modal = document.querySelector('#login');
-    var username = loginUsernameInput.value;
-    var password = loginPasswordInput.value;
-
-    if (username === '' || password === '') {
-        loginUsernameInput.classList.add('w3-red');
-        loginUsernameInput.value = 'No input';
-        loginPasswordInput.classList.add('w3-red');
-        return;
-    }
-    var user = sha256(username);
-    var pass = sha256(password);
+const getItems = () => {
     multichain.listStreamItems({
         stream: 'root'
     }, (err, res) => {
         if (err) {
-            loginUsernameInput.classList.add('w3-red');
-            loginUsernameInput.value = 'User or password is incorrect';
-            loginPasswordInput.classList.add('w3-red');
+            console.log(err)
             return;
         }
         res.forEach((val) => {
-            if (user === val.keys[0] && pass === val.data.text) {
-                modal.style.display = 'none';
-                console.log(`Welcome ${username}`);
-            }
-        });
-        localStorage.setItem("pass", user + pass);
-        Windows.chainBrowser()
-        window.close()
-    });
-};
-
-const isUserValid = () => {
-    let x = event.target;
-    let n = x.value;
-    var user = sha256(n);
-
-    multichain.listStreamItems({
-        stream: 'root'
-    }, (err, res) => {
-        res.forEach((val) => {
-            if (user === val.keys[0] && pass === val.data.text) {
-                modal.style.display = 'none';
-                console.log("hey");
-            } else {
-                loginUsernameInput.classList.add('w3-red');
-                loginUsernameInput.value = 'User or password is incorrect';
-                loginPasswordInput.classList.add('w3-red');
-            }
+            loginCreds.push(val)
         });
     });
-
-    users.forEach((val) => {
-        if (user === val) {
-            alert('That name has been used');
-            registerUsernameInput.value = '';
-            return;
+}
+const isUserValid = (n, p) => {
+    for (var i = 0; i < loginCreds.length; i++) {
+        if (n === loginCreds[i].keys[0] && p === loginCreds[i].data.text) {
+            return true;
         }
-    });
-};
-const isRegisterValid = (username, password) => {
-    if (username === '') {
-        registerUsernameInput.classList.add('w3-red');
-        registerUsernameInput.value = 'No input';
-        return;
     }
-
-    if (password.length <= 8) {
-        registerPasswordInput.classList.add('w3-red');
-        registerPasswordInput.value = 'No input';
-        return;
+    return false;
+};
+const checkInput = (input) => {
+    if (input.value === '') {
+        input.classList.add('w3-red');
+        input.value = 'No input';
     }
 };
+const checkPassword = (input) => {
+    if (input.value.length <= 7) {
+        console.log('password too short')
+        return false;
+    }
+    return true;
+}
+const signIn = () => {
+    let username = loginUsernameInput.value;
+    let password = loginPasswordInput.value;
+    checkInput(loginUsernameInput)
+    checkInput(loginPasswordInput)
 
+    var user = sha256(username);
+    var pass = sha256(password);
+
+    if (isUserValid(user, pass)) {
+        Windows.chainBrowser();
+        window.close();
+    } else {
+        error.textContent = 'Sorry, wrong username and password';
+    }
+
+};
 const register = () => {
     //    get inputs
     var username = registerUsernameInput.value;
     var password = registerPasswordInput.value;
-    // encrypt
+    checkInput(registerUsernameInput);
+    checkInput(registerPasswordInput);
     var xusername = sha256(username);
     var xpassword = sha256(password);
-    console.log(xusername);
-    console.log(xpassword);
+    if (!(checkPassword(registerPasswordInput))) {
+        return;
+    }
     // form validation
-    isRegisterValid(username, password);
-    publish(xusername,xpassword);
+    publish(xusername, xpassword);
 };
 
 // Tab select
 loginTab.addEventListener("click", () => {
+    getItems()
     dom.openTabs('loginForm', 'start');
     loginTab.classList.add('w3-gray');
     registerTab.classList.remove('w3-gray');
-
 });
 registerTab.addEventListener("click", () => {
+    getItems()
     dom.openTabs('registerForm', 'start');
     loginTab.classList.remove('w3-gray');
     registerTab.classList.add('w3-gray');
@@ -130,7 +102,7 @@ registerTab.addEventListener("click", () => {
 
 // Key down function
 loginForm.addEventListener("keydown", (e) => {
-    if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
+    if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"    
         signIn();
     }
 });

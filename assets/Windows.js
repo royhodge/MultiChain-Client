@@ -41,7 +41,7 @@ module.exports = {
         });
     },
     chainBrowser: () => {
-        let window = new BrowserWindow({
+        let window = new remote.BrowserWindow({
             width: 1000,
             height: 1000,
             fullscreen: true,

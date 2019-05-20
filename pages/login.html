@@ -38,6 +38,7 @@
                     onfocus="this.value='';this.classList.remove('w3-red')" placeholder="Username">
                 <input class="w3-input w3-margin-bottom " type="password" name="pass" id="loginPasswordInput"
                     onfocus="this.value='';this.classList.remove('w3-red')" placeholder="Password">
+                    <p id="error"></p>
                 <button class="w3-btn w3-black w3-hover-grey w3-margin-bottom w3-round-large" type="submit"
                     id="loginSubmit">Submit</button>
             </div>
@@ -52,9 +53,7 @@
         </div>
     </div>
     <!-- functions that manage the html imports -->
-    <script>
-        require('../assets/Login')
-    </script>
+  <script src="../assets/login.js"></script>
 </body>
 
 </html>

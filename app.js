@@ -33,7 +33,7 @@ const startApp = () => {
         }
       });
       daemon.startIPFS();
-      windows.chainBrowser();       
+      windows.login();       
     }
   });
 };
