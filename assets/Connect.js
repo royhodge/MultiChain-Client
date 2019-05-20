@@ -97,7 +97,10 @@ let connect = (chain) => {
     let interval = setInterval(() => {
         multichain = require("multichain-node")(chainCreds[findChainCreds(chain)]);
         multichain.getInfo((err, info) => {
-            if (err) { console.log(err.message);}
+            if (err || info.chainname === undefined) { 
+                console.log(err.message);
+                return;
+            }
             clearInterval(interval);             
             if (info.chainname === 'app') {
                 createStream('IPFS Files');                 
