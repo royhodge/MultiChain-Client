@@ -19,8 +19,6 @@ I hope to develop this project into a general template that developers can fork 
     Requirements:
 </h4>
 
-https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/
-
 <a href="https://www.multichain.com/download-install/" target="blank">Multichain</a>. Follow the instructions on the main site. 
 On Windows, you will need to add Multichain to the PATH variables. 
 <a href="https://www.multichain.com/download-install/" target="blank">Here</a> is a great article show how to do it.
