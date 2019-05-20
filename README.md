@@ -10,25 +10,21 @@ I am still studying web development, Electron and Multichain and this is my firs
  
 <h3>The goal:</h3>
 I hope to develop this project into a general template that developers can fork and use other frameworks to inhance visual and functional elements. To that end, I've kept dependecies to a minimum. I think it would be relatively simple to adapt the code to suit a React, Angular or Vue project. Forks are welcome. 
-
-
-<h3>Notice</h3>
-
-<p>
-        **The Multichain executable files included in the project were not created by me.
-        The files are from the <a href="https://www.multichain.com/download-install/" target="blank">Multichain website</a>.
-        If you don't trust this, you can delete all the files in the "multichain" folder and manually download
-        Multichain.        
-        
-</p>
    
- <p>
+<p>
    This project was started from <a href="https://github.com/electron/electron-quick-start" target="blank">Electron Quickstart
 </p>
 
 <h4>
     Requirements:
 </h4>
+
+https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/
+
+<a href="https://www.multichain.com/download-install/" target="blank">Multichain</a>. Follow the instructions on the main site. 
+On Windows, you will need to add Multichain to the PATH variables. 
+<a href="https://www.multichain.com/download-install/" target="blank">Here</a> is a great article show how to do it.
+<a href="https://dist.ipfs.io/#go-ipfs" target="blank">GO-IPFS</a>. Follow the instructions on the main site. It's really easy.
 
 <a href="https://electronjs.org/docs" target="blank">Electron V5</a>. For security, it's always recommended to keep Electron updated to latest version.
 
@@ -41,7 +37,7 @@ On Linux, you will need to install Multichain manually. The steps are very easy 
 </h4>
 
  <ul>
-   <li>Detect existing Multichain blockchains.( Install "home" chain if none exist )</li>
+   <li>Detect existing Multichain blockchains.( Install "app" chain if none exist )</li>
    <li>Automatically start all local chains</li>
    <li>Create new chains with custom permissions</li>
    <li>Create streams ( currently all streams are "closed" by default )</li>
