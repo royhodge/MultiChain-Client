@@ -21,7 +21,7 @@ I hope to develop this project into a general template that developers can fork 
 
 <a href="https://www.multichain.com/download-install/" target="blank">Multichain</a>. Follow the instructions on the main site. 
 On Windows, you will need to add Multichain to the PATH variables. 
-<a href="https://www.multichain.com/download-install/" target="blank">Here</a> is a great article show how to do it.
+<a href="https://www.multichain.com/download-install/" target="blank">Here</a> is a great article showing how to do it.
 <a href="https://dist.ipfs.io/#go-ipfs" target="blank">GO-IPFS</a>. Follow the instructions on the main site. It's really easy.
 
 <a href="https://electronjs.org/docs" target="blank">Electron V5</a>. For security, it's always recommended to keep Electron updated to latest version.
