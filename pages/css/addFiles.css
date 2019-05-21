@@ -58,6 +58,7 @@ body {
 
 #listDisplay {
     margin-top: 9em;
+    text-align: left;
 }
 
 #listDisplay ul {

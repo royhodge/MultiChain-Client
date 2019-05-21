@@ -38,7 +38,7 @@ const listStreamItems = (stream, sub) => {
             filesList.textContent = 'This is the root stream. You should not publish anything here.';
             break;
         default:
-            filesList.textContent = 'This is a default view for stream items.';
+            filesList.textContent = 'There are no items in this stream. Feature to add different kinds of input coming soon!!';
             break;
     }
 };

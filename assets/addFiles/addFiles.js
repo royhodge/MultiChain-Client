@@ -55,13 +55,14 @@ const getStreamItems = () => {
 }
 
 // step 2.....add to IPFS
-const pinHash = (hash) => {
+const pinHash = (hash,name) => {
     execFile('ipfs', ['pin', 'add', hash], (err, res) => {
         if (err) {
             console.log(err);
         }
         htmlConsole.style.display = 'block'
-        dom.newEl(htmlConsole, 'p', '', '', res)
+        dom.newEl(listDisplay, 'p', '', '', name)
+        dom.newEl(listDisplay, 'p', '', '', res)
         fileBox.textContent = 'Now publish hashish to Multichain';
         mcPublish.classList.add('w3-green', 'tada');
     });
@@ -70,7 +71,8 @@ const getString = (res) => {
     let start = res.lastIndexOf('Qm');
     let stop = start + 46;
     let hash = res.slice(start, stop);
-    pinHash(hash);
+    let name = res.slice(stop)
+    pinHash(hash,name);
     return hash;
 };
 const getFileHash = (path, num) => {
@@ -88,6 +90,7 @@ const getFolderHash = (path, num) => {
     });
 }
 const addToIPFS = () => {
+    listDisplay.innerHTML = '';
     newItems.forEach((val, i) => {
         fs.readFile(val.path, (err, res) => {
             if (err) {
@@ -113,7 +116,7 @@ const isDuplicate = () => {
 };
 
 // step 4 ..... publish to blockchain
-const publish = (fileDetails) => {
+const publish = (fileDetails,name) => {
     multichain.publish({
         stream: 'IPFS Files',
         key: 'show',
@@ -125,7 +128,9 @@ const publish = (fileDetails) => {
             if (err) {
                 console.log(err);
                 return;
-            }
+            }            
+            dom.newEl(listDisplay, 'p', '', '', name)
+            dom.newEl(listDisplay, 'p', '', '', info)
             console.log(info)
         });
 }
@@ -144,18 +149,8 @@ const publishHash = () => {
             lastModified: val.lastModifiedDate,
         }
         let fileDetails = JSON.stringify(obj);
-        publish(fileDetails);
-        htmlConsole.style.display = 'none'
-        // list.forEach((li, i) => {
-        //     if (li.textContent === val.name) {
-        //         console.log(li.textContent)
-        //         console.log(val.name)
-        //         console.log(listDisplay.childNodes[i])
-        //         listDisplay.removeChild(listDisplay.childNodes[i])
-
-        //     }
-        // })
-
+        listDisplay.innerHTML = '';
+        publish(fileDetails,val.name);        
     });
     fileBox.textContent = 'Well done. Please refresh to app to continue';
     mcPublish.classList.remove('w3-green');

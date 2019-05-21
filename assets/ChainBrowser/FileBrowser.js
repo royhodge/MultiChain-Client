@@ -7,7 +7,8 @@ const IPFSStreamKeyItems = (stream, key) => {
 
     multichain.listStreamKeyItems({
         stream: stream,
-        key: key        
+        key: key,
+        count: 100,        
     }, (err, res) => {
         if (err) { console.log(err); }
         res.forEach((val, i) => {
