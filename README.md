@@ -31,6 +31,13 @@ On Windows, you will need to add Multichain to the PATH variables.
 
 On Linux, you will need to install Multichain manually. The steps are very easy to follow. Future updates will automate this process.
 
+
+<h4>
+    Requirements:
+</h4>
+
+I recommend using Linux for this app. Multichain and IPFS API calls are significantly faster.
+
 <h4>
     Current features:
 </h4>
