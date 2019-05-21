@@ -33,7 +33,7 @@ On Linux, you will need to install Multichain manually. The steps are very easy 
 
 
 <h4>
-    Requirements:
+    Reccommendation:
 </h4>
 
 I recommend using Linux for this app. Multichain and IPFS API calls are significantly faster.
