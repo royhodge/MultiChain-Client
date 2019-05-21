@@ -6,7 +6,7 @@ Currently supports Windows10 and Linux ( tested on Lubuntu 18 ). MacOS coming so
 
 This is not a secure app yet. Real encryption and login needs to be finalized. I've used  <a href="http://bitwiseshiftleft.github.io/sjcl/" target="blank">sjcl</a> encryption in some test runs ( works very well ) but I want to refactor and streamline code more before implementing it. There is a login script that will simulate login of production release. 
 
-I am still studying web development, Electron and Multichain and this is my first real project to try and combine these elements. Any feedback and suggestions will be greatly appreciated. 
+I am still studying web development, Electron and Multichain and this is my first real project to try and combine these elements. I'm a huge fan of blockchains, IPFS and DAT-protocol (which will be added to the project soon ). Any feedback and suggestions will be greatly appreciated. 
  
 <h3>The goal:</h3>
 I hope to develop this project into a general template that developers can fork and use other frameworks to inhance visual and functional elements. To that end, I've kept dependecies to a minimum. I think it would be relatively simple to adapt the code to suit a React, Angular or Vue project. Forks are welcome. 
@@ -30,6 +30,13 @@ On Windows, you will need to add Multichain to the PATH variables.
 <a href="https://nodejs.org/en/" target="blank">Node v12</a>. You could ammend the package.json to install earlier versions of Node. This project was originally started in Node v8 and there aren't any dependecies that require Node v12.
 
 On Linux, you will need to install Multichain manually. The steps are very easy to follow. Future updates will automate this process.
+
+
+<h4>
+    Reccommendation:
+</h4>
+
+I recommend using Linux for this app. Multichain and IPFS API calls are significantly faster.
 
 <h4>
     Current features:
