@@ -1,22 +1,50 @@
-const { remote } = require('electron');
-const { execFile } = require('child_process');
+const {
+    remote
+} = require('electron');
+const {
+    execFile
+} = require('child_process');
 
 let newItems = [];
 let currentItems = [];
 let publishList = [];
+let listLength = '';
 
 // File functons
 // I want to make these into async functions
+
+// get list of current items
+let getItems = setInterval(() => {
+    multichain.listStreamItems({
+        stream: 'IPFS Files'
+    }, (err, res) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        clearInterval(getItems)
+        res.forEach(val => {
+            let details = JSON.parse(val.data.text);
+            currentItems.push(details);
+        });
+    });
+}, 100);
 // Create Dropzone
 dropFiles.ondragover = dropFiles.ondrop = (ev) => {
     ev.preventDefault();
 };
+
 // Step 1....get file details
 const getFileDetails = () => {
     document.ondrop = (ev) => {
-        ipfs.classList.add('w3-green', 'tada');
         for (let i = 0; i < ev.dataTransfer.files.length; i++) {
-            let { name, path, size, type, lastModifiedDate } = ev.dataTransfer.files[i];
+            let {
+                name,
+                path,
+                size,
+                type,
+                lastModifiedDate
+            } = ev.dataTransfer.files[i];
             let obj = {
                 name: name,
                 path: path,
@@ -24,45 +52,34 @@ const getFileDetails = () => {
                 size: Math.round(size / 1024),
                 lastModifiedDate: lastModifiedDate,
             };
+            listLength = ev.dataTransfer.files.length;
             newItems.push(obj);
         }
         newItems.forEach(val => {
             fs.readFile(val.path, (err, res) => {
                 if (err) {
-                    dom.newEl(listDisplay, 'li', '', 'w3-green');
-                    dom.newEl(el, 'a', ``, '', val.name);
+                    dom.newEl(listDisplay, 'li', '', '');
+                    dom.newEl(el, 'a', ``, '', `${val.name}  ---  ${val.size}KB`);
                     return;
                 }
-                dom.newEl(listDisplay, 'li', '', 'w3-blue');
-                dom.newEl(el, 'a', ``, '', val.name);
+                dom.newEl(listDisplay, 'li', '', '');
+                dom.newEl(el, 'a', ``, '', `${val.name}  ---  ${val.size}KB`);
             });
         })
         fileBox.textContent = 'Next, add files to IPFS';
+        ipfs.classList.add('w3-green', 'tada');
         ev.preventDefault();
     };
 };
-// and current stream items
-const getStreamItems = () => {
-    multichain.listStreamItems({ stream: 'IPFS Files' }, (err, res) => {
-        if (err) {
-            console.log(err);
-        }
-        res.forEach(val => {
-            let details = JSON.parse(val.data.text);
-            currentItems.push(details);
-        });
-    });
-}
 
 // step 2.....add to IPFS
-const pinHash = (hash,name) => {
+const pinHash = (hash, name) => {
     execFile('ipfs', ['pin', 'add', hash], (err, res) => {
         if (err) {
             console.log(err);
         }
-        htmlConsole.style.display = 'block'
-        dom.newEl(listDisplay, 'p', '', '', name)
-        dom.newEl(listDisplay, 'p', '', '', res)
+        dom.newEl(listDisplay, 'li', '', '', name)
+        dom.newEl(listDisplay, 'li', '', '', res)
         fileBox.textContent = 'Now publish hashish to Multichain';
         mcPublish.classList.add('w3-green', 'tada');
     });
@@ -72,12 +89,13 @@ const getString = (res) => {
     let stop = start + 46;
     let hash = res.slice(start, stop);
     let name = res.slice(stop)
-    pinHash(hash,name);
+    pinHash(hash, name);
     return hash;
 };
 const getFileHash = (path, num) => {
     execFile('ipfs', ['add', path], (err, res) => {
         if (err) throw err;
+        console.log(res)
         let hash = getString(res);
         newItems[num].hash = hash;
     });
@@ -85,6 +103,7 @@ const getFileHash = (path, num) => {
 const getFolderHash = (path, num) => {
     execFile('ipfs', ['add', path, '-r'], (err, res) => {
         if (err) throw err;
+        console.log(res)
         let hash = getString(res);
         newItems[num].hash = hash;
     });
@@ -94,9 +113,11 @@ const addToIPFS = () => {
     newItems.forEach((val, i) => {
         fs.readFile(val.path, (err, res) => {
             if (err) {
-                getFolderHash(val.path, i);
+                val.type = 'folder'
+                getFolderHash(val.path, i, );
                 return;
             }
+            val.type = 'file'
             getFileHash(val.path, i);
         });
     });
@@ -105,38 +126,45 @@ const addToIPFS = () => {
 
 // Step 3....check if items are duplicate
 const isDuplicate = () => {
-    let filenames = newItems.map(val => val.name);
-    let streamNames = currentItems.map(val => val.name)
+    let newHash = newItems.map(val => val.hash);
+    let oldHash = currentItems.map(val => val.hash)
 
-    filenames.forEach((val, i) => {
-        if (!(streamNames.includes(val))) {
+    newHash.forEach((val, i) => {
+        if (!(oldHash.includes(val))) {
             publishList.push(newItems[i])
         }
     })
 };
 
 // step 4 ..... publish to blockchain
-const publish = (fileDetails,name) => {
+const publish = (fileDetails, name) => {
     multichain.publish({
-        stream: 'IPFS Files',
-        key: 'show',
-        data: {
-            text: fileDetails,
-        }
-    },
+            stream: 'IPFS Files',
+            key: 'show',
+            data: {
+                text: fileDetails,
+            }
+        },
         (err, info) => {
             if (err) {
                 console.log(err);
                 return;
-            }            
-            dom.newEl(listDisplay, 'p', '', '', name)
-            dom.newEl(listDisplay, 'p', '', '', info)
+            }
+            dom.newEl(listDisplay, 'li', '', '', name)
+            dom.newEl(listDisplay, 'li', '', '', info)
             console.log(info)
         });
 }
 
 const publishHash = () => {
-    let list = listDisplay.querySelectorAll('li');
+    // let classList = ;
+   
+    reload.classList.forEach(val => {
+        if (val === 'w3-green') {
+            console.log('Please refresh')
+        }
+    })
+
     isDuplicate()
 
     publishList.forEach((val, i) => {
@@ -150,7 +178,7 @@ const publishHash = () => {
         }
         let fileDetails = JSON.stringify(obj);
         listDisplay.innerHTML = '';
-        publish(fileDetails,val.name);        
+        publish(fileDetails, val.name);
     });
     fileBox.textContent = 'Well done. Please refresh to app to continue';
     mcPublish.classList.remove('w3-green');
@@ -171,6 +199,4 @@ closeWindow.addEventListener('click', () => {
 
 dropFiles.addEventListener('drop', () => {
     getFileDetails();
-    getStreamItems()
 });
-
