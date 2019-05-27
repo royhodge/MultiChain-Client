@@ -29,3 +29,15 @@ select,
 input {
   -webkit-app-region: no-drag;
 }
+
+.fadeOut {
+	visibility: hidden;
+	opacity: 0;
+  transition: visibility 0s linear 1s, opacity 1s;  
+}
+
+.fadeIn {
+	visibility: visible;
+	opacity: 1;
+  transition: visibility 1s linear 0s, opacity 1s;  
+}

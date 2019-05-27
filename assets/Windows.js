@@ -40,7 +40,7 @@ module.exports = {
             window = null
         });
     },
-    chainBrowser: () => {
+    chainSelect: () => {
         let window = new remote.BrowserWindow({
             width: 1000,
             height: 1000,
@@ -65,7 +65,7 @@ module.exports = {
     },
     login: () => {
         let window = new BrowserWindow({
-            width: 600,
+            width: 800,
             height: 600,           
             frame: false,
             fullscreen: true,   
@@ -75,8 +75,7 @@ module.exports = {
         });
         // and load the index.html of the app.
         window.loadFile('pages/login.html');
-
-        // Open the DevTools.    
+        // window.webContents.openDevTools();        
 
         // Emitted when the window is closed.
         window.on('closed', function () {

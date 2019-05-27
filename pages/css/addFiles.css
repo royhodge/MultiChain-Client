@@ -28,8 +28,7 @@ body {
     -webkit-app-region: drag;
 }
 
-#dropBar {
-    position: fixed;
+#dropBar {   
     top: 3em;
     background: #5f4343
 }
@@ -58,7 +57,7 @@ body {
 }
 
 #listDisplay {
-    margin: 9em 1em 0em 1em;;
+    margin: 0em 1em 0em 1em;;
     text-align: left;
 }
 

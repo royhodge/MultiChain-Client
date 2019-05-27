@@ -3,17 +3,28 @@
 //
 const replace = require('replace-in-file');
 const remote = require('electron').remote;
-const Preset = require('./ChainPresets');
-const Daemon = require('../Daemons');
+const {
+    chainPresets
+} = require('./ChainPresets');
+const {
+    createChain,
+    startMultichain
+} = require('../Daemons');
 
-const newChain = () => {   
+let presetBtns = presetChain.querySelectorAll('.chainIcon');
+
+const newChain = () => {
     let chainName = chainNameInput.value;
-    Daemon.createChain(chainName);
-    setTimeout(() => {
-        let chainPath = path.join(chainsPath, chainName);
-        showParams(chainPath);
-    }, 2000);
-
+    let chainPath = path.join(chainsPath, chainName);
+    createChain(chainName)
+        .then(res => {
+            console.log('then')
+            console.log(res)
+            showParams(chainPath);
+        })
+        .catch(err => {
+            console.log(err)
+        })
 }
 const changeParams = () => {
     var x = event.target;
@@ -38,51 +49,90 @@ const showParams = () => {
     let chainName = chainNameInput.value;
     chainTitle.textContent = chainName;
 
-    Preset.chainPresets.SLC.forEach((val) => {
+    chainPresets.SLC.forEach((val) => {
         el = dom.newEl(displayParams, 'li', '', '', val);
         el.addEventListener('click', changeParams);
     });
 };
-const applyParams = () => {
+const applyParams = (arr, name) => {   
+    // Path to params file   
+    var paramsFile = path.join(chainsPath, name, 'params.dat');
+    // find/replace text in document
+    const options = {
+        files: paramsFile,
+        from: chainPresets.replace,
+        to: [
+            arr[0],
+            arr[1],
+            arr[2],
+            arr[3],
+            arr[4],
+            arr[5],
+            arr[6],
+            arr[7],
+            arr[8],
+        ],
+    };
+
+    replace(options, async (error, changes) => {
+        if (error) {
+            return console.error('Error occurred:', error);
+        } else {
+            // show params file in text editor for developers           
+            location.reload()
+            console.log(changes);
+        }
+    });
+};
+const applyUserParams = () => {
     // Array of new settings
+    var name = chainTitle.textContent;
     var newParams = [];
     var x = displayParams.querySelectorAll('li');
     x.forEach((val => {
         newParams.push(val.textContent);
     }));
-    // Path to params file
-    var name = chainTitle.textContent;
-    var paramsFile = path.join(chainsPath, name, 'params.dat');
-
-    // find/replace text in document
-    const options = {
-        files: paramsFile,
-        from: Preset.chainPresets.replace,
-        to: [
-            newParams[0],
-            newParams[1],
-            newParams[2],
-            newParams[3],
-            newParams[4],
-            newParams[5],
-            newParams[6],
-            newParams[7],
-            newParams[8],
-        ],
-    };
-
-    replace(options, (error, changes) => {
-        if (error) {
-            return console.error('Error occurred:', error);
-        } else {
-            // show params file in text editor for developers
-            // shell.openExternal(paramsFile);
-            alert('App will now restart');
-            remote.app.relaunch();
-            remote.app.quit();            
-        }
-    });
+    applyParams(newParams, name);
 };
 
-createChainBtn.addEventListener('click', newChain);
-applySettingsBtn.addEventListener('click', applyParams);
+const createPreset = (preset, chainName) => {
+    if (chainName === '') {
+        presetNameInput.value = 'No name given';
+        presetNameInput.classList.add('w3-border', 'w3-border-red');
+        return;
+    }
+    createChain(chainName)
+        .then(() => {
+            switch (preset) {
+                case 'SLC':
+                    applyParams(chainPresets.SLC, chainName);
+                    break;
+                case 'SPC':
+                    applyParams(chainPresets.SPC, chainName);
+                    break;
+                case 'OPC':
+                    applyParams(chainPresets.OPC, chainName);
+                    break;
+                default:
+                    break;
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
+
+createNewChainBtn.addEventListener('click', newChain);
+applySettingsBtn.addEventListener('click', applyUserParams);
+newChainModalClose.addEventListener('click', () => {
+    dom.fadeOut(createChainModal);
+});
+
+presetBtns.forEach((val => {
+    let stop = val.id.indexOf('-');
+    let preset = val.id.slice(0, stop);
+    val.addEventListener('click', () => {
+        let name = presetNameInput.value;
+        createPreset(preset, name);
+    });
+}));

@@ -9,15 +9,16 @@
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <!-- Animate CSS -->
     <link rel="stylesheet" type="text/css" media="screen"
         href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css">
 
     <!-- main style sheet -->
-    <link rel="stylesheet" type="text/css" href="css/main.css">    
-    <link rel="stylesheet" type="text/css" href="css/sideNav.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/chainSelect.css">
+    <link rel="stylesheet" type="text/css" href="css/newChain.css">
     <link rel="stylesheet" type="text/css" href="css/generalInfo.css">
     <link rel="stylesheet" type="text/css" href="css/streams.css">
     <link rel="stylesheet" type="text/css" href="css/fileBrowser.css">
@@ -25,37 +26,43 @@
     <!-- from https://www.cssscript.com/demo/9-css-only-loaders/ -->
     <link rel="stylesheet" href="css/loader-1.css">
 
-
-    <!-- HTML imports -->    
+    <!-- HTML imports -->   
+    <link rel="import" class="body" href="chainbrowser/chainSelect.html">
+    <link rel="import" class="body" href="chainbrowser/newChain.html">
     <link rel="import" class="tabs" href="chainbrowser/tabs.html">
     <link rel="import" class="body" href="chainbrowser/generalInfo.html">
-    <link rel="import" class="body" href="chainbrowser/streams.html">    
-    <link rel="import" class="body" href="chainbrowser/sideNav.html">
-    <link rel="import" class="body" href="chainbrowser/newChain.html">
-    <link rel="import" class="body" href="chainbrowser/loading.html">
+    <link rel="import" class="body" href="chainbrowser/streams.html">
     <link rel="import" class="body" href="chainbrowser/fileBrowser.html">
 
-    <!-- Global functions -->    
-    <script src="../assets/DOM.js"></script>
-    <script src="../assets/contextMenu/contextMenu.js"></script>
-      
+    <!-- Global functions -->
+
 </head>
 <!-- make frameless window drag object -->
 
 <body>
+    <div id="loadingModal">
+        <div id="loaderContent">
+            <div id="loader-1">
+                <div id="loader"></div>
+            </div>
+        </div>
+    </div>
     <!-- mount point for html content -->
-    <main id="topNav"></main>
-    <main id="content"></main>
+    <main id="topNavRoot"></main>
+    <main id="contentRoot"></main>
 
     <!-- functions that manage the html imports -->
-    <script src="../assets/Connect.js"></script> 
+    <script src="../assets/DOM.js"></script>
+    <script src="../assets/contextMenu/contextMenu.js"></script>
+    <script src="../assets/Connect.js"></script>
     <script>
-        require('./imports')       
+        connect('root');
+        require('./imports')
+        require('../assets/ChainBrowser/ChainSelect')
+        require('../assets/ChainBrowser/NewChain')
         require('../assets/ChainBrowser/Tabs')
-        require('../assets/ChainBrowser/SideNav')        
         require('../assets/ChainBrowser/GeneralInfo')
         require('../assets/ChainBrowser/Streams')
-        require('../assets/ChainBrowser/NewChain')
     </script>
 </body>
 

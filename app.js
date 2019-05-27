@@ -24,7 +24,7 @@ switch (process.platform) {
 
 const startApp = () => {
   fs.readdir(chainsPath, (err, stat) => {
-    if (err || !(stat.includes('app'))) {
+    if (err || !(stat.includes('root'))) {
       windows.install();
     } else {
       stat.forEach(val => {

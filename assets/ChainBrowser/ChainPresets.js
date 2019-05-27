@@ -26,7 +26,7 @@ module.exports = {
             'anyone-can-activate = false',
             'anyone-can-admin = false',
         ],
-        //  Open Local Chain ( SLC )
+        //  Open Public Chain ( OPC ) No admin
         OPC: [
             'anyone-can-connect = true',
             'anyone-can-send = true',

@@ -1,8 +1,10 @@
 <template class="html-content">
-        <div id="Streams" class="w3-content tab w3-hide w3-margin-top animated">
+        <div id="Streams" class="w3-content section w3-hide w3-margin-top">
                 <div id="streamActions">
-                        <button id="streamCreate" class="w3-btn">New Stream</button>
-                        <input type="search" name="" id="streamSearch" onfocus="this.value='';this.classList.remove('w3-red');" placeholder="Type stream name">
+                        <button id="streamCreate" class="w3-btn"
+                                onclick="newStreamModal.classList.replace('fadeOut','fadeIn')">New Stream</button>
+                        <input type="search" name="" id="streamSearch"
+                                onfocus="this.value='';this.classList.remove('w3-red');" placeholder="Type stream name">
                         <div class="w3-dropdown-hover">
                                 <button class="w3-button">Stream Filters</button>
                                 <div class="w3-dropdown-content w3-bar-block w3-border">
@@ -12,8 +14,42 @@
                                 </div>
                         </div>
                 </div>
-                <button id="closeWindow"
-                        class="w3-bar-item fas fa-times w3-button w3-hover-red w3-round w3-display-topright"></button>
                 <div id="streamsDisplay"></div>
+
+                <div id="newStreamModal" class="fadeOut">
+                        <div id="newStreamModalContent" class="w3-modal-content">
+                                <div class="w3-container">
+                                        <!-- <span onclick="newStreamModal.classList.replace('fadeIn','fadeOut')"
+                                                class="w3-button w3-display-topright">&times;</span> -->
+                                        <div id="customStream" class="w3-half">
+                                                <div class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin"
+                                                        style="padding-bottom: 20px;">
+                                                        <h3 class="w3-center">Create a custom stream</h3>
+                                                        <p>Name:</p>
+                                                        <input type="text" name="streamName" id="newStreamName"
+                                                                class="w3-input" placeholder="New stream name">
+                                                        <p>Is stream open or closed?</p>
+                                                        <select name="" id="streamOpen" class="w3-input">
+                                                                <option value="closed" selected>Closed</option>
+                                                                <option value="open">Open</option>
+                                                        </select>
+                                                        <button class="w3-btn w3-block w3-border w3-border-green w3-margin-top w3-round-large">Create</button>
+                                                </div>
+                                        </div>
+                                        <div id="presetStream" class="w3-half">
+                                                <div class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin"
+                                                        style="padding-bottom: 20px;">
+                                                        <h3 class="w3-center">Choose a premade stream</h3>
+                                                        <div class="w3-row">
+                                                                <i class="streamIcon far fa-address-book"></i>
+                                                                <i class="streamIcon far fa-list-alt"></i>
+                                                                <i class="streamIcon fas fa-unlock-alt"></i>
+                                                        </div>
+
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
         </div>
 </template>

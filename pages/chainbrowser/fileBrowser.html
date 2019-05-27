@@ -1,13 +1,12 @@
 <template class="html-content">
-    <div id="FileBrowser" class="w3-content tab w3-hide w3-margin-top animated">
-        <h1 id="FileBrowserTitle">
-        </h1>
-        <div class="w3-bar">
-            <select class="w3-input w3-bar-item" name="" id="">
-                <option value="">Show</option>
-                <option value="">Hide</option>
+    <div id="FileBrowser" class="w3-content w3-hide section w3-margin-top animated">
+        <div id="FileBrowserTopBar" class="w3-bar">
+            <h3 id="FileBrowserTitle" class="w3-bar-item"></h3>
+            <select class="w3-input w3-bar-item w3-right" name="" id="streamKeyFiltersSelect">
+                <option selected>Filter Items</option>                
             </select>
         </div>
+
         <div id="streamKeys"></div>
         <ul id="filesList" class="w3-ul">
 

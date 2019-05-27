@@ -1,9 +1,8 @@
-
 // Funcitons to create DOM elements
 
 let el, el1, el2;
 
-let dom = {
+const dom = {
     el: (tag, id = '', cl = '', tx = '') => {
         let el = document.createElement(tag);
         el.id = id;
@@ -38,7 +37,7 @@ let dom = {
             }
         });
         x.classList.remove('w3-hide');
-    },
+    },    
     createTag: (arr, par) => {
         arr.forEach((val) => {
             el = dom.newEl(par, 'button', '', 'w3-margin-top w3-margin-left w3-border w3-tag w3-round');
@@ -61,10 +60,16 @@ let dom = {
             el.textContent = val;
             return el;
         });
-    },    
+    },
     notIncluded: (arr, str) => {
         if (!(arr.includes(str))) {
             arr.push(str);
         }
+    },
+    fadeIn: (element) => {
+        element.classList.replace('fadeOut', 'fadeIn');
+    },
+    fadeOut: (element) => {
+        element.classList.replace('fadeIn', 'fadeOut');
     },
 };

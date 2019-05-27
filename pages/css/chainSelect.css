@@ -1,0 +1,44 @@
+#chainSelect {
+    z-index: 10;
+    background-color: #00000085;
+    height: -webkit-fill-available;
+    width: -webkit-fill-available;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#chainSelectContent {
+    top: 13%;
+}
+
+#chainSelect a:hover {
+    color: #f1f1f1;
+}
+
+#chainSelect .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#chainUL {
+
+}
+
+.chainCard {
+    max-width: fit-content;
+    margin: 1em
+}
+
+@media screen and (max-height: 450px) {
+    #chainSelect {
+        padding-top: 15px;
+    }
+
+    #chainSelect a {
+        font-size: 18px;
+    }
+}

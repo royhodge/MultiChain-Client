@@ -1,53 +1,76 @@
 // 
 //
-const { shell } = require('electron');
+const {
+    shell
+} = require('electron');
 
+let currentItems = [];
+let filteredItems = [];
 
-const IPFSStreamKeyItems = (stream, key) => {
+const isDuplicate = () => {
+    let newHash = filteredItems.map(val => val.hash);
+    let oldHash = currentItems.map(val => val.hash)
 
+    newHash.forEach((val, i) => {
+        if (!(oldHash.includes(val))) {
+            publishList.push(newItems[i])
+        }
+    })
+};
+
+const streamItems = (arr) => {
+    filesList.innerHTML = '';
+    arr.forEach((val, i) => {
+        let details = JSON.parse(val.data.text);
+        let item = dom.newEl(filesList, 'li', '', 'listItem', details.name);
+        item.addEventListener('click', () => shell.openExternal(`http://127.0.0.1:8080/ipfs/${details.hash}`));
+    });
+}
+
+const IPFSStreamKeyItems = () => {
+    let key = streamKeyFiltersSelect.value
+    console.log(key);
     multichain.listStreamKeyItems({
-        stream: stream,
+        stream: 'IPFS',
         key: key,
-        count: 100,        
+        count: 100,
     }, (err, res) => {
-        if (err) { console.log(err); }
-        res.forEach((val, i) => {
-            let details = JSON.parse(val.data.text);
-            let item = dom.newEl(filesList, 'li', '', 'listItem', details.name);
-            item.addEventListener('click', () => shell.openItem(`http://127.0.0.1:8080/ipfs/${details.hash}`));
-        });
-
-        // dom.notIncluded(hashish,details.hash);
-        // dom.notIncluded(names,details.name);
-        // dom.notIncluded(path,details.path);
-        // dom.notIncluded(size,details.size);
-        // dom.notIncluded(type,details.type);
-        //     dom.newEl(item, 'p', '', '', details.size + ' KB');
-        //     dom.newEl(item, 'p', '', '', details.path); 
-        //     dom.newEl(item, 'p', '', '', details.hash);
-        //     dom.newEl(item, 'p', '', '', details.type);
-        // });
-        // names.forEach((val, i) => { 
-        //     let item = dom.newEl(filesList, 'li', '', 'listItem', val);
-        //     item.addEventListener('click', () => shell.openItem(`http://127.0.0.1:8080/ipfs/${hashish[i]}`))
-        // dom.newEl(item, 'p', '', '', size[i]);
-        // dom.newEl(item, 'p', '', '', path[i]);
-        // dom.newEl(item, 'p', '', '', hashish[i]);
-        // dom.newEl(item, 'p', '', '', type[i]);
+        if (err) {
+            console.log(err);
+        }
+        console.log(res);
+        streamItems(res)
     });
 };
 
 const getStreamItems = () => {
-    streamItems = [];
-    multichain.listStreamItems({ stream: 'IPFS Files' }, (err, res) => {
+    multichain.listStreamItems({
+        stream: 'IPFS'
+    }, (err, res) => {
         if (err) {
             console.log(err);
         }
-        res.forEach(val => {
-            let details = JSON.parse(val.data.text);
-            streamItems.push(details);
-        });    
+        streamItems(res)
     });
 }
 
-module.exports = IPFSStreamKeyItems;
+const showKeyFilters = () => {
+    multichain.listStreamKeys({
+        stream: 'IPFS'
+    }, (err, res) => {
+        if (err) {
+            console.log(err);
+        }
+        let keys = res.map(val => val.key);
+        dom.newOp(keys, streamKeyFiltersSelect)
+    });
+}
+
+streamKeyFiltersSelect.addEventListener('change', IPFSStreamKeyItems)
+
+
+
+module.exports = {
+    showKeyFilters,
+    getStreamItems
+};

@@ -1,7 +1,10 @@
 // 
 // 
 // 
-const IPFSStreamKeyItems = require('./FileBrowser');
+const {
+    getStreamItems,
+    showKeyFilters
+} = require('./FileBrowser');
 
 const subscribeStream = (sub) => {
     let str = event.target.id;
@@ -9,14 +12,22 @@ const subscribeStream = (sub) => {
 
     switch (sub) {
         case true:
-            multichain.unsubscribe({ stream: stream }, (err, res) => {
-                if (err) { console.log(err) }
+            multichain.unsubscribe({
+                stream: stream
+            }, (err, res) => {
+                if (err) {
+                    console.log(err)
+                }
                 listStreams();
             });
             break;
         default:
-            multichain.subscribe({ stream: stream }, (err, res) => {
-                if (err) { console.log(err) }
+            multichain.subscribe({
+                stream: stream
+            }, (err, res) => {
+                if (err) {
+                    console.log(err)
+                }
                 listStreams();
             });
             break;
@@ -31,8 +42,10 @@ const listStreamItems = (stream, sub) => {
     FileBrowserTitle.textContent = stream;
     dom.openTabs('FileBrowser', 'tab');
     switch (stream) {
-        case 'IPFS Files':
-            IPFSStreamKeyItems(stream, 'show');
+        case 'IPFS':
+            console.log(activeChain);
+            getStreamItems(stream);
+            showKeyFilters();
             break;
         case 'root':
             filesList.textContent = 'This is the root stream. You should not publish anything here.';
@@ -47,6 +60,7 @@ const streamCard = (name, items, keys, sub) => {
     let card = dom.newEl(streamsDisplay, 'div', '', 'streamCard w3-card-4 w3-round-large w3-margin');
     let header = dom.newEl(card, 'h1', name + 'Stream', 'cardHeader', name);
     header.addEventListener('click', () => {
+        dom.openTabs('FileBrowser', 'section');
         listStreamItems(name, sub);
     });
 
@@ -61,14 +75,25 @@ const streamCard = (name, items, keys, sub) => {
     });
 };
 const listStreams = () => {
-    multichain.listStreams((err, res) => {
-        streamsDisplay.innerHTML = '';
-        res.forEach((val, i) => {
-            streamCard(val.name, val.items, val.keys, val.subscribed)
+    return new Promise((resolve, reject) => {
+        multichain.listStreams((err, res) => {
+            if (err) {
+                reject(err);
+            }
+            streamsDisplay.innerHTML = '';
+            res.forEach((val, i) => {
+                streamCard(val.name, val.items, val.keys, val.subscribed)
+            });
+            resolve(res);
         });
-    });
+
+    })
+
 };
-Streamsbtn.addEventListener('click', listStreams);
+Streamsbtn.addEventListener('click', () => {   
+    dom.openTabs('Streams', 'section');
+    listStreams();
+});
 
 const newStream = () => {
     var streamName = streamSearch.value;
@@ -77,13 +102,16 @@ const newStream = () => {
         streamSearch.classList.add('w3-red');
         return;
     }
-    multichain.create({ type: 'stream', name: streamName, open: false }, (err, res) => {
-        if (err) { console.log(err); }
+    multichain.create({
+        type: 'stream',
+        name: streamName,
+        open: false
+    }, (err, res) => {
+        if (err) {
+            console.log(err);
+        }
         listStreams()
     });
 };
-streamCreate.addEventListener('click', newStream);
-
-
 
 module.exports = listStreams;

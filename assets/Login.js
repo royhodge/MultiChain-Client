@@ -1,8 +1,7 @@
 
-const Windows = require('../assets/Windows');
+connect('root');
 
 const loginCreds = [];
-
 
 const publish = (k, tx) => {
     multichain.publish({
@@ -64,12 +63,10 @@ const signIn = () => {
     var pass = sha256(password);
 
     if (isUserValid(user, pass)) {
-        Windows.chainBrowser();
-        window.close();
+        location.assign(`${__dirname}\\chainBrowser.html`);        
     } else {
         error.textContent = 'Sorry, wrong username and password';
     }
-
 };
 const register = () => {
     //    get inputs
@@ -102,12 +99,12 @@ registerTab.addEventListener("click", () => {
 
 // Key down function
 loginForm.addEventListener("keydown", (e) => {
-    if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"    
+    if (e.keyCode === 13) { //checks whether the pressed key is "Enter"    
         signIn();
     }
 });
 registerForm.addEventListener("keydown", (e) => {
-    if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
+    if (e.keyCode === 13) { //checks whether the pressed key is "Enter"
         register();
     }
 });

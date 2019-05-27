@@ -1,7 +1,4 @@
 const {
-    remote
-} = require('electron');
-const {
     execFile
 } = require('child_process');
 
@@ -10,25 +7,30 @@ let currentItems = [];
 let publishList = [];
 let listLength = '';
 
+connect('Share')
 // File functons
 // I want to make these into async functions
 
 // get list of current items
 let getItems = setInterval(() => {
     multichain.listStreamItems({
-        stream: 'IPFS Files'
+        stream: 'IPFS'
     }, (err, res) => {
         if (err) {
-            console.log(err);
+            dom.fadeIn(loadingModal)
+            console.log(err.message);
+            autoSubscribe('IPFS');
             return;
         }
         clearInterval(getItems)
+        dom.fadeOut(loadingModal)
         res.forEach(val => {
             let details = JSON.parse(val.data.text);
             currentItems.push(details);
         });
+        console.log(currentItems);
     });
-}, 100);
+}, 300);
 // Create Dropzone
 dropFiles.ondragover = dropFiles.ondrop = (ev) => {
     ev.preventDefault();
@@ -99,7 +101,7 @@ const getFileHash = (path, num) => {
         let hash = getString(res);
         newItems[num].hash = hash;
     });
-}
+};
 const getFolderHash = (path, num) => {
     execFile('ipfs', ['add', path, '-r'], (err, res) => {
         if (err) throw err;
@@ -107,7 +109,7 @@ const getFolderHash = (path, num) => {
         let hash = getString(res);
         newItems[num].hash = hash;
     });
-}
+};
 const addToIPFS = () => {
     listDisplay.innerHTML = '';
     newItems.forEach((val, i) => {
@@ -122,6 +124,8 @@ const addToIPFS = () => {
         });
     });
     ipfs.classList.remove('w3-green');
+    dom.newEl(dropFiles, 'input', 'keyInput', 'w3-input');
+    el.placeholder = 'Add custom keys for this content. Seperate values with ","'
 };
 
 // Step 3....check if items are duplicate
@@ -138,9 +142,14 @@ const isDuplicate = () => {
 
 // step 4 ..... publish to blockchain
 const publish = (fileDetails, name) => {
+    let keysInput = keyInput.value;
+    let keys = keysInput.split(",")
+    if (keysInput === '') {
+        keys = 'show'
+    }
     multichain.publish({
-            stream: 'IPFS Files',
-            key: 'show',
+            stream: 'IPFS',
+            key: "show " + keys,
             data: {
                 text: fileDetails,
             }
@@ -158,10 +167,11 @@ const publish = (fileDetails, name) => {
 
 const publishHash = () => {
     // let classList = ;
-   
+
     reload.classList.forEach(val => {
         if (val === 'w3-green') {
             console.log('Please refresh')
+            return;
         }
     })
 

@@ -2,7 +2,7 @@
 // 
 const path = require('path');
 const fs = require('fs');
-const ChainInfo = require('../assets/ChainBrowser/ChainInfo');
+const { execFile } = require('child_process');
 let multichain, chainsPath;
 
 switch (process.platform) {
@@ -18,7 +18,7 @@ switch (process.platform) {
 }
 
 let chainCreds = [];
-let chainList = [];
+let activeChain;
 
 const subscribe = (s) => {
     multichain.subscribe({
@@ -27,7 +27,7 @@ const subscribe = (s) => {
         console.log(info);
     });
 };
-const createStream = (n) => {
+const autoSubscribe = (n) => {
     multichain.create({
         type: 'stream',
         name: n,
@@ -73,11 +73,11 @@ const getCreds = (chain) => {
 
 const findChainCreds = (chainName) => {
     let num;
-    chainCreds.forEach((val, i) => {        
-        if (val.name !== chainName) {            
+    chainCreds.forEach((val, i) => {
+        if (val.name !== chainName) {
             return;
         }
-        num = i;       
+        num = i;
     });
     return num;
 };
@@ -93,24 +93,24 @@ fs.readdir(chainsPath, (err, stat) => {
     });
 });
 
-let connect = (chain) => {    
-    let interval = setInterval(() => {
-        multichain = require("multichain-node")(chainCreds[findChainCreds(chain)]);
-        multichain.getInfo((err, info) => {
-            if (err || info.chainname === undefined) { 
-                console.log(err.message);
-                return;
-            }
-            clearInterval(interval);             
-            if (info.chainname === 'app') {
-                createStream('IPFS Files');                 
-            }
-            console.log(info);
-            ChainInfo();                     
-        });        
-    }, 200);
+const connect = (chain) => {
+    return new Promise((resolve,reject)=> {       
+        loadingModal.style.display = 'block';        
+        let interval = setInterval(() => {           
+            multichain = require("multichain-node")(chainCreds[findChainCreds(chain)]);
+            multichain.getInfo((err, info) => {
+                if (err || info.chainname === undefined) {
+                    console.log(err.message);                    
+                    reject(err.message);
+                    return;
+                }            
+                clearInterval(interval);
+                loadingModal.style.display = 'none';
+                activeChain = info;
+                resolve(info);               
+            });
+        }, 200);
+    });
 };
 
-connect('app');
 module.exports = connect;
-
