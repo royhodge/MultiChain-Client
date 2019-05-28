@@ -3,6 +3,7 @@
     position: fixed;
     width: -webkit-fill-available;
     height: -webkit-fill-available;
+    overflow: scroll;
 }
 
 #presetChain {}
@@ -34,4 +35,22 @@
 
 #chainIconRow span {
     font-size: 26px;
+}
+
+.half {
+    width: 48%
+}
+
+
+@media screen and (max-height: 800px) {
+    #chainSelect {
+        padding-top: 15px;
+    }
+
+    #chainSelect a {
+        font-size: 18px;
+    }
+    .half {
+        width: 90%
+    }
 }
