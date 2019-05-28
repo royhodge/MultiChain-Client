@@ -68,7 +68,7 @@ module.exports = {
             width: 800,
             height: 600,           
             frame: false,
-            fullscreen: true,   
+            fullscreen: false,   
             webPreferences: {
                 nodeIntegration: true
             }         
