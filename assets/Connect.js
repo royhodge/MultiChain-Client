@@ -20,6 +20,22 @@ switch (process.platform) {
 let chainCreds = [];
 let activeChain;
 
+const quickPublish = (stream,keys,text) => {
+    multichain.publish({
+        stream: stream,
+        key: keys,
+        data: {
+            text: text
+        }
+    },
+        (err, res) => {
+            if (err) {
+                console.log(err);
+            }
+            console.log(res)
+        });
+};
+
 const subscribe = (s) => {
     multichain.subscribe({
         stream: s,

@@ -1,0 +1,25 @@
+<template class="html-content">
+    <div id="genericStreamBrowser" class="w3-content section w3-hide section w3-margin-top animated">
+        <div id="genericStreamBrowserTopBar" class="w3-bar w3-card w3-round">
+            <h3 id="genericStreamBrowserTitle" class="w3-bar-item "></h3>                
+        </div>
+        <div id="genericStreamSearchBar">
+            <div class="w3-row row w3-margin-top">
+                <h3 class="w3-half">Stream Publishers:</h3>
+                <select id="streamPublishers" class="w3-input w3-half"></select>
+            </div>
+            <div class="w3-row row">
+                <h3 class="w3-half">Stream Keys:</h3>
+                <select id="streamKeys" class="w3-input w3-half"></select>
+            </div>
+            <div class="w3-row row">
+                <h3 class="w3-half">Stream TXID:</h3>
+                <select id="streamTXID" class="w3-input w3-half"></select>
+            </div>
+        </div>
+        <textarea class="w3-input" id="genericStreamInput" cols="25" rows="5"
+         placeholder="Input some text here. Pressing enter will publish it to the blockchain."></textarea>  
+        <h3>Stream contents:</h3>
+        <div id="genericStreamsList" class=""></div>
+    </div>
+</template>

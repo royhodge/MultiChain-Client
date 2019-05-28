@@ -41,3 +41,8 @@ input {
 	opacity: 1;
   transition: visibility 1s linear 0s, opacity 1s;  
 }
+
+.row {
+  display: flex;
+  align-items: center;
+}

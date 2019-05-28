@@ -40,7 +40,7 @@ const dom = {
     },    
     createTag: (arr, par) => {
         arr.forEach((val) => {
-            el = dom.newEl(par, 'button', '', 'w3-margin-top w3-margin-left w3-border w3-tag w3-round');
+            el = dom.newEl(par, 'button', '', 'tag w3-margin-top w3-margin-left w3-border w3-tag w3-round');
             el.innerText = val;
             return el;
         });

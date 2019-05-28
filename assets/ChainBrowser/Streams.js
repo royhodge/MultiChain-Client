@@ -1,10 +1,8 @@
 // 
 // 
 // 
-const {
-    getStreamItems,
-    showKeyFilters
-} = require('./FileBrowser');
+const { listIPFSFiles } = require('../addFiles/IPFSBrowser');
+const { listGenericItems } = require('../ChainBrowser/genericStreamBrowser');
 
 const subscribeStream = (sub) => {
     let str = event.target.id;
@@ -38,29 +36,32 @@ const listStreamItems = (stream, sub) => {
         alert('You are not subscribed to this stream \n\n To subscribe, click "Subscribed');
         return;
     }
-    filesList.innerHTML = '';
-    FileBrowserTitle.textContent = stream;
-    dom.openTabs('FileBrowser', 'tab');
     switch (stream) {
         case 'IPFS':
-            console.log(activeChain);
-            getStreamItems(stream);
-            showKeyFilters();
+            dom.openTabs('IPFSFileBrowser', 'section');
+            IPFSFileBrowserTitle.textContent = stream;
+            listIPFSFiles();
             break;
         case 'root':
-            filesList.textContent = 'This is the root stream. You should not publish anything here.';
+            dom.openTabs('genericStreamBrowser', 'section');
+            genericStreamsList.innerHTML = '';
+            genericStreamBrowserTitle.textContent = 'This is the root stream. You should not publish anything here.';
+            genericStreamsList.textContent = 'I am root';
             break;
         default:
-            filesList.textContent = 'There are no items in this stream. Feature to add different kinds of input coming soon!!';
+            dom.openTabs('genericStreamBrowser', 'section');   
+            genericStreamsList.innerHTML = ''; 
+            genericStreamBrowserTitle.textContent = stream; 
+            listGenericItems()
             break;
     }
 };
+
 const streamCard = (name, items, keys, sub, details) => {
 
     let card = dom.newEl(streamsDisplay, 'div', '', 'streamCard w3-card-4 w3-round-large w3-margin');
     let header = dom.newEl(card, 'h1', name + 'Stream', 'cardHeader', name);
     header.addEventListener('click', () => {
-        dom.openTabs('FileBrowser', 'section');
         listStreamItems(name, sub);
     });
 
@@ -89,10 +90,10 @@ const listStreams = () => {
             resolve(res);
         });
 
-    })
+    });
 
 };
-Streamsbtn.addEventListener('click', () => {   
+Streamsbtn.addEventListener('click', () => {
     dom.openTabs('Streams', 'section');
     listStreams();
 });

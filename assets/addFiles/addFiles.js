@@ -1,7 +1,5 @@
-const {
-    execFile
-} = require('child_process');
-
+// 
+// 
 let newItems = [];
 let currentItems = [];
 let publishList = [];
@@ -137,7 +135,7 @@ const isDuplicate = () => {
         if (!(oldHash.includes(val))) {
             publishList.push(newItems[i])
         }
-    })
+    });
 };
 
 // step 4 ..... publish to blockchain

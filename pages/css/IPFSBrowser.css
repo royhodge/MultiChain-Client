@@ -1,0 +1,34 @@
+#IPFSfilesList {
+    display: flex;;
+    flex-direction: column;
+}
+
+.IPFSlistItem {
+    cursor: pointer;
+}
+
+#IPFSFileBrowserTitle {   
+    padding-left: 1em;
+    margin: 0
+}
+#addToIPFSBtn {   
+    margin-top: 8px;
+    margin-right: 50px;
+    width: 10em;
+}
+
+#IPFSFileBrowserTopBar {   
+    background-color: indianred; 
+    /* display: flex;
+    align-items: center;   */
+}
+
+#IPFSstreamKeyFiltersSelect {
+    margin-top: 8px;
+    margin-right: 50px;
+    width: 10em;
+}
+
+.tag {
+    padding: 10px
+}
