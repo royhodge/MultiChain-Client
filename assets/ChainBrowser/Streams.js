@@ -55,7 +55,7 @@ const listStreamItems = (stream, sub) => {
             break;
     }
 };
-const streamCard = (name, items, keys, sub) => {
+const streamCard = (name, items, keys, sub, details) => {
 
     let card = dom.newEl(streamsDisplay, 'div', '', 'streamCard w3-card-4 w3-round-large w3-margin');
     let header = dom.newEl(card, 'h1', name + 'Stream', 'cardHeader', name);
@@ -73,6 +73,8 @@ const streamCard = (name, items, keys, sub) => {
     el.addEventListener('click', () => {
         subscribeStream(sub);
     });
+    dom.newEl(body, 'p', '', '', 'Details:');
+    dom.newEl(body, 'p', '', '', details);
 };
 const listStreams = () => {
     return new Promise((resolve, reject) => {
@@ -82,7 +84,7 @@ const listStreams = () => {
             }
             streamsDisplay.innerHTML = '';
             res.forEach((val, i) => {
-                streamCard(val.name, val.items, val.keys, val.subscribed)
+                streamCard(val.name, val.items, val.keys, val.subscribed, val.details.text)
             });
             resolve(res);
         });
@@ -94,22 +96,38 @@ Streamsbtn.addEventListener('click', () => {
     dom.openTabs('Streams', 'section');
     listStreams();
 });
+createStreamBtn.addEventListener('click', () => {
+    newStream();
+});
 
 const newStream = () => {
-    var streamName = streamSearch.value;
+    var streamName = newStreamName.value;
     if (streamName === '') {
-        streamSearch.placeholder = 'No name given';
-        streamSearch.classList.add('w3-red');
+        newStreamName.placeholder = 'No name given';
+        newStreamName.classList.add('w3-border', 'w3-border-red');
         return;
+    }
+    let isOpen;
+    switch (streamOpen.value) {
+        case 'Open':
+            isOpen = true;
+            break;
+        default:
+            isOpen = false;
+            break;
     }
     multichain.create({
         type: 'stream',
         name: streamName,
-        open: false
+        open: isOpen,
+        details: {
+            text: streamDetails.value
+        }
     }, (err, res) => {
         if (err) {
             console.log(err);
         }
+        dom.fadeOut(newStreamModal);
         listStreams()
     });
 };

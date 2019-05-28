@@ -1,0 +1,41 @@
+<template class="html-content">
+        <div id="newStreamModal" class="fadeOut">
+                <div id="newStreamModalContent" class="w3-modal-content">
+                        <span onclick="dom.fadeOut(newStreamModal)"
+                                class="w3-button fas fa-times w3-display-topright"></span>
+                        <div class="w3-container w3-padding-32">
+                                <div id="customStream" class="w3-half">
+                                        <div class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin"
+                                                style="padding-bottom: 20px;">
+                                                <h3 class="w3-center">Create a custom stream</h3>
+                                                <p>Name:</p>
+                                                <input type="text" name="streamName" id="newStreamName" class="w3-input"
+                                                        placeholder="New stream name"
+                                                        onfocus="this.value=''; this.classList.remove('w3-border','w3-border-red');">
+                                                <p>Is stream open or closed?</p>
+                                                <select name="" id="streamOpen" class="w3-input">
+                                                        <option value="Closed" selected>Closed</option>
+                                                        <option value="Open">Open</option>
+                                                </select>                                         
+                                                <p>Any other details to add?</p>
+                                                <textarea class="w3-input" id="streamDetails" cols="25" rows="5"></textarea>
+                                                <button id="createStreamBtn"
+                                                        class="w3-btn w3-block w3-border w3-border-green w3-margin-top w3-round-large">Create</button>
+                                        </div>
+                                </div>
+                                <div id="presetStream" class="w3-half">
+                                        <div class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin"
+                                                style="padding-bottom: 20px;">
+                                                <h3 class="w3-center">Choose a premade stream</h3>
+                                                <div class="w3-row">
+                                                        <i class="streamIcon far fa-address-book"></i>
+                                                        <i class="streamIcon far fa-list-alt"></i>
+                                                        <i class="streamIcon fas fa-unlock-alt"></i>
+                                                </div>
+
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+        </div>
+</template>

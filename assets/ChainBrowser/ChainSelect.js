@@ -1,3 +1,5 @@
+// 
+// 
 const fs = require('fs');
 const {
     startMultichain,
@@ -23,27 +25,25 @@ const startbtn = (li, name) => {
     });
 }
 
+const chainHeader = (header, name) => {
+    header.addEventListener('click', async () => {
+        let info = await connect(name); 
+        listStreams();
+        showInfo(info);
+        dom.openTabs('Streams', 'section');
+        dom.fadeOut(chainSelect);
+    });
+};
+
 const chainBtn = async (name) => {
     let id = name.replace(/ /g, '')
     let li = dom.newEl(chainUL, 'li', `${id}Btn`, 'chainCard w3-border w3-border-red w3-btn w3-round');
     var header = dom.newEl(li, 'h3', ``, 'w3-block', name);
-    header.addEventListener('click', async () => {        
-        dom.openTabs('Streams', 'section');
-        dom.fadeOut(chainSelect)
-        let info = await connect(name); 
-        let streamItems = await listStreams();
-        showInfo(info);
-    });
+    chainHeader(header, name);
     switch (name) {
         case 'root':
             dom.newEl(li, 'h4', ``, 'w3-block', 'I am root');
-            break;
-        case 'Share':
-            header.addEventListener('click', async () => {
-                // addFiles();
-            });
-            startbtn(li, name);
-            break;
+            break; 
         default:
             startbtn(li, name);
             break;
@@ -63,19 +63,20 @@ const chainBtns = () => {
 };
 
 openChainSelect.addEventListener('click', () => {
-    chainSelect.classList.replace('fadeOut', 'fadeIn')
+    dom.fadeIn(chainSelect);
     chainBtns();
 });
 
 closeChainSelect.addEventListener('click', () => {
-    chainSelect.classList.replace('fadeIn', 'fadeOut')
+    dom.fadeOut(chainSelect);
 });
 
-createChainBtn.addEventListener('click', () => {   
-    createChainModal.classList.replace('fadeOut', 'fadeIn')    
+createChainBtn.addEventListener('click', () => {
+    dom.fadeIn(createChainModal);
 });
+
 
 window.addEventListener('load', () => {
-    chainSelect.classList.replace('fadeOut', 'fadeIn')
+    dom.fadeIn(chainSelect);
     chainBtns();
 });

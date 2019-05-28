@@ -95,11 +95,18 @@ fs.readdir(chainsPath, (err, stat) => {
 
 const connect = (chain) => {
     return new Promise((resolve,reject)=> {       
-        loadingModal.style.display = 'block';        
-        let interval = setInterval(() => {           
+        loadingModal.style.display = 'block'; 
+        let count = 0;       
+        let interval = setInterval(() => {   
+            count = count + 1;        
             multichain = require("multichain-node")(chainCreds[findChainCreds(chain)]);
             multichain.getInfo((err, info) => {
                 if (err || info.chainname === undefined) {
+                    if (count > 60) {
+                        console.log('Something Has gone wrong. This chain is not connected');                        
+                        clearInterval(interval);
+                        loadingModal.style.display = 'none';
+                    }
                     console.log(err.message);                    
                     reject(err.message);
                     return;
