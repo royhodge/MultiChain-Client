@@ -5,9 +5,7 @@
     height: -webkit-fill-available;
 }
 
-#presetChain {
-   
-}
+#presetChain {}
 
 .chainIcon {
     font-size: 1em;
@@ -19,4 +17,21 @@
 
 .chainIcon:hover {
     box-shadow: 1px 1px 5px 3px rgb(66, 64, 64);
+}
+
+#chainIconRow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+#chainIconRow i {
+    font-size: -webkit-xxx-large;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+#chainIconRow span {
+    font-size: 26px;
 }

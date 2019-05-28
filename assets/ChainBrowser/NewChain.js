@@ -12,18 +12,19 @@ const {
 } = require('../Daemons');
 
 let presetBtns = presetChain.querySelectorAll('.chainIcon');
+let prenamedtBtns = presetChain.querySelectorAll('.prenamed');
 
 const newChain = () => {
     let chainName = chainNameInput.value;
     let chainPath = path.join(chainsPath, chainName);
     createChain(chainName)
         .then(res => {
-            console.log('then')
+            console.log('then');
             console.log(res)
             showParams(chainPath);
         })
         .catch(err => {
-            console.log(err)
+            console.log(err);
         })
 }
 const changeParams = () => {
@@ -133,6 +134,26 @@ presetBtns.forEach((val => {
     let preset = val.id.slice(0, stop);
     val.addEventListener('click', () => {
         let name = presetNameInput.value;
+        createPreset(preset, name);
+    });
+}));
+
+prenamedtBtns.forEach((val => {   
+    val.addEventListener('click', () => {
+        name = val.textContent;
+        switch (name) {
+            case 'Contacts':
+                preset = 'SLC';               
+                break;
+            case 'Share':
+                preset = 'SPC';                
+                break;
+            case 'Passwords':
+                preset = 'SLC';                
+                break;    
+            default:
+                break;
+        }
         createPreset(preset, name);
     });
 }));
