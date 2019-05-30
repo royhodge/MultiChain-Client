@@ -39,43 +39,20 @@ module.exports = {
             // when you should delete the corresponding element.
             window = null
         });
-    },
-    chainSelect: () => {
-        let window = new remote.BrowserWindow({
-            width: 1000,
-            height: 1000,
-            fullscreen: true,
-            transparent: false,
-            frame: false,
-            webPreferences: {
-                nodeIntegration: true
-            }
-        });
-        // and load the index.html of the app.
-        window.loadFile('pages/chainBrowser.html');
-        window.webContents.openDevTools();
-
-        // Emitted when the window is closed.
-        window.on('closed', function () {
-            // Dereference the window object, usually you would store windows
-            // in an array if your app supports multi windows, this is the time
-            // when you should delete the corresponding element.
-            window = null
-        });
-    },
+    },    
     login: () => {
         let window = new BrowserWindow({
             width: 800,
             height: 600,           
             frame: false,
-            fullscreen: false,   
+            fullscreen: true,   
             webPreferences: {
                 nodeIntegration: true
             }         
         });
         // and load the index.html of the app.
         window.loadFile('pages/login.html');
-        // window.webContents.openDevTools();        
+        window.webContents.openDevTools();        
 
         // Emitted when the window is closed.
         window.on('closed', function () {

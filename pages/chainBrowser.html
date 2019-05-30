@@ -20,8 +20,10 @@
     <link rel="stylesheet" type="text/css" href="css/chainSelect.css">
     <link rel="stylesheet" type="text/css" href="css/newChain.css">
     <link rel="stylesheet" type="text/css" href="css/generalInfo.css">
-    <link rel="stylesheet" type="text/css" href="css/streams.css">
+    <link rel="stylesheet" type="text/css" href="css/streamSelect.css">
     <link rel="stylesheet" type="text/css" href="css/IPFSBrowser.css">
+    <link rel="stylesheet" type="text/css" href="css/genericStreamBrowser.css">
+    <link rel="stylesheet" type="text/css" href="css/comingsoon.css">
 
     <!-- from https://www.cssscript.com/demo/9-css-only-loaders/ -->
     <link rel="stylesheet" href="css/loader-1.css">
@@ -31,24 +33,21 @@
     <link rel="import" class="body" href="chainbrowser/newChain.html">
     <link rel="import" class="tabs" href="chainbrowser/tabs.html">
     <link rel="import" class="body" href="chainbrowser/generalInfo.html">
-    <link rel="import" class="body" href="chainbrowser/streams.html">
+    <link rel="import" class="body" href="chainbrowser/streamSelect.html">
     <link rel="import" class="body" href="chainbrowser/newStreamModal.html">
-    <link rel="import" class="body" href="chainbrowser/IPFSBrowser.html">
-    <link rel="import" class="body" href="chainbrowser/genericStream.html">
+    <link rel="import" class="body" href="streamBrowsers/IPFSBrowser.html">
+    <link rel="import" class="body" href="streamBrowsers/genericStream.html">
 
     <!-- Global functions -->
 
 </head>
 <!-- make frameless window drag object -->
 
-<body>
-    <div id="loadingModal">
-        <div id="loaderContent">
-            <div id="loader-1">
-                <div id="loader"></div>
-            </div>
-        </div>
-    </div>
+<body>   
+    <script>
+        require('../assets/loader/Loader')
+        require('../assets/loader/Comingsoon')
+    </script>
     <!-- mount point for html content -->
     <main id="topNavRoot"></main>
     <main id="contentRoot"></main>
@@ -64,9 +63,9 @@
         require('../assets/ChainBrowser/NewChain')
         require('../assets/ChainBrowser/Tabs')
         require('../assets/ChainBrowser/GeneralInfo')
-        require('../assets/ChainBrowser/Streams')
-        require('../assets/ChainBrowser/genericStreamBrowser')
-        require('../assets/addFiles/IPFSBrowser')
+        require('../assets/ChainBrowser/StreamSelect')
+        require('../assets/streamBrowsers/GenericStreamBrowser')
+        require('../assets/streamBrowsers/IPFSBrowser')
     </script>
 </body>
 

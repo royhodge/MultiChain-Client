@@ -88,12 +88,14 @@ const getCreds = (chain) => {
 };
 
 const findChainCreds = (chainName) => {
-    let num;
-    chainCreds.forEach((val, i) => {
-        if (val.name !== chainName) {
+    let num;    
+    chainCreds.forEach((val, i) => {       
+        if (val.name !== chainName) { 
+            console.log(`${val.name} is not a match`);          
             return;
         }
-        num = i;
+        console.log(`${val.name} is match`);  
+        num = i;        
     });
     return num;
 };
@@ -104,21 +106,25 @@ fs.readdir(chainsPath, (err, stat) => {
     }
     stat.forEach(val => {
         if (!(val.includes('.'))) {
-            getCreds(val);
+            getCreds(val);                  
         }
     });
 });
 
 const connect = (chain) => {
     return new Promise((resolve,reject)=> {       
-        loadingModal.style.display = 'block'; 
+        loadingModal.style.display = 'block';
+       
         let count = 0;       
-        let interval = setInterval(() => {   
-            count = count + 1;        
-            multichain = require("multichain-node")(chainCreds[findChainCreds(chain)]);
+        let interval = setInterval(() => { 
+            count = count + 1;
+            multichain = require("multichain-node")(
+                chainCreds[findChainCreds(chain)]
+            );
+            console.log(multichain); 
             multichain.getInfo((err, info) => {
                 if (err || info.chainname === undefined) {
-                    if (count > 60) {
+                    if (count > 20) {
                         console.log('Something Has gone wrong. This chain is not connected');                        
                         clearInterval(interval);
                         loadingModal.style.display = 'none';

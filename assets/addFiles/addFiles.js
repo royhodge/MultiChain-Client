@@ -5,7 +5,7 @@ let currentItems = [];
 let publishList = [];
 let listLength = '';
 
-connect('Share')
+connect('Share');
 // File functons
 // I want to make these into async functions
 

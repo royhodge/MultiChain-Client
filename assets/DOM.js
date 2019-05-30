@@ -73,3 +73,5 @@ const dom = {
         element.classList.replace('fadeIn', 'fadeOut');
     },
 };
+
+module.exports = dom;

@@ -33,8 +33,7 @@
   width: -webkit-fill-available;
   position: fixed;
   top: 0;
-  left: 0;
-  overflow: scroll;
+  left: 0;  
 }
 
 #newStreamModalContent {

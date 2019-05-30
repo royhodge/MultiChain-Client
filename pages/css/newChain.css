@@ -6,8 +6,6 @@
     overflow: scroll;
 }
 
-#presetChain {}
-
 .chainIcon {
     font-size: 1em;
     margin: 10px 10px;
@@ -37,8 +35,8 @@
     font-size: 26px;
 }
 
-.half {
-    width: 48%
+.chainPresetCard {
+    width: 100%
 }
 
 
@@ -49,8 +47,5 @@
 
     #chainSelect a {
         font-size: 18px;
-    }
-    .half {
-        width: 90%
-    }
+    }   
 }

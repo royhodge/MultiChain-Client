@@ -1,8 +1,8 @@
 // 
 // 
 // 
-const { listIPFSFiles } = require('../addFiles/IPFSBrowser');
-const { listGenericItems } = require('../ChainBrowser/genericStreamBrowser');
+const { listIPFSFiles } = require('../streamBrowsers/IPFSBrowser');
+const { listGenericItems } = require('../streamBrowsers/GenericStreamBrowser');
 
 const subscribeStream = (sub) => {
     let str = event.target.id;
@@ -49,14 +49,45 @@ const listStreamItems = (stream, sub) => {
             genericStreamsList.textContent = 'I am root';
             break;
         default:
-            dom.openTabs('genericStreamBrowser', 'section');   
-            genericStreamsList.innerHTML = ''; 
-            genericStreamBrowserTitle.textContent = stream; 
+            dom.openTabs('genericStreamBrowser', 'section');
+            genericStreamsList.innerHTML = '';
+            genericStreamBrowserTitle.textContent = stream;
             listGenericItems()
             break;
     }
 };
 
+const newStream = () => {
+    var streamName = newStreamName.value;
+    if (streamName === '') {
+        newStreamName.placeholder = 'No name given';
+        newStreamName.classList.add('w3-border', 'w3-border-red');
+        return;
+    }
+    let isOpen;
+    switch (streamOpen.value) {
+        case 'Open':
+            isOpen = true;
+            break;
+        default:
+            isOpen = false;
+            break;
+    }
+    multichain.create({
+        type: 'stream',
+        name: streamName,
+        open: isOpen,
+        details: {
+            text: streamDetails.value
+        }
+    }, (err, res) => {
+        if (err) {
+            console.log(err);
+        }
+        dom.fadeOut(newStreamModal);
+        listStreams()
+    });
+};
 const streamCard = (name, items, keys, sub, details) => {
 
     let card = dom.newEl(streamsDisplay, 'div', '', 'streamCard w3-card-4 w3-round-large w3-margin');
@@ -101,36 +132,36 @@ createStreamBtn.addEventListener('click', () => {
     newStream();
 });
 
-const newStream = () => {
-    var streamName = newStreamName.value;
-    if (streamName === '') {
-        newStreamName.placeholder = 'No name given';
-        newStreamName.classList.add('w3-border', 'w3-border-red');
-        return;
-    }
-    let isOpen;
-    switch (streamOpen.value) {
-        case 'Open':
-            isOpen = true;
+streamCreate.addEventListener('click', () => {
+    presetStreamIcons.innerHTML = '';
+    switch (Infobtn.textContent) {
+        case 'Share':
+            dom.newEl(presetStreamIcons, 'i', 'IPFSIcon', 'streamIcon fas fa-share-alt');
+            IPFSIcon.addEventListener('click', () => {
+                comingSoonModal.style.display = 'flex';
+            }); 
+            break;
+        case 'Passwords':
+            dom.newEl(presetStreamIcons, 'i', 'PasswordsIcon', 'streamIcon fas fa-lock');
+            PasswordsIcon.addEventListener('click', () => {
+                comingSoonModal.style.display = 'flex';
+            }); 
+            break;
+        case 'Contacts':
+            dom.newEl(presetStreamIcons, 'i', 'AddressBookIcon', 'streamIcon fas fa-address-book');
+            AddressBookIcon.addEventListener('click', () => {
+                comingSoonModal.style.display = 'flex';
+            }); 
             break;
         default:
-            isOpen = false;
+            dom.newEl(presetStreamIcons, 'i', 'GenericForm', 'streamIcon fab fa-wpforms');
+            GenericForm.addEventListener('click', () => {
+                comingSoonModal.style.display = 'flex';
+            });                        
             break;
     }
-    multichain.create({
-        type: 'stream',
-        name: streamName,
-        open: isOpen,
-        details: {
-            text: streamDetails.value
-        }
-    }, (err, res) => {
-        if (err) {
-            console.log(err);
-        }
-        dom.fadeOut(newStreamModal);
-        listStreams()
-    });
-};
+    dom.fadeIn(newStreamModal);
+});
+
 
 module.exports = listStreams;

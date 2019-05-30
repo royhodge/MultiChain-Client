@@ -6,7 +6,7 @@ const {
     stopMultichain
 } = require('../Daemons');
 
-const listStreams = require('./Streams');
+const listStreams = require('./StreamSelect');
 const showInfo = require('./GeneralInfo');
 const {
     addFiles
@@ -31,6 +31,7 @@ const chainHeader = (header, name) => {
         listStreams();
         showInfo(info);
         dom.openTabs('Streams', 'section');
+        Infobtn.textContent = name;
         dom.fadeOut(chainSelect);
     });
 };

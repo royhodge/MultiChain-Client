@@ -1,4 +1,5 @@
 
+ console.log(`Connect root for login`);    
 connect('root');
 
 const loginCreds = [];

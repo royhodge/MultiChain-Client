@@ -1,6 +1,12 @@
+#IPFSFileBrowser {
+   
+}
 #IPFSfilesList {
     display: flex;;
     flex-direction: column;
+}
+#IPFSfilesList p {
+    margin: 5px 0px
 }
 
 .IPFSlistItem {

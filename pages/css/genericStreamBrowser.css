@@ -1,0 +1,12 @@
+#genericStreamBrowser {
+
+}
+
+#genericStreamBrowserTopBar {
+  background-image: linear-gradient(#ED213A,#93291E)
+}
+
+#streamItemCount {
+  width: 6em;
+  text-align: -webkit-center;
+}

@@ -1,0 +1,11 @@
+#comingSoonContent {
+    width: 300px;
+    height: fit-content;  
+    margin: 0;
+    padding: 0;
+}
+
+#comingSoonModal {    
+    flex-wrap: wrap;
+    justify-content: center;
+}

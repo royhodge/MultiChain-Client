@@ -7,7 +7,8 @@
                                 <div id="customStream" class="w3-half">
                                         <div class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin"
                                                 style="padding-bottom: 20px;">
-                                                <h3 class="w3-center">Create a custom stream</h3>
+                                                <h3 class="w3-center">Create a generic stream</h3>
+                                                <h5 class="w3-center">Input will be plain text</h5>
                                                 <p>Name:</p>
                                                 <input type="text" name="streamName" id="newStreamName" class="w3-input"
                                                         placeholder="New stream name"
@@ -16,9 +17,10 @@
                                                 <select name="" id="streamOpen" class="w3-input">
                                                         <option value="Closed" selected>Closed</option>
                                                         <option value="Open">Open</option>
-                                                </select>                                         
+                                                </select>
                                                 <p>Any other details to add?</p>
-                                                <textarea class="w3-input" id="streamDetails" cols="25" rows="5"></textarea>
+                                                <textarea class="w3-input" id="streamDetails" cols="25"
+                                                        rows="5"></textarea>
                                                 <button id="createStreamBtn"
                                                         class="w3-btn w3-block w3-border w3-border-green w3-margin-top w3-round-large">Create</button>
                                         </div>
@@ -27,12 +29,8 @@
                                         <div class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin"
                                                 style="padding-bottom: 20px;">
                                                 <h3 class="w3-center">Choose a premade stream</h3>
-                                                <div class="w3-row">
-                                                        <i class="streamIcon far fa-address-book"></i>
-                                                        <i class="streamIcon far fa-list-alt"></i>
-                                                        <i class="streamIcon fas fa-unlock-alt"></i>
+                                                <div id="presetStreamIcons" class="w3-row"> 
                                                 </div>
-
                                         </div>
                                 </div>
                         </div>
