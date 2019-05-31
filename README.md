@@ -107,7 +107,7 @@ Currently supports Windows10 and Linux ( tested on Lubuntu 18 ). MacOS coming so
     </li>
     <li>
         <h3>
-            IPFS
+            IPFS:
         </h3>
         <ul>
             <li>Automatically start IPFS on app start. Shutdown IPFS on app quit.</li>
@@ -121,6 +121,50 @@ Currently supports Windows10 and Linux ( tested on Lubuntu 18 ). MacOS coming so
 <h3>
     Planned features:
 </h3>
+<ul>
+    <li>
+        <h3>
+            Login:
+        </h3>
+        <ul>
+            <li>Improved encryption method. The current technique is very basic.</li>
+        </ul>
+    </li>
+    <li>
+        <h3>
+            Multichain:
+        </h3>
+        <ul>
+            <li>Connect to other Multichain blockchains. This is the most important feature to add!! If anyone has
+                networking experienced and would like to help me make this feature secure and seamless, it would take
+                this project to other level!
+            </li>
+            <li>Add more pre-designed streams browsers, ie. passwords, contacts, customizable forms, messagging, budget.
+            </li>
+            <li>Improve stream filters</li>
+            <li>Custom consensus configuration. Currently all chains are created with default consensus parameters ( 0.5 or 50% )</li>
+            <li>Add address and permissions management.</li>
+        </ul>
+    </li>
+    <li>
+        <h3>
+            IPFS:
+        </h3>
+        <ul>
+            <li>Improve IPFS filebrowser.</li>
+            <li>Add support to browse IPFS repo.</li>
+        </ul>
+    </li>
+    <li>
+        <h3>
+            DAT:
+        </h3>
+        <ul>
+            <li>Add support for DAT protocol.</li>           
+            <li>Create DAT filebrowser.</li>           
+        </ul>
+    </li>
+</ul>
 
 <h3>Install: </h3>
 
@@ -135,4 +179,8 @@ npm start
     Current state:
 </h3>
 
-I will be reviewing code and making improvements before adding any more features.
+<p>
+    This project is still in pre-alpha. I don't even know if anyone is interested in what I'm doing or if this is a
+    useful application. If you read this far, thank you very much. Any feedback and suggestions will be greatly
+    appreciated.
+</p>
