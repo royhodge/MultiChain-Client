@@ -1,6 +1,6 @@
 {
   "name": "electron-multichain-explorer",
-  "version": "0.0.1",
+  "version": "0.5.0",
   "description": "A management tool for Multichain blockchains",
   "main": "app.js",
   "scripts": {
