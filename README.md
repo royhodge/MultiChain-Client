@@ -6,7 +6,10 @@ Currently supports Windows10 and Linux ( tested on Lubuntu 18 ). MacOS coming so
 <h4>
     Security notice:
 </h4>
-This application uses full Node intergration is all windows. As such you should never load remote content or any other files that can execute unknown code within the browser window. I would appreciate any advice from experienced Electron developers to help secure this appilcation. I imagine a whitelist/blacklist could be setup that would block any remote content from being loaded. Remote content will be loaded in default browsers like Chrome or Firefox.
+This application uses full Node intergration is all windows. As such you should never load remote content or any other
+files that can execute unknown code within the browser window. I would appreciate any advice from experienced Electron
+developers to help secure this appilcation. I imagine a whitelist/blacklist could be setup that would block any remote
+content from being loaded. Remote content will be loaded in default browsers like Chrome or Firefox.
 
 <h4>
     Recommendation:
@@ -50,15 +53,30 @@ versions of Node. This project was originally started in Node v8 and there aren'
 </h4>
 
 <ul>
-    <li>Login. Your login credentials are encrypted with sha256 and stored on the "root" chain. This chain has
-        connection restriction to prevent any remote users from connecting to or viewing blockchain details.</li>
-    <li>Detect existing Multichain blockchains.( Install "root" chain if none exist )</li>
-    <li>Automatically start all local chains. Manually stop chains</li>
-    <li>Create chains with preset parameters</li>
-    <li>Create custom chains and select custom parameters</li>
-    <li>Delete chains</li>
-    <li>Create generic streams ( open/closed ) and add a description. Designed for generic text input</li>
-    <li>Create premade streams with pre-set data inputs ( IPFS )</li>
+    <li>
+        <h4>
+            Login:
+        </h4>
+        <ul>
+            <li>Your login credentials are encrypted with sha256 and stored on the "root" chain. This chain has
+                connection restriction to prevent any remote users from connecting to or viewing blockchain details.
+            </li>
+        </ul>
+    </li>
+    <li>
+        <h4>
+            Multichain:
+        </h4>
+        <ul>
+            <li>Detect existing Multichain blockchains.( Install "root" chain if none exist )</li>
+            <li>Automatically start all local chains. Manually stop chains</li>
+            <li>Create chains with preset parameters</li>
+            <li>Create custom chains and select custom parameters</li>
+            <li>Delete chains</li>
+            <li>Create generic streams ( open/closed ) and add a description. Designed for generic text input</li>
+            <li>Create premade streams with pre-set data inputs ( IPFS )</li>
+        </ul>
+    </li>
     <li>
         <h4>
             IPFS
@@ -67,7 +85,8 @@ versions of Node. This project was originally started in Node v8 and there aren'
             <li>Add files</li>
             <li>Publish file details to Multichain</li>
             <li>View IPFS files in explorer and open with external applications ( ie. default browsers )</li>
-        </ul>    
+        </ul>
+    </li>
 </ul>
 
 <h4>
