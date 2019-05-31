@@ -1,12 +1,17 @@
    <h1>Electron Multichain Explorer</h1>
 A general management tools for Multichain blockchains
-Currently it's just a basic template that others can build on.
 
-Currently supports Windows10 and Linux ( tested on Lubuntu 18 ). MacOS coming soon....        
+Currently supports Windows10 and Linux ( tested on Lubuntu 18 ). MacOS coming soon.... 
 
-This is not a secure app yet. Real encryption and login needs to be finalized. I've used  <a href="http://bitwiseshiftleft.github.io/sjcl/" target="blank">sjcl</a> encryption in some test runs ( works very well ) but I want to refactor and streamline code more before implementing it. There is a login script that will simulate login of production release. 
+<h4>
+    Recommendation:
+</h4>
 
-I am still studying web development, Electron and Multichain and this is my first real project to try and combine these elements. I'm a huge fan of blockchains, IPFS and DAT-protocol (which will be added to the project soon ). Any feedback and suggestions will be greatly appreciated. 
+I highly recommend using Linux for this app. Multichain and IPFS API calls are significantly faster.
+<h4>
+    Disclaimer:
+</h4>
+I am still studying web development and Electron. This is my first real project to try and combine these elements. I'm a huge fan of blockchains, IPFS and DAT-protocol (which will be added to the project soon ). Any feedback and suggestions will be greatly appreciated. 
  
 <h3>The goal:</h3>
 I hope to develop this project into a general template that developers can fork and use other frameworks to inhance visual and functional elements. To that end, I've kept dependecies to a minimum. I think it would be relatively simple to adapt the code to suit a React, Angular or Vue project. Forks are welcome. 
@@ -25,28 +30,21 @@ On Windows, you will need to add Multichain to the PATH variables.
 
 <a href="https://dist.ipfs.io/#go-ipfs" target="blank">GO-IPFS</a>. Follow the instructions on the main site. It's really easy.
 
-<a href="https://electronjs.org/docs" target="blank">Electron V5</a>. For security, it's always recommended to keep Electron updated to latest version.
-
 <a href="https://nodejs.org/en/" target="blank">Node v12</a>. You could ammend the package.json to install earlier versions of Node. This project was originally started in Node v8 and there aren't any dependecies that require Node v12.
-
-On Linux, you will need to install Multichain manually. The steps are very easy to follow. Future updates will automate this process.
-
-
-<h4>
-    Reccommendation:
-</h4>
-
-I recommend using Linux for this app. Multichain and IPFS API calls are significantly faster.
 
 <h4>
     Current features:
 </h4>
 
  <ul>
-   <li>Detect existing Multichain blockchains.( Install "app" chain if none exist )</li>
-   <li>Automatically start all local chains</li>
-   <li>Create new chains with custom permissions</li>
-   <li>Create streams ( currently all streams are "closed" by default )</li>
+   <li>Login. Your login credentials are encrypted with sha256 and stored on the "root" chain. This chain is has connection      restriction to prevent any remote users from connecting to or viewing blockchain details.</li>
+   <li>Detect existing Multichain blockchains.( Install "root" chain if none exist )</li>
+   <li>Automatically start all local chains. Manually stop chains</li>   
+   <li>Create chains with preset parameters</li>
+   <li>Create custom chains and select custom permissions</li>
+   <li>Delete chains</li>
+   <li>Create generic streams ( open/closed ) and add a description. Designed for generic text input</li>
+   <li>Create premade streams for IPFS objects</li>
    <li>Add files/folders to IPFS and publish to Multichain ( It works...but needs a lot of improvement )</li>
 </ul>
 
