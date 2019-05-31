@@ -81,7 +81,8 @@ Currently supports Windows10 and Linux ( tested on Lubuntu 18 ). MacOS coming so
             Login:
         </h3>
         <ul>
-            <li>Your login credentials are encrypted with sha256 ( <a href="https://geraintluff.github.io/sha256/">found here</a> ) and stored on the "root" chain. This chain has
+            <li>Your login credentials are encrypted with sha256 ( <a href="https://geraintluff.github.io/sha256/">found
+                    here</a> ) and stored on the "root" chain. This chain has
                 connection restriction to prevent any remote users from connecting to or viewing blockchain details.
             </li>
         </ul>
@@ -91,13 +92,17 @@ Currently supports Windows10 and Linux ( tested on Lubuntu 18 ). MacOS coming so
             Multichain:
         </h3>
         <ul>
-            <li>Detect existing Multichain blockchains.( Install "root" chain if none exist )</li>
-            <li>Automatically start all local chains. Manually stop chains</li>
-            <li>Create chains with preset parameters</li>
-            <li>Create custom chains and select custom parameters</li>
-            <li>Delete chains</li>
-            <li>Create generic streams ( open/closed ) and add a description. Designed for generic text input</li>
-            <li>Create premade streams with pre-set data inputs ( IPFS )</li>
+            <li>Install 'root' blockchain. This is used for login and other application related data.</li>
+            <li>Detect existing Multichain blockchains.</li>
+            <li>Automatically start all local chains on app start. Shutdown chains on app quit.</li>
+            <li>Manually start/stop chains once app is loaded.</li>
+            <li>Create chains with preset parameters.</li>
+            <li>Create custom chains and select custom parameters.</li>
+            <li>Delete chains.</li>
+            <li>Create generic streams ( open/closed ) and add a description. Designed for generic text input.</li>
+            <li>Create premade streams with pre-set data inputs ( IPFS ).</li>
+            <li>Filter stream items by publisher or key</li>
+            <li>Set stream item display count</li>
         </ul>
     </li>
     <li>
@@ -105,9 +110,10 @@ Currently supports Windows10 and Linux ( tested on Lubuntu 18 ). MacOS coming so
             IPFS
         </h3>
         <ul>
-            <li>Add files</li>
-            <li>Publish file details to Multichain</li>
-            <li>View IPFS files in explorer and open with external applications ( ie. default browsers )</li>
+            <li>Automatically start IPFS on app start. Shutdown IPFS on app quit.</li>
+            <li>Add files to repo.</li>
+            <li>Publish file details to Multichain.</li>
+            <li>View IPFS files in explorer and open with external applications ( ie. default browsers ).</li>
         </ul>
     </li>
 </ul>
