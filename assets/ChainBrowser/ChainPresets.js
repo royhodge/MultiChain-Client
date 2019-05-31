@@ -49,6 +49,15 @@ module.exports = {
             /anyone-can-mine = false/g,
             /anyone-can-activate = false/g,
             /anyone-can-admin = false/g
+        ],
+        consensus: [
+            /mining-diversity = 0.3/g,
+            /admin-consensus-upgrade = 0.5/g,
+            /admin-consensus-txfilter = 0.5/g,
+            /admin-consensus-activate = 0.5/g,
+            /admin-consensus-mine = 0.5/g,
+            /admin-consensus-create = 0.5e/g,
+            /admin-consensus-issue = 0.5/g            
         ]
     }
 };

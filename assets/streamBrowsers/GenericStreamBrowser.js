@@ -7,8 +7,6 @@ const {
 let stream;
 let newPostKeyInputs = newPostKeys.querySelectorAll('input');
 
-
-
 const postGenericItem = () => {
     let k = [];
     newPostKeyInputs.forEach(val => {

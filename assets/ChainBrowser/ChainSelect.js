@@ -12,6 +12,36 @@ const {
     addFiles
 } = require('../Windows');
 
+
+// Card header is used to manage stream pages
+const chainHeader = (header, name) => {
+    header.addEventListener('click', async () => {
+        let info = await connect(name);       
+        showInfo(info);        
+        switch (name) {
+            case 'root':
+                comingSoonModal.style.display = 'flex';
+                comingSoonHeader.textContent = 'I am root!';
+                break;
+            case 'Contacts':
+                dom.openTabs('contactsBrowser', 'section');                
+                Streamsbtn.addEventListener('click', async () => {
+                    dom.openTabs('contactsBrowser', 'section');                    
+                });
+                break;
+            default:
+                dom.openTabs('Streams', 'section');                
+                Streamsbtn.addEventListener('click', async () => {
+                    dom.openTabs('Streams', 'section');                    
+                });
+                listStreams();
+                break;
+        }
+        Infobtn.textContent = name;
+        dom.fadeOut(chainSelect);
+    });
+};
+
 const startbtn = (li, name) => {
     var startBtn = dom.newEl(li, 'button', ``, 'w3-half w3-btn w3-green', 'Start');
     startBtn.addEventListener('click', async () => {
@@ -23,17 +53,6 @@ const startbtn = (li, name) => {
         stopMultichain(name);
         connect('root');
     });
-}
-
-const chainHeader = (header, name) => {
-    header.addEventListener('click', async () => {
-        let info = await connect(name); 
-        listStreams();
-        showInfo(info);
-        dom.openTabs('Streams', 'section');
-        Infobtn.textContent = name;
-        dom.fadeOut(chainSelect);
-    });
 };
 
 const chainBtn = async (name) => {
@@ -44,7 +63,7 @@ const chainBtn = async (name) => {
     switch (name) {
         case 'root':
             dom.newEl(li, 'h4', ``, 'w3-block', 'I am root');
-            break; 
+            break;
         default:
             startbtn(li, name);
             break;

@@ -33,7 +33,8 @@ const subscribeStream = (sub) => {
 };
 const listStreamItems = (stream, sub) => {
     if (!(sub)) {
-        alert('You are not subscribed to this stream \n\n To subscribe, click "Subscribed');
+        comingSoonModal.style.display = 'flex';
+        comingSoonHeader.textContent = 'You are not subscribed to this stream. To subscribe, click "Subscribed"';
         return;
     }
     switch (stream) {
@@ -42,23 +43,17 @@ const listStreamItems = (stream, sub) => {
             IPFSFileBrowserTitle.textContent = stream;
             listIPFSFiles();
             break;
-        case 'root':
-            dom.openTabs('genericStreamBrowser', 'section');
-            genericStreamsList.innerHTML = '';
-            genericStreamBrowserTitle.textContent = 'This is the root stream. You should not publish anything here.';
-            genericStreamsList.textContent = 'I am root';
-            break;
         default:
             dom.openTabs('genericStreamBrowser', 'section');
             genericStreamsList.innerHTML = '';
             genericStreamBrowserTitle.textContent = stream;
-            listGenericItems()
+            listGenericItems();
             break;
     }
 };
 
-const newStream = () => {
-    var streamName = newStreamName.value;
+const newStream = (streamName) => {
+
     if (streamName === '') {
         newStreamName.placeholder = 'No name given';
         newStreamName.classList.add('w3-border', 'w3-border-red');
@@ -82,7 +77,8 @@ const newStream = () => {
         }
     }, (err, res) => {
         if (err) {
-            console.log(err);
+            errorModal.style.display = 'flex';
+            errorHeader.textContent = err.message;
         }
         dom.fadeOut(newStreamModal);
         listStreams()
@@ -124,12 +120,10 @@ const listStreams = () => {
     });
 
 };
-Streamsbtn.addEventListener('click', () => {
-    dom.openTabs('Streams', 'section');
-    listStreams();
-});
+
 createStreamBtn.addEventListener('click', () => {
-    newStream();
+    var streamName = newStreamName.value;
+    newStream(streamName);
 });
 
 streamCreate.addEventListener('click', () => {
@@ -138,30 +132,35 @@ streamCreate.addEventListener('click', () => {
         case 'Share':
             dom.newEl(presetStreamIcons, 'i', 'IPFSIcon', 'streamIcon fas fa-share-alt');
             IPFSIcon.addEventListener('click', () => {
-                comingSoonModal.style.display = 'flex';
-            }); 
+                newStream('IPFS');
+            });
             break;
         case 'Passwords':
             dom.newEl(presetStreamIcons, 'i', 'PasswordsIcon', 'streamIcon fas fa-lock');
             PasswordsIcon.addEventListener('click', () => {
                 comingSoonModal.style.display = 'flex';
-            }); 
+            });
             break;
         case 'Contacts':
             dom.newEl(presetStreamIcons, 'i', 'AddressBookIcon', 'streamIcon fas fa-address-book');
             AddressBookIcon.addEventListener('click', () => {
-                comingSoonModal.style.display = 'flex';
-            }); 
+                newStream('Address Book');
+            });
             break;
         default:
             dom.newEl(presetStreamIcons, 'i', 'GenericForm', 'streamIcon fab fa-wpforms');
             GenericForm.addEventListener('click', () => {
-                comingSoonModal.style.display = 'flex';
-            });                        
+                newStream('Generic');
+            });
             break;
     }
     dom.fadeIn(newStreamModal);
 });
 
+streamSearch.addEventListener("keydown", (e) => {
+    if (e.keyCode === 13) { //checks whether the pressed key is "Enter"
+        comingSoonModal.style.display = 'flex';
+    }
+});
 
 module.exports = listStreams;

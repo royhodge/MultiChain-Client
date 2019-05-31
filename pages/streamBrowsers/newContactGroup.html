@@ -1,0 +1,24 @@
+<template class="html-content">
+    <div id="newGroupModal" class="fadeOut">
+        <div id="newGroupModalContent" class="w3-modal-content">
+            <span onclick="dom.fadeOut(newGroupModal)" class="w3-button fas fa-times w3-display-topright"></span>
+            <div class="w3-container w3-padding-32">
+                <div id="newGroupForm" class="w3-container">
+                    <div class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin"
+                        style="padding-bottom: 20px;">
+                        <h3 class="w3-center">Create a new group</h3>                       
+                        <p>Name:</p>
+                        <input type="text" name="newGroupName" id="newGroupName" class="w3-input"
+                            placeholder="New group name"
+                            onfocus="this.value=''; this.classList.remove('w3-border','w3-border-red');">
+                        
+                        <p>Add a discription for this group</p>
+                        <textarea class="w3-input" id="newGroupDetails" cols="25" rows="5"></textarea>
+                        <button id="createGroupBtn"
+                            class="w3-btn w3-block w3-border w3-border-green w3-margin-top w3-round-large">Create</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

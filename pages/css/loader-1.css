@@ -67,6 +67,11 @@
 
 }
 
+#loaderLog {
+    color: ghostwhite;
+    text-align: center
+}
+
 /*Keyframes for spin animation */
 
 @-webkit-keyframes spin {

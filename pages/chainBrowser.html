@@ -21,8 +21,9 @@
     <link rel="stylesheet" type="text/css" href="css/newChain.css">
     <link rel="stylesheet" type="text/css" href="css/generalInfo.css">
     <link rel="stylesheet" type="text/css" href="css/streamSelect.css">
-    <link rel="stylesheet" type="text/css" href="css/IPFSBrowser.css">
-    <link rel="stylesheet" type="text/css" href="css/genericStreamBrowser.css">
+    <link rel="stylesheet" type="text/css" href="css/streamBrowsers/IPFSBrowser.css">
+    <link rel="stylesheet" type="text/css" href="css/streamBrowsers/genericStreamBrowser.css">
+    <link rel="stylesheet" type="text/css" href="css/streamBrowsers/contactsBrowser.css">
     <link rel="stylesheet" type="text/css" href="css/comingsoon.css">
 
     <!-- from https://www.cssscript.com/demo/9-css-only-loaders/ -->
@@ -37,6 +38,8 @@
     <link rel="import" class="body" href="chainbrowser/newStreamModal.html">
     <link rel="import" class="body" href="streamBrowsers/IPFSBrowser.html">
     <link rel="import" class="body" href="streamBrowsers/genericStream.html">
+    <link rel="import" class="body" href="streamBrowsers/contactsBrowser.html">
+    <link rel="import" class="body" href="streamBrowsers/newContactGroup.html">
 
     <!-- Global functions -->
 
@@ -47,6 +50,7 @@
     <script>
         require('../assets/loader/Loader')
         require('../assets/loader/Comingsoon')
+        require('../assets/loader/error')
     </script>
     <!-- mount point for html content -->
     <main id="topNavRoot"></main>
@@ -66,6 +70,7 @@
         require('../assets/ChainBrowser/StreamSelect')
         require('../assets/streamBrowsers/GenericStreamBrowser')
         require('../assets/streamBrowsers/IPFSBrowser')
+        require('../assets/streamBrowsers/ContactsBrowser')
     </script>
 </body>
 

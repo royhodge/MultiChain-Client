@@ -69,9 +69,10 @@ const getCreds = (chain) => {
     fs.readFile(configFile, 'utf-8', (err, data) => {
         if (err) throw err;
         let x = data.indexOf('rpcpassword=');
-        let start = x + 12;
-        let stop = start + 44;
+        let start = x + 12;        
+        let stop = start + 44;              
         creds.pass = data.slice(start, stop);
+        
     });
 
     // read params file to get rpc port
@@ -83,18 +84,16 @@ const getCreds = (chain) => {
         let stop = start + 4;
         creds.port = data.slice(start, stop);
     });
-    chainCreds.push(creds)
+    chainCreds.push(creds);
     return creds;
 };
 
 const findChainCreds = (chainName) => {
     let num;    
     chainCreds.forEach((val, i) => {       
-        if (val.name !== chainName) { 
-            console.log(`${val.name} is not a match`);          
+        if (val.name !== chainName) {                 
             return;
-        }
-        console.log(`${val.name} is match`);  
+        }        
         num = i;        
     });
     return num;
@@ -113,27 +112,23 @@ fs.readdir(chainsPath, (err, stat) => {
 
 const connect = (chain) => {
     return new Promise((resolve,reject)=> {       
-        loadingModal.style.display = 'block';
-       
+        loadingModal.style.display = 'block';       
         let count = 0;       
         let interval = setInterval(() => { 
             count = count + 1;
-            multichain = require("multichain-node")(
-                chainCreds[findChainCreds(chain)]
-            );
-            console.log(multichain); 
+            multichain = require("multichain-node")(chainCreds[findChainCreds(chain)]);           
             multichain.getInfo((err, info) => {
                 if (err || info.chainname === undefined) {
-                    if (count > 20) {
-                        console.log('Something Has gone wrong. This chain is not connected');                        
+                    if (count > 40) {
+                        loaderLog.textContent = 'Something Has gone wrong. This chain is not connected';                        
                         clearInterval(interval);
                         loadingModal.style.display = 'none';
-                    }
-                    console.log(err.message);                    
-                    reject(err.message);
+                    }                                      
+                    loaderLog.textContent = 'Waiting to connect...';
                     return;
                 }            
                 clearInterval(interval);
+                loaderLog.textContent = 'Connected!';
                 loadingModal.style.display = 'none';
                 activeChain = info;
                 resolve(info);               
