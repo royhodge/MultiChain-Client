@@ -16,7 +16,8 @@ const useStyles = makeStyles(() => ({
     margin: '0',
     position: 'fixed',
     width: '100%',
-    top: 35
+    top: 35,
+    zIndex: '900'
   },
   toolbar: {
     justifyContent: 'space-between',
