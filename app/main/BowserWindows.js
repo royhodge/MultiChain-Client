@@ -6,7 +6,6 @@ import path from 'path';
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 let mainWindow = null;
-let installerWindow = null;
 let forceQuit = false;
 
 module.exports = {
@@ -71,25 +70,4 @@ module.exports = {
       });
     }
   },
-  installer: () => {
-    installerWindow = new BrowserWindow({
-      width: 500,
-      height: 500,
-      // fullscreen: true,
-      show: false,
-      frame: false,
-    });
-
-    installerWindow.loadFile(path.resolve(path.join(__dirname, '../renderer/installer.html')));
-
-    // show window once on first load
-    installerWindow.webContents.once('did-finish-load', () => {
-      installerWindow.show();
-    });
-
-    if (isDevelopment) {
-      // auto-open dev tools
-      // installerWindow.webContents.openDevTools();
-    }
-  }
 }
