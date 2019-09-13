@@ -28,7 +28,8 @@ class App extends React.Component {
       chainParams: false,
       streams: [],
       addresses: [],
-      assets: []
+      assets: [],
+      peers: []
     }
     // Global functions to open modal or give feedback
     this.snackFeedback = this.snackFeedback.bind(this);
@@ -41,10 +42,10 @@ class App extends React.Component {
     this.getChainAddresses = this.getChainAddresses.bind(this);
     this.getChainStreams = this.getChainStreams.bind(this);
     this.getChainAssets = this.getChainAssets.bind(this);
+    this.getPeerInfo = this.getPeerInfo.bind(this);
     this.setChain = this.setChain.bind(this);
-    this.stopMultichain = this.stopMultichain.bind(this);
   }
-
+   // General info functions
   getLocalInfo() {
     LocalChains()
       .then((chains) => {
@@ -55,6 +56,7 @@ class App extends React.Component {
         });
       })
   }
+    // Multichain functions
   getChainParams() {
     this.state.multichain.getBlockchainParams((err, info) => {
       if (err) {
@@ -110,7 +112,19 @@ class App extends React.Component {
       });
     });
   }
+  getPeerInfo() {
+    this.state.multichain.getPeerInfo((err, info) => {
+      if (err) {
+        this.snackFeedback('error', err.message);
+        return;
+      }
+      this.setState({
+        peers: info
+      });
+    });
+  }
 
+  // Update state with chain data
   setChain(chain) {
     GetCreds(chain)
       .then((creds) => {
@@ -125,24 +139,14 @@ class App extends React.Component {
         this.getChainAddresses();
         this.getChainStreams();
         this.getChainAssets();
+        this.getPeerInfo();
       })
       .catch(err => {
         this.snackFeedback('error', err);
       });
       this.snackFeedback('success', 'Connected to ' + chain);
   }
-  stopMultichain() {
-    this.state.multichain.stop()
-    this.setState({
-      currentChain: false,
-      multichain: false,
-      chainInfo: false,
-      chainParams: false,
-      streams: [],
-      addresses: [],
-      assets: []
-    })
-  }
+
 
   // Async functions to load once component has been mounted
   componentDidMount() {
@@ -163,7 +167,6 @@ class App extends React.Component {
         state: this.state,
         functions: {
           feedback: this.snackFeedback,
-          stopMultichain: this.stopMultichain,
           setChain: this.setChain
         }
       },
