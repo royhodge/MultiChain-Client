@@ -10,8 +10,8 @@ import Feedback from '../constants/Feedback'
 import GetCreds from '../constants/GetCreds'
 
 // Containers
-import Body from './Body'
 import Topnav from './Topnav'
+import TabToolbar from './TabToolbar'
 // Components
 import Windowbar from '../components/WindowBar'
 
@@ -182,7 +182,7 @@ class App extends React.Component {
       <React.Fragment>
         <Windowbar />
         <Topnav props={componentProps.Topnav} />
-        <Body props={componentProps.Body} />
+        <TabToolbar props={componentProps.Topnav} />
       </React.Fragment>
     );
   }

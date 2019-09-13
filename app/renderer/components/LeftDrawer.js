@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -18,7 +19,8 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginBottom: 10
   },
   fullList: {
     width: 'auto',
@@ -60,14 +62,11 @@ export default function Drawers({ props }) {
       role="presentation"
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)} >
-      <List>
-        <ListItem className={classes.list} button key={'sidenav'}>
-          <ListItemText primary={'Local chains'} />
-        </ListItem>
-        <ListItem className={classes.list} button key={'createBtn'}>
-          <Button key={'create'} variant="outlined" onClick={create}>Create</Button>
-        </ListItem>
-      </List>
+      <br></br>
+      <Typography variant="h6" className={classes.list}>
+        Local chains
+        <Button key={'create'} variant="outlined" onClick={create}>Create</Button>
+      </Typography>
       <Divider />
       <List>
         {localchains.map(chain => (
