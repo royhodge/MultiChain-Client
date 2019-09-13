@@ -73,7 +73,7 @@ yarn develop -- IMPORTANT. Not yarn start.
         </h3>
         <ul>
             <li>Create chains with preset parameters.</li>
-            <li>Create custom chains and select custom parameters.</li>
+            <li>Create chains with custom parameters.</li>
             <li>Delete chains.</li>
             <li>Create generic streams ( open/closed ) and add a description. Designed for generic text input.</li>
             <li>Create premade streams with pre-set data inputs ( IPFS ).</li>
