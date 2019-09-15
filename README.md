@@ -60,6 +60,7 @@ yarn develop -- IMPORTANT. Not yarn start.
             <li>Display blockchain details</li>
         </ul>
     </li>
+    <br>
     <p>
        Current Version Being Used Is MultiChain 2.0.2-dev<br> 
           Linux & Windows binaries are included in this app!<br><br>
