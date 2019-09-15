@@ -54,15 +54,18 @@ yarn develop -- IMPORTANT. Not yarn start.
         <h3>
             Multichain:
         </h3>
-        <small>Current Version Being Used Is MultiChain 2.0.2-dev<br> 
-            Linux & Windows binaries are included in this app!</small><br>
-        <small>Todo: Compile Mac Binaries & Include!<small>
         <ul>
             <li>Detect existing Multichain blockchains.</li>
             <li>Automatically start all local chains on app start. Shutdown chains on app quit.</li>
             <li>Display blockchain details</li>
         </ul>
     </li>
+    <p>
+       Current Version Being Used Is MultiChain 2.0.2-dev<br> 
+          Linux & Windows binaries are included in this app!<br><br>
+         Todo: Compile Mac Binaries & Include!
+    </p>
+    
 </ul>
 
 <h3>
