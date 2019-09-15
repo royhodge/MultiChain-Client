@@ -64,7 +64,7 @@ yarn develop -- IMPORTANT. Not yarn start.
     <p>
        Current Version Being Used Is MultiChain 2.0.2-dev<br> 
           Linux & Windows binaries are included in this app!<br><br>
-         Todo: Compile Mac Binaries & Include!
+         * Need To Compile Mac Binaries & Include As Well!
     </p>
     
 </ul>
